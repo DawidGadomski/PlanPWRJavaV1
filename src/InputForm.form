@@ -1,62 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="InputForm">
   <grid id="27dc6" binding="pPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+    <margin top="5" left="5" bottom="5" right="5"/>
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-6908266"/>
+      <foreground color="-12236470"/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="78f78" binding="pValue" layout-manager="GridBagLayout">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-6908266"/>
+          <foreground color="-6908266"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="760b0" class="javax.swing.JTextField" binding="tfName">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="16c74" class="javax.swing.JTextField" binding="tfTerm">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="2e9d0" class="javax.swing.JTextField" binding="tfProf">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="df7eb" class="javax.swing.JTextField" binding="tfRoom">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="15033" class="javax.swing.JRadioButton" binding="rOddWeek">
-            <constraints>
-              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <background color="-8421505"/>
+            </properties>
+          </component>
+          <component id="16c74" class="javax.swing.JTextField" binding="tfTerm">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-8421505"/>
+            </properties>
+          </component>
+          <component id="2e9d0" class="javax.swing.JTextField" binding="tfProf">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-8421505"/>
+            </properties>
+          </component>
+          <component id="df7eb" class="javax.swing.JTextField" binding="tfRoom">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-8421505"/>
+            </properties>
+          </component>
+          <component id="15033" class="javax.swing.JRadioButton" binding="rOddWeek">
+            <constraints>
+              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-6908266"/>
+              <font size="18"/>
+              <foreground color="-1"/>
               <text value="TN"/>
             </properties>
           </component>
@@ -66,117 +83,143 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <font size="18"/>
+              <foreground color="-1"/>
               <text value="Nazwa: "/>
             </properties>
           </component>
           <component id="25a0d" class="javax.swing.JLabel" binding="lTerm">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <font size="18"/>
+              <foreground color="-1"/>
               <text value="Termin: "/>
             </properties>
           </component>
           <component id="b632d" class="javax.swing.JLabel" binding="lProf">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <font size="18"/>
+              <foreground color="-1"/>
               <text value="Prowadzący: "/>
             </properties>
           </component>
           <component id="42db4" class="javax.swing.JLabel" binding="lRoom">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <font size="18"/>
+              <foreground color="-1"/>
               <text value="Sala: "/>
             </properties>
           </component>
           <component id="10694" class="javax.swing.JRadioButton" binding="rLab">
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <background color="-6908266"/>
+              <font size="18"/>
+              <foreground color="-1"/>
               <selected value="false"/>
               <text value="Lab"/>
             </properties>
           </component>
           <component id="3b587" class="javax.swing.JRadioButton" binding="rWeek">
             <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <background color="-6908266"/>
+              <font size="18"/>
+              <foreground color="-1"/>
+              <horizontalAlignment value="4"/>
+              <horizontalTextPosition value="4"/>
               <selected value="true"/>
               <text value="Tyg"/>
             </properties>
           </component>
           <component id="ee70d" class="javax.swing.JButton" binding="bAccept">
             <constraints>
-              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <background color="-8421505"/>
+              <font size="18"/>
+              <foreground color="-12236470"/>
               <text value="Ok"/>
             </properties>
           </component>
           <component id="952ec" class="javax.swing.JRadioButton" binding="rEvenWeek">
             <constraints>
-              <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <background color="-6908266"/>
+              <font size="18"/>
+              <foreground color="-1"/>
               <text value="TP"/>
-            </properties>
-          </component>
-          <component id="7c49e" class="javax.swing.JTextField" binding="tfTime">
-            <constraints>
-              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="a7ebc" class="javax.swing.JLabel" binding="lTime">
-            <constraints>
-              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <text value="Czas: "/>
             </properties>
           </component>
           <component id="8a40f" class="javax.swing.JButton" binding="bCancel">
             <constraints>
-              <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <background color="-8421505"/>
+              <font size="18"/>
+              <foreground color="-12236470"/>
               <text value="Anuluj"/>
+            </properties>
+          </component>
+          <component id="a7ebc" class="javax.swing.JLabel" binding="lTime">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <font size="18"/>
+              <foreground color="-1"/>
+              <text value="Czas: "/>
+            </properties>
+          </component>
+          <component id="7c49e" class="javax.swing.JTextField" binding="tfTime">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-8421505"/>
             </properties>
           </component>
           <component id="ab767" class="javax.swing.JRadioButton" binding="rLect">
             <constraints>
-              <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <background color="-6908266"/>
+              <font size="18"/>
+              <foreground color="-1"/>
               <selected value="true"/>
               <text value="Wykład"/>
             </properties>
           </component>
-          <vspacer id="45534">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-          </vspacer>
         </children>
       </grid>
     </children>

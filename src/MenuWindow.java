@@ -12,7 +12,6 @@ public class MenuWindow extends JDialog implements ActionListener {
     private MenuSettings menuSettings;
     private NotesWindow notes;
     private TestInputForm addTest;
-    private EditAbsencesForm editAbsences;
     private ArrayList<Subject> subjects;
     private int allAbsences;
     private int absences;
