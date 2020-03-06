@@ -1,10 +1,8 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +23,8 @@ public class MenuWindow extends JDialog implements ActionListener {
     private JPanel advancePanel;
     private JPanel absencesPanel;
     private GridBagConstraints constraints;
+
+//  Buttons
     private JButton backButton;
     private JButton docButton;
     private JButton editButton;
@@ -33,6 +33,11 @@ public class MenuWindow extends JDialog implements ActionListener {
     private JButton addTestButton;
     private JButton editAbsencesButton;
     private JButton absenceButton;
+    private JButton plusButton;
+    private JButton minusButton;
+    private JButton okButton;
+
+
     private JSeparator sLine;
     private JLabel lName;
     private JLabel lTerm;
@@ -53,6 +58,9 @@ public class MenuWindow extends JDialog implements ActionListener {
     private Image noteIcon;
     private Image editIcon;
     private Image docIcon;
+    private Image plusIcon;
+    private Image minusIcon;
+    private Image okIcon;
 
 //  Flags
     private boolean editAbsencesFlag;
@@ -73,14 +81,46 @@ public class MenuWindow extends JDialog implements ActionListener {
 
         dWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
+        initIcons();
+
+        initPanels();
+
+        initLabels();
+
+        initButtons();
+
+        initDiffComponents();
+
+        initTextPanel();
+
+        initIconPanel();
+
+        initAbsencesPanel();
+
+        initAdvancePanel();
+
+        dWindow.add(advancePanel, BorderLayout.LINE_END);
+        dWindow.add(textPanel, BorderLayout.CENTER);
+        dWindow.add(iconPanel, BorderLayout.PAGE_END);
+
+        dWindow.setVisible(true);
+    }
+
+    private void initIcons(){
         backIcon = menuSettings.getBackIcon().getScaledInstance(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize(), Image.SCALE_DEFAULT);
         deleteIcon = menuSettings.getDeleteIcon().getScaledInstance(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize(), Image.SCALE_DEFAULT);
         docIcon = menuSettings.getDocIcon().getScaledInstance(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize(), Image.SCALE_DEFAULT);
         noteIcon = menuSettings.getNoteIcon().getScaledInstance(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize(), Image.SCALE_DEFAULT);
         editIcon = menuSettings.getEditIcon().getScaledInstance(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize(), Image.SCALE_DEFAULT);
-        addTestIcon = menuSettings.getAddTestIcon().getScaledInstance(menuSettings.getAddTestIconSize(), menuSettings.getAddTestIconSize(), Image.SCALE_DEFAULT);
-        editAbsencesIcon = menuSettings.getEditAbsencesIcon().getScaledInstance(menuSettings.getAddTestIconSize(), menuSettings.getAddTestIconSize(), Image.SCALE_DEFAULT);
+        addTestIcon = menuSettings.getAddTestIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        editAbsencesIcon = menuSettings.getEditAbsencesIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        plusIcon = menuSettings.getPlusIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        minusIcon = menuSettings.getMinusIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        okIcon = menuSettings.getOkIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
 
+    }
+
+    private void initPanels(){
         iconPanel = new JPanel();
         iconPanel.setBackground(menuSettings.getBgColor());
         iconPanel.setLayout(new BoxLayout(iconPanel, BoxLayout.X_AXIS));
@@ -99,63 +139,60 @@ public class MenuWindow extends JDialog implements ActionListener {
         absencesPanel.setLayout(new BoxLayout(absencesPanel, BoxLayout.LINE_AXIS));
         absencesPanel.setSize(new Dimension(menuSettings.getAbsencesInfoWidth(), menuSettings.getAbsencesInfoHeight()));
 
+    }
+
+    private void initLabels(){
         lName = new JLabel("Nazwa: " + subject.getName());
         lName.setFont(menuSettings.getMenuTextFont());
         lName.setForeground(Color.WHITE);
+
         lTerm = new JLabel("Termin: " + subject.getTerm());
         lTerm.setFont(menuSettings.getMenuTextFont());
         lTerm.setForeground(Color.WHITE);
+
         lRoom = new JLabel("Sala: " + subject.getRoom());
         lRoom.setFont(menuSettings.getMenuTextFont());
         lRoom.setForeground(Color.WHITE);
+
         lProf = new JLabel("Prowadzący: " + subject.getProf());
         lProf.setFont(menuSettings.getMenuTextFont());
         lProf.setForeground(Color.WHITE);
 
+        lTests = new JLabel("Kolokwia");
+        lTests.setFont(menuSettings.getMenuTextFont());
+        lTests.setForeground(Color.WHITE);
+        lTests.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        lAbsences = new JLabel("Nieobecności");
+        lAbsences.setFont(menuSettings.getMenuTextFont());
+        lAbsences.setForeground(Color.WHITE);
+        lAbsences.setHorizontalAlignment(SwingConstants.RIGHT);
+    }
+
+    private void initButtons(){
         addTestButton = new JButton(new ImageIcon(addTestIcon));
-        addTestButton.setMinimumSize(new Dimension(menuSettings.getAddTestIconSize(), menuSettings.getAddTestIconSize()));
-        addTestButton.setPreferredSize(new Dimension(menuSettings.getAddTestIconSize(), menuSettings.getAddTestIconSize()));
-        addTestButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getAddTestIconSize()));
+        addTestButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        addTestButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        addTestButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
 //        addTestButton.setBorder(BorderFactory.createEmptyBorder());
         addTestButton.setContentAreaFilled(false);
         addTestButton.addActionListener(this);
 
-        lTests = new JLabel("Kolokwia");
-        lTests.setFont(menuSettings.getMenuTextFont());
-        lTests.setForeground(Color.WHITE);
-
         editAbsencesButton = new JButton(new ImageIcon(editAbsencesIcon));
-        editAbsencesButton.setMinimumSize(new Dimension(menuSettings.getAddTestIconSize(), menuSettings.getAddTestIconSize()));
-        editAbsencesButton.setPreferredSize(new Dimension(menuSettings.getAddTestIconSize(), menuSettings.getAddTestIconSize()));
-        editAbsencesButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getAddTestIconSize()));
+        editAbsencesButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        editAbsencesButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        editAbsencesButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
 //        addTestButton.setBorder(BorderFactory.createEmptyBorder());
         editAbsencesButton.setContentAreaFilled(false);
         editAbsencesButton.addActionListener(this);
 
         absenceButton = new JButton(new ImageIcon(addTestIcon));
-        absenceButton.setMinimumSize(new Dimension(menuSettings.getAddTestIconSize(), menuSettings.getAddTestIconSize()));
-        absenceButton.setPreferredSize(new Dimension(menuSettings.getAddTestIconSize(), menuSettings.getAddTestIconSize()));
-        absenceButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getAddTestIconSize()));
+        absenceButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        absenceButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        absenceButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
 //        absenceButtonButton.setBorder(BorderFactory.createEmptyBorder());
         absenceButton.setContentAreaFilled(false);
         absenceButton.addActionListener(this);
-
-        lAbsences = new JLabel("Nieobecności");
-        lAbsences.setFont(menuSettings.getMenuTextFont());
-        lAbsences.setForeground(Color.WHITE);
-
-        listModel = new DefaultListModel<String>();
-
-        testList = new JList<String>(listModel); //data has type Object[]
-        testList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        testList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-        testList.setVisibleRowCount(-1);
-        testList.setBackground(menuSettings.getTestBGColor());
-        testList.setPreferredSize(new Dimension(menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight()));
-
-        listScroller = new JScrollPane(testList);
-        listScroller.setPreferredSize(new Dimension(menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight()));
-
 
         backButton = new JButton(new ImageIcon(backIcon));
         backButton.setMinimumSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
@@ -197,6 +234,49 @@ public class MenuWindow extends JDialog implements ActionListener {
         deleteButton.setContentAreaFilled(false);
         deleteButton.addActionListener(this);
 
+        plusButton = new JButton(new ImageIcon(plusIcon));
+        plusButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        plusButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        plusButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
+//        plusButton.setBorder(BorderFactory.createEmptyBorder());
+        plusButton.setContentAreaFilled(false);
+        plusButton.addActionListener(this);
+
+        minusButton = new JButton(new ImageIcon(minusIcon));
+        minusButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        minusButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        minusButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
+//        minusButton.setBorder(BorderFactory.createEmptyBorder());
+        minusButton.setContentAreaFilled(false);
+        minusButton.addActionListener(this);
+
+        okButton = new JButton(new ImageIcon(okIcon));
+        okButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        okButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        okButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
+//        okButton.setBorder(BorderFactory.createEmptyBorder());
+        okButton.setContentAreaFilled(false);
+        okButton.addActionListener(this);
+    }
+
+    private void initDiffComponents(){
+        listModel = new DefaultListModel<String>();
+
+        testList = new JList<String>(listModel); //data has type Object[]
+        testList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        testList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        testList.setVisibleRowCount(-1);
+        testList.setBackground(menuSettings.getTestBGColor());
+        testList.setPreferredSize(new Dimension(menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight()));
+
+        listScroller = new JScrollPane(testList);
+        listScroller.setPreferredSize(new Dimension(menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight()));
+
+        sLine = new JSeparator(SwingConstants.VERTICAL);
+        sLine.setBackground(menuSettings.getLineColor());
+    }
+
+    private void initTextPanel(){
         textPanel.setBorder(new EmptyBorder(10, 10, 0, 10));
         textPanel.add(lName);
         textPanel.add(Box.createVerticalGlue());
@@ -206,10 +286,9 @@ public class MenuWindow extends JDialog implements ActionListener {
         textPanel.add(Box.createVerticalGlue());
         textPanel.add(lProf);
         textPanel.add(Box.createVerticalGlue());
+    }
 
-        sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(menuSettings.getLineColor());
-
+    private void initIconPanel(){
         iconPanel.setBorder(new EmptyBorder(0, 10, 10, 10));
 
         iconPanel.add(Box.createHorizontalGlue());
@@ -237,49 +316,70 @@ public class MenuWindow extends JDialog implements ActionListener {
 
         iconPanel.add(deleteButton);
         iconPanel.add(Box.createHorizontalGlue());
+    }
 
+    private void initAbsencesPanel(){
+        absencesPanel.add(absenceButton);
+    }
+
+    private void initAdvancePanel(){
         advancePanel.setBorder(new EmptyBorder(10, 0, 0, 10));
+
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 0.0;
+        constraints.weightx = 1;
+        constraints.gridwidth = 3;
         constraints.gridx = 0;
         constraints.gridy = 0;
         advancePanel.add(addTestButton, constraints);
+
         constraints.fill = GridBagConstraints.LINE_END;
-        constraints.weightx = 0.0;
-        constraints.gridx = 1;
+        constraints.gridx = 3;
         constraints.gridy = 0;
         advancePanel.add(lTests, constraints);
+
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weightx = 1;
-        constraints.gridwidth = 2;
+        constraints.gridwidth = 6;
         constraints.gridx = 0;
         constraints.gridy = 1;
         advancePanel.add(listScroller, constraints);
+
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 0.5;
-        constraints.gridwidth = 1;
+        constraints.gridwidth = 3;
         constraints.gridx = 0;
         constraints.gridy = 2;
         advancePanel.add(editAbsencesButton, constraints);
-        constraints.fill = GridBagConstraints.LINE_END;
-        constraints.weightx = 0.0;
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridwidth = 1;
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        advancePanel.add(plusButton, constraints);
+        plusButton.setVisible(false);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 1;
         constraints.gridy = 2;
-        advancePanel.add(lAbsences, constraints);
+        advancePanel.add(minusButton, constraints);
+        minusButton.setVisible(false);
+
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.gridwidth = 2;
+        constraints.gridx = 2;
+        constraints.gridy = 2;
+        advancePanel.add(okButton, constraints);
+        okButton.setVisible(false);
+
+        constraints.fill = GridBagConstraints.LINE_END;
+        constraints.gridwidth = 3;
+        constraints.gridx = 3;
+        constraints.gridy = 2;
+        advancePanel.add(lAbsences, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridwidth = 6;
         constraints.gridx = 0;
         constraints.gridy = 3;
-
-
-        absencesPanel.add(absenceButton);
         advancePanel.add(absencesPanel, constraints);
-
-        dWindow.add(advancePanel, BorderLayout.LINE_END);
-        dWindow.add(textPanel, BorderLayout.CENTER);
-        dWindow.add(iconPanel, BorderLayout.PAGE_END);
-
-        dWindow.setVisible(true);
     }
 
     @Override
@@ -316,7 +416,16 @@ public class MenuWindow extends JDialog implements ActionListener {
             listModel.addElement(addTest.getOutput());
         }
         else if(e.getSource() == editAbsencesButton){
-            editAbsencesFlag = true;
+            editAbsencesButton.setVisible(false);
+            plusButton.setVisible(true);
+            minusButton.setVisible(true);
+            okButton.setVisible(true);
+        }
+        else if(e.getSource() == okButton){
+            editAbsencesButton.setVisible(true);
+            plusButton.setVisible(false);
+            minusButton.setVisible(false);
+            okButton.setVisible(false);
         }
     }
 }

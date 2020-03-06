@@ -21,6 +21,9 @@ public class MenuSettings extends Settings {
     private String notesIconURL;
     private String addTestIconURL;
     private String editAbsencesIconURL;
+    private String plusIconURL;
+    private String minusIconURL;
+    private String okIconURL;
 
 //  Icons
     private BufferedImage backIcon;
@@ -30,6 +33,9 @@ public class MenuSettings extends Settings {
     private BufferedImage noteIcon;
     private BufferedImage editIcon;
     private BufferedImage docIcon;
+    private BufferedImage plusIcon;
+    private BufferedImage minusIcon;
+    private BufferedImage okIcon;
 
 //  Menu window settings
     private Color bgColor;
@@ -91,7 +97,7 @@ public class MenuSettings extends Settings {
     private int menuClearIconPosY;
     private int addTestIconPosX;
     private int addTestIconPosY;
-    private int addTestIconSize;
+    private int smallIconSize;
 
     /***
      * Konstruktor opcji menu
@@ -110,6 +116,9 @@ public class MenuSettings extends Settings {
         notesIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\document.png";
         addTestIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\add.png";
         editAbsencesIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\settings.png";
+        plusIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\add.png";
+        minusIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\minus.png";
+        okIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\tick.png";
 
 //      Icons
         try{
@@ -120,6 +129,9 @@ public class MenuSettings extends Settings {
             editIcon = ImageIO.read(new File(getEditIconURL()));
             docIcon = ImageIO.read(new File(getDocIconURL()));
             editAbsencesIcon = ImageIO.read(new File(getEditAbsencesIconURL()));
+            plusIcon = ImageIO.read(new File(getPlusIconURL()));
+            minusIcon = ImageIO.read(new File(getMinusIconURL()));
+            okIcon = ImageIO.read(new File(getOkIconURL()));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -185,7 +197,7 @@ public class MenuSettings extends Settings {
         menuClearIconPosY = menuIconPosY;
         addTestIconPosX = menuWindowPosX + menuWindowWidth / 2;
         addTestIconPosY = menuWindowPosY + 30;
-        addTestIconSize = 20;
+        smallIconSize = 20;
     }
 
 //  Setters and Getters
@@ -229,6 +241,18 @@ public class MenuSettings extends Settings {
         return addTestIconURL;
     }
 
+    public String getPlusIconURL() {
+        return plusIconURL;
+    }
+
+    public String getMinusIconURL() {
+        return minusIconURL;
+    }
+
+    public String getOkIconURL() {
+        return okIconURL;
+    }
+
     public String getEditAbsencesIconURL() {
         return editAbsencesIconURL;
     }
@@ -259,6 +283,18 @@ public class MenuSettings extends Settings {
 
     public BufferedImage getDocIcon() {
         return docIcon;
+    }
+
+    public BufferedImage getPlusIcon() {
+        return plusIcon;
+    }
+
+    public BufferedImage getMinusIcon() {
+        return minusIcon;
+    }
+
+    public BufferedImage getOkIcon() {
+        return okIcon;
     }
 
     public int getMenuWindowPosX() {
@@ -417,8 +453,8 @@ public class MenuSettings extends Settings {
         return addTestIconPosY;
     }
 
-    public int getAddTestIconSize() {
-        return addTestIconSize;
+    public int getSmallIconSize() {
+        return smallIconSize;
     }
 
     public int getTestInfoTextPosX() {

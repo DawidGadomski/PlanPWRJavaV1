@@ -35,7 +35,7 @@ public class Menu {
         editIcon = new EditIcon(menuSettings.getMenuEditIconPosX(), menuSettings.getMenuEditIconPosY(), menuSettings.getMenuIconSize());
         clearIcon = new ClearIcon(menuSettings.getMenuClearIconPosX(), menuSettings.getMenuClearIconPosY(), menuSettings.getMenuIconSize());
         clearIcon.setVisableFlag(true);
-        addTestIcon = new AddIcon(menuSettings.getAddTestIconPosX(), menuSettings.getAddTestIconPosY(), menuSettings.getAddTestIconSize());
+        addTestIcon = new AddIcon(menuSettings.getAddTestIconPosX(), menuSettings.getAddTestIconPosY(), menuSettings.getSmallIconSize());
 
 //      Draw
         menuSettings.drawShadow(g);
