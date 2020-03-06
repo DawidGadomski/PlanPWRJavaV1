@@ -23,6 +23,8 @@ public class Subject {
     private boolean clickedFlag;
     private Settings settings;
     private ArrayList<Note> noteArrayList;
+    private int absences;
+    private int allAbsences;
 
     /***
      * Tworzenie nowego przedmiotu
@@ -48,6 +50,8 @@ public class Subject {
         this.room = String.valueOf(map.get("room"));
         this.type = Integer.parseInt(String.valueOf(map.get("type")));
         this.week = String.valueOf(map.get("week"));
+        this.absences = 0;
+        this.allAbsences = 1;
 
 //      Update color and width (based on data of subject)
         selectColor();
@@ -79,6 +83,9 @@ public class Subject {
         this.room = dataOfSubject.getRoom();
         this.type = dataOfSubject.getType();
         this.week = dataOfSubject.getWeek();
+        this.absences = dataOfSubject.getAbsences();
+        this.allAbsences = dataOfSubject.getAllAbsences();
+
         for(DataOfNote dataOfNote: dataOfSubject.getNotes()){
             noteArrayList.add(new Note(dataOfNote));
         }
@@ -86,6 +93,13 @@ public class Subject {
 //      Update color and width (based on data of subject)
         selectColor();
         setWidth();
+    }
+
+    public void addAbsence(){
+        this.absences +=1;
+    }
+    public void removeAbsence(){
+        this.absences -=1;
     }
 
 //  Getters and Setters
@@ -118,6 +132,22 @@ public class Subject {
         return this.type;
     }
 
+    public int getAbsences() {
+        return absences;
+    }
+
+    public void setAbsences(int absences) {
+        this.absences = absences;
+    }
+
+    public int getAllAbsences() {
+        return allAbsences;
+    }
+
+    public void setAllAbsences(int allAbsences) {
+        this.allAbsences = allAbsences;
+    }
+
     public void setClickedFlag(){
         this.clickedFlag = !this.clickedFlag;
     }
@@ -147,9 +177,9 @@ public class Subject {
         for(Note note: this.noteArrayList){
             dataOfNoteArrayList.add(note.getDataMap());
         }
-//      Create Data Of Subject
-        DataOfSubject d = new DataOfSubject(this.posX, this.posY, this.name, this.term, this.time, this.prof, this.room, this.type, this.week, dataOfNoteArrayList);
-        return d;
+//      Return Data Of Subject
+        return new DataOfSubject(this.posX, this.posY, this.name, this.term, this.time, this.prof,
+                this.room, this.type, this.week, dataOfNoteArrayList, this.absences, this.allAbsences);
     }
 
     /***

@@ -14,6 +14,8 @@ public class MenuWindow extends JDialog implements ActionListener {
     private TestInputForm addTest;
     private EditAbsencesForm editAbsences;
     private ArrayList<Subject> subjects;
+    private int allAbsences;
+    private int absences;
 
 //  JComponents
     private JFrame frame;
@@ -71,6 +73,8 @@ public class MenuWindow extends JDialog implements ActionListener {
         this.subject = subject;
         this.subjects = subjects;
         menuSettings = new MenuSettings();
+        allAbsences = subject.getAllAbsences();
+        absences = subject.getAbsences();
 
         dWindow = new JDialog();
         dWindow.setLayout(new BorderLayout());
@@ -98,6 +102,11 @@ public class MenuWindow extends JDialog implements ActionListener {
         initAbsencesPanel();
 
         initAdvancePanel();
+
+        System.out.println("Przedmiot wszystkie - " + subject.getAllAbsences());
+        System.out.println("Przedmiot nieobe - " + subject.getAbsences());
+        System.out.println("Okno wszyskie - " + allAbsences);
+        System.out.println("Okno nieob - " + absences);
 
         dWindow.add(advancePanel, BorderLayout.LINE_END);
         dWindow.add(textPanel, BorderLayout.CENTER);
@@ -185,14 +194,6 @@ public class MenuWindow extends JDialog implements ActionListener {
 //        addTestButton.setBorder(BorderFactory.createEmptyBorder());
         editAbsencesButton.setContentAreaFilled(false);
         editAbsencesButton.addActionListener(this);
-
-        absenceButton = new JButton(new ImageIcon(addTestIcon));
-        absenceButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
-        absenceButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
-        absenceButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
-//        absenceButtonButton.setBorder(BorderFactory.createEmptyBorder());
-        absenceButton.setContentAreaFilled(false);
-        absenceButton.addActionListener(this);
 
         backButton = new JButton(new ImageIcon(backIcon));
         backButton.setMinimumSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
@@ -319,7 +320,49 @@ public class MenuWindow extends JDialog implements ActionListener {
     }
 
     private void initAbsencesPanel(){
-        absencesPanel.add(absenceButton);
+        absencesPanel.removeAll();
+        absencesPanel.updateUI();
+        int count = absences;
+        if (allAbsences < 0){
+            allAbsences = 0;
+        }
+        for(int i = 1; i<= allAbsences; i++){
+            JButton absenceButton = new JButton();
+            absenceButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+            absenceButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+            absenceButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
+//        absenceButtonButton.setBorder(BorderFactory.createEmptyBorder());
+//            absenceButton.setContentAreaFilled(false);
+            absenceButton.setBackground(Color.GREEN);
+            if (count > 0){
+                absenceButton.setBackground(Color.RED);
+                count -=1;
+            }
+
+
+
+            absenceButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (absenceButton.getBackground() == Color.GREEN){
+                        absenceButton.setBackground(Color.RED);
+                        absences +=1;
+                        subject.setAbsences(absences);
+
+                    }
+                    else{
+                        absenceButton.setBackground(Color.GREEN);
+                        absences -=1;
+                        subject.setAbsences(absences);
+                    }
+                    System.out.println("Przedmiot wszystkie - " + subject.getAllAbsences());
+                    System.out.println("Przedmiot nieobe - " + subject.getAbsences());
+                    System.out.println("Okno wszyskie - " + allAbsences);
+                    System.out.println("Okno nieob - " + absences);
+                }
+            });
+            absencesPanel.add(absenceButton);
+        }
     }
 
     private void initAdvancePanel(){
@@ -421,7 +464,21 @@ public class MenuWindow extends JDialog implements ActionListener {
             minusButton.setVisible(true);
             okButton.setVisible(true);
         }
+        else if(e.getSource() == plusButton){
+            allAbsences +=1;
+            initAbsencesPanel();
+        }
+
+        else if(e.getSource() == minusButton){
+            allAbsences -=1;
+            initAbsencesPanel();
+        }
         else if(e.getSource() == okButton){
+            this.subject.setAllAbsences(allAbsences);
+            System.out.println("Przedmiot wszystkie - " + subject.getAllAbsences());
+            System.out.println("Przedmiot nieobe - " + subject.getAbsences());
+            System.out.println("Okno wszyskie - " + allAbsences);
+            System.out.println("Okno nieob - " + absences);
             editAbsencesButton.setVisible(true);
             plusButton.setVisible(false);
             minusButton.setVisible(false);
