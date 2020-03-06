@@ -13,8 +13,9 @@ public class NoteInputForm extends JDialog implements ActionListener{
     private JButton bAccept;
     private JButton bCancel;
     private JLabel lText;
+    private JPanel pButtons;
 
-//  Data
+    //  Data
     private String text;
     private Map<String, Object> dataMap;
 
@@ -28,6 +29,7 @@ public class NoteInputForm extends JDialog implements ActionListener{
         bCancel.addActionListener(this);
         bAccept.addActionListener(this);
         pack();
+//        setUndecorated(true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(frame);
         setResizable(false);
