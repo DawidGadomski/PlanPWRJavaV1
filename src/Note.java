@@ -119,8 +119,8 @@ public class Note {
                 this.posX = notesSettings.getNoteWindowPosX() + 1;
             }
             //Down
-            if (this.posY + notesSettings.getNoteHeight() > notesSettings.getNoteWindowPosY() + notesSettings.getNoteWindowSizeY() - 1){
-                this.posY = notesSettings.getNoteWindowPosY() + notesSettings.getNoteWindowSizeY() - notesSettings.getNoteHeight() - 1;
+            if (this.posY + notesSettings.getNoteHeight() > notesSettings.getNoteWindowPosY() + notesSettings.getNoteWindowHeight() - 1){
+                this.posY = notesSettings.getNoteWindowPosY() + notesSettings.getNoteWindowHeight() - notesSettings.getNoteHeight() - 1;
             }
             //UP
             if (this.posY < notesSettings.getNoteWindowPosY() + 1){

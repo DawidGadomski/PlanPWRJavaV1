@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /***
@@ -130,7 +131,7 @@ public class MainWindow {
      * Rysowanie głównego okna
      * @param g - Graphics2d dostarczony z JComponentu
      */
-    public void drawMainWindow(Graphics2D g, double mousePosX, double mousePosY){
+    public void drawMainWindow(Graphics2D g, double mousePosX, double mousePosY, ArrayList<Subject> subjects){
 //      Default drawing settings
         defaultThickness = g.getStroke();
         defaultTransform = g.getTransform();
@@ -145,7 +146,7 @@ public class MainWindow {
         setDefaultDrawing(g);
 
         //      Draw subjects
-        for (Subject s : mainWindowSettings.getSubjects()) {
+        for (Subject s : subjects) {
             s.drawSubject(g);
             if (s.isOver(mousePosX, mousePosY)) {
                 s.drawOutline(g);

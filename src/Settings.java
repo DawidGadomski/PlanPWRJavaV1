@@ -15,6 +15,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * Pozostałe klasy z ustawieniami dziedziczą po tej klasie
  */
 public class Settings {
+    private String path;
+
 //  Main Settings
     protected int windowWidth;
     protected int windowHeight;
@@ -58,6 +60,19 @@ public class Settings {
      * Konstruktor ustawień
      */
     public Settings(){
+    /***
+     * Docelowo ustawienie scieżki dla ikon i folderów chciałbym zrobić w oknie ustawień w aplikacji
+     * Stąd na chwilę obecną po prostu ścieżki podane są tutaj oraz w klasach ikon
+     */
+        switch (System.getProperty("os.name")) {
+            case "Windows 10":
+                path = "D:\\PWR";
+                break;
+            case "Linux":
+                path = "home";
+                break;
+        }
+
 //      Settings
         windowWidth = 1200;
         windowHeight = 750;
@@ -103,9 +118,10 @@ public class Settings {
      * @param frame - JFrame która będzie rodzicem dla okna formularza
      * @param d - dane przedmiotu dla którego wywołana jest edycja zaweira dane potrzebne do wypełnienia formularza
      */
-    public void editSubject(JFrame frame, DataOfSubject d){
+    public Subject editSubject(JFrame frame, DataOfSubject d){
         InputForm f = new InputForm(frame, d);
-        subjects.add(new Subject(d.getPosX(), d.getPosY(), f.getDataMap()));
+//        subjects.add(new Subject(d.getPosX(), d.getPosY(), f.getDataMap()));
+        return new Subject(d.getPosX(), d.getPosY(), f.getDataMap());
     }
 
     /***
@@ -129,7 +145,7 @@ public class Settings {
      * @param frame - JFrame która będzie rodzicem dla okna formularza
      * @param d - dane przedmiotu dla którego wywołana jest edycja zaweira dane potrzebne do wypełnienia formularza
      */
-    public void editNote(JFrame frame, DataOfNote d){
+    public void editNote(JDialog frame, DataOfNote d){
         NoteInputForm f = new NoteInputForm(frame, d);
         notes.add(new Note(d.getPosX(), d.getPosY(), f.getDataMap()));
     }
@@ -140,7 +156,7 @@ public class Settings {
      * Na podstawie mapy danych z formularza stowrzenie notatki i dodanie jej do listy notatek
      * @param frame - JFrame która będzie rodzicem dla okna formularza
      */
-    public void createNote(JFrame frame, Subject subject){
+    public void createNote(JDialog frame, Subject subject){
         NoteInputForm f = new NoteInputForm(frame);
 //      Check if dataMap has been created and returned
         if (f.getDataMap() != null) {
@@ -239,6 +255,11 @@ public class Settings {
         g.setColor(Color.WHITE);
     }
 //  Getters and Setters
+
+    public String getPath() {
+        return path;
+    }
+
     public void setDefaultTransform(AffineTransform defaultTransform) {
         this.defaultTransform = defaultTransform;
     }

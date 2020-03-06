@@ -33,6 +33,6 @@ public class Main extends JFrame{
     }
 
     private void createUIComponents() {
-        screen1 = new Screen(mainFrame);
+        screen1 = new Screen(this);
     }
 }

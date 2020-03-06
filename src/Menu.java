@@ -14,6 +14,7 @@ public class Menu {
     private EditIcon editIcon;
     private ClearIcon clearIcon;
     private MenuSettings menuSettings;
+    private AddIcon addTestIcon;
 
     /***
      * Konstruktor okna menu
@@ -34,6 +35,7 @@ public class Menu {
         editIcon = new EditIcon(menuSettings.getMenuEditIconPosX(), menuSettings.getMenuEditIconPosY(), menuSettings.getMenuIconSize());
         clearIcon = new ClearIcon(menuSettings.getMenuClearIconPosX(), menuSettings.getMenuClearIconPosY(), menuSettings.getMenuIconSize());
         clearIcon.setVisableFlag(true);
+        addTestIcon = new AddIcon(menuSettings.getAddTestIconPosX(), menuSettings.getAddTestIconPosY(), menuSettings.getAddTestIconSize());
 
 //      Draw
         menuSettings.drawShadow(g);
@@ -44,6 +46,23 @@ public class Menu {
         return this.subject;
     }
 
+    private void drawTestInfo(Graphics2D g){
+        g.setColor(Color.WHITE);
+        g.drawString("Kolokwia", menuSettings.getTestInfoTextPosX(), menuSettings.getTestInfoTextPosY());
+
+        g.setColor(menuSettings.getTestBGColor());
+        g.fillRect(menuSettings.getTestInfoPosX(), menuSettings.getTestInfoPosY(), menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight());
+
+        addTestIcon.drawIcon(g);
+    }
+
+    private void drawAbsencesInfo(Graphics2D g){
+        g.setColor(Color.WHITE);
+        g.drawString("Nieobecności", menuSettings.getAbsencesInfoTextPosX(), menuSettings.getAbsencesInfoTextPosY());
+
+        g.setColor(menuSettings.getAbsencesBgColor());
+        g.fillRect(menuSettings.getAbsencesInfoPosX(), menuSettings.getAbsencesInfoPosY(), menuSettings.getAbsencesInfoWidth(), menuSettings.getAbsencesInfoHeight());
+    }
     /***
      * Rysowanie okna menu
      * @param g - Graphics2d dostarczony z JComponentu
@@ -72,7 +91,15 @@ public class Menu {
         g.setColor(menuSettings.getLineColor());
         g.setStroke(menuSettings.getLineThickness3());
         g.drawLine(menuSettings.getLineStartX(), menuSettings.getLineStartY(), menuSettings.getLineEndX(), menuSettings.getLineEndY());
+
+
+//      Draw Test Info
+        drawTestInfo(g);
+
+//      Draw Absence Info
+        drawAbsencesInfo(g);
     }
+
 
     /***
      * Funkcja zwracająca która ikona została kliknięta

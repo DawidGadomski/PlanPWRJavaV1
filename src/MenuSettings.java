@@ -1,4 +1,9 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 /***
  * Ustawienai okna menu
  */
@@ -7,6 +12,24 @@ public class MenuSettings extends Settings {
     private Color fontColor;
     private int menuTextSize;
     private Font menuTextFont;
+
+//  URLs
+    private String backIconURL;
+    private String clearIconURL;
+    private String docIconURL;
+    private String editIconURL;
+    private String notesIconURL;
+    private String addTestIconURL;
+    private String editAbsencesIconURL;
+
+//  Icons
+    private BufferedImage backIcon;
+    private BufferedImage editAbsencesIcon;
+    private BufferedImage addTestIcon;
+    private BufferedImage deleteIcon;
+    private BufferedImage noteIcon;
+    private BufferedImage editIcon;
+    private BufferedImage docIcon;
 
 //  Menu window settings
     private Color bgColor;
@@ -33,6 +56,24 @@ public class MenuSettings extends Settings {
     private int menuThirdTextPosY;
     private int menuForthTextPosY;
 
+//  Tests settings
+    private Color testBGColor;
+    private int testInfoPosX;
+    private int testInfoPosY;
+    private int testInfoWidth;
+    private int testInfoHeight;
+    private int testInfoTextPosX;
+    private int testInfoTextPosY;
+
+//  Absences settings
+    private Color absencesBgColor;
+    private int absencesInfoPosX;
+    private int absencesInfoPosY;
+    private int absencesInfoWidth;
+    private int absencesInfoHeight;
+    private int absencesInfoTextPosX;
+    private int absencesInfoTextPosY;
+
 //  Icons settings
     private int menuIconPosX;
     private int menuIconPosY;
@@ -48,6 +89,9 @@ public class MenuSettings extends Settings {
     private int menuEditIconPosY;
     private int menuClearIconPosX;
     private int menuClearIconPosY;
+    private int addTestIconPosX;
+    private int addTestIconPosY;
+    private int addTestIconSize;
 
     /***
      * Konstruktor opcji menu
@@ -58,12 +102,35 @@ public class MenuSettings extends Settings {
         menuTextSize = 20;
         menuTextFont = new Font("Arial", Font.PLAIN, menuTextSize);
 
+//  URLs
+        backIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\back.png";
+        clearIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\clear.png";
+        docIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\folder.png";
+        editIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\edit.png";
+        notesIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\document.png";
+        addTestIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\add.png";
+        editAbsencesIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\settings.png";
+
+//      Icons
+        try{
+            backIcon = ImageIO.read(new File(getBackIconURL()));
+            addTestIcon = ImageIO.read(new File(getAddTestIconURL()));
+            deleteIcon = ImageIO.read(new File(getClearIconURL()));
+            noteIcon = ImageIO.read(new File(getNotesIconURL()));
+            editIcon = ImageIO.read(new File(getEditIconURL()));
+            docIcon = ImageIO.read(new File(getDocIconURL()));
+            editAbsencesIcon = ImageIO.read(new File(getEditAbsencesIconURL()));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
 //      Menu window settings
         bgColor = new Color(150,150,150);
         menuWindowPosX = 300;
         menuWindowPosY = 150;
         menuWindowWidth = 520;
-        menuWindowHeightY = 300;
+        menuWindowHeightY = 360;
 
 //      Separate line settings
         lineColor = new Color(127,127,127);
@@ -83,6 +150,24 @@ public class MenuSettings extends Settings {
         menuThirdTextPosY = menuWindowPosY + 4 * menuTextOffsetY + menuTextSize;
         menuForthTextPosY = menuWindowPosY + 6 * menuTextOffsetY + menuTextSize;
 
+//      Tests settings
+        testBGColor = new Color(127, 127, 127);
+        testInfoPosX = menuWindowPosX + menuWindowWidth / 2 + 25;
+        testInfoPosY = menuWindowPosY + 25;
+        testInfoWidth = menuWindowWidth / 2 - 30;
+        testInfoHeight = menuWindowHeightY / 2 - 50;
+        testInfoTextPosX = testInfoPosX;
+        testInfoTextPosY = testInfoPosY - 5;
+
+//      Absences settings
+        absencesBgColor = new Color(127, 127,127);
+        absencesInfoPosX = menuWindowPosX + menuWindowWidth / 2 + 25;
+        absencesInfoPosY = menuWindowPosY + menuWindowHeightY / 2;
+        absencesInfoWidth = menuWindowWidth / 2 - 30;
+        absencesInfoHeight = 50;
+        absencesInfoTextPosX = absencesInfoPosX;
+        absencesInfoTextPosY = absencesInfoPosY - 5;
+
 //      Icons settings
         menuIconPosX = menuWindowPosX;
         menuIconPosY = 380;
@@ -98,6 +183,9 @@ public class MenuSettings extends Settings {
         menuEditIconPosY = menuIconPosY;
         menuClearIconPosX = menuIconPosX + 4 * menuIconSize + 5 * menuIconOffset;
         menuClearIconPosY = menuIconPosY;
+        addTestIconPosX = menuWindowPosX + menuWindowWidth / 2;
+        addTestIconPosY = menuWindowPosY + 30;
+        addTestIconSize = 20;
     }
 
 //  Setters and Getters
@@ -115,6 +203,62 @@ public class MenuSettings extends Settings {
 
     public Color getBgColor() {
         return bgColor;
+    }
+
+    public String getBackIconURL() {
+        return backIconURL;
+    }
+
+    public String getClearIconURL() {
+        return clearIconURL;
+    }
+
+    public String getDocIconURL() {
+        return docIconURL;
+    }
+
+    public String getEditIconURL() {
+        return editIconURL;
+    }
+
+    public String getNotesIconURL() {
+        return notesIconURL;
+    }
+
+    public String getAddTestIconURL() {
+        return addTestIconURL;
+    }
+
+    public String getEditAbsencesIconURL() {
+        return editAbsencesIconURL;
+    }
+
+    public BufferedImage getBackIcon() {
+        return backIcon;
+    }
+
+    public BufferedImage getEditAbsencesIcon() {
+        return editAbsencesIcon;
+    }
+
+    public BufferedImage getAddTestIcon() {
+        return addTestIcon;
+    }
+
+    public BufferedImage getDeleteIcon() {
+        return deleteIcon;
+    }
+
+    public BufferedImage getNoteIcon() {
+        return noteIcon;
+    }
+
+    public BufferedImage getEditIcon() {
+        return editIcon;
+    }
+
+    public BufferedImage getDocIcon() {
+        return docIcon;
     }
 
     public int getMenuWindowPosX() {
@@ -243,5 +387,73 @@ public class MenuSettings extends Settings {
 
     public int getMenuClearIconPosY() {
         return menuClearIconPosY;
+    }
+
+    public Color getTestBGColor() {
+        return testBGColor;
+    }
+
+    public int getTestInfoPosX() {
+        return testInfoPosX;
+    }
+
+    public int getTestInfoPosY() {
+        return testInfoPosY;
+    }
+
+    public int getTestInfoWidth() {
+        return testInfoWidth;
+    }
+
+    public int getTestInfoHeight() {
+        return testInfoHeight;
+    }
+
+    public int getAddTestIconPosX() {
+        return addTestIconPosX;
+    }
+
+    public int getAddTestIconPosY() {
+        return addTestIconPosY;
+    }
+
+    public int getAddTestIconSize() {
+        return addTestIconSize;
+    }
+
+    public int getTestInfoTextPosX() {
+        return testInfoTextPosX;
+    }
+
+    public int getTestInfoTextPosY() {
+        return testInfoTextPosY;
+    }
+
+    public Color getAbsencesBgColor() {
+        return absencesBgColor;
+    }
+
+    public int getAbsencesInfoPosX() {
+        return absencesInfoPosX;
+    }
+
+    public int getAbsencesInfoPosY() {
+        return absencesInfoPosY;
+    }
+
+    public int getAbsencesInfoWidth() {
+        return absencesInfoWidth;
+    }
+
+    public int getAbsencesInfoHeight() {
+        return absencesInfoHeight;
+    }
+
+    public int getAbsencesInfoTextPosX() {
+        return absencesInfoTextPosX;
+    }
+
+    public int getAbsencesInfoTextPosY() {
+        return absencesInfoTextPosY;
     }
 }

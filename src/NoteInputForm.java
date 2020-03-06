@@ -22,7 +22,7 @@ public class NoteInputForm extends JDialog implements ActionListener{
      * Konstruktor służący do stworzenia nowej notatki
      * @param frame
      */
-    public NoteInputForm(JFrame frame) {
+    public NoteInputForm(JDialog frame) {
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
         setContentPane(pNotes);
         bCancel.addActionListener(this);
@@ -39,7 +39,7 @@ public class NoteInputForm extends JDialog implements ActionListener{
      * @param frame - parent frame
      * @param dN - dane edytowanej notatki do uzupełnienia formularza
      */
-    public NoteInputForm(JFrame frame, DataOfNote dN) {
+    public NoteInputForm(JDialog frame, DataOfNote dN) {
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
 
         System.out.println(dN.getText());

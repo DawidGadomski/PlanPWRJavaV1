@@ -16,15 +16,14 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
 
     private double mousePosX;
     private double mousePosY;
-    private String path;
     private Settings settings;
 
 //  Flags
     private boolean mainWindowFlag;
-    private boolean menuFlag;
-    private boolean notesFlag;
+//    private boolean menuFlag;
+//    private boolean notesFlag;
     private MainWindow mainWindow;
-    private Menu menu;
+    private MenuWindow menu;
     private Notes notes;
 
     public Screen(JFrame frame) {
@@ -33,18 +32,6 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         this.mainWindow = new MainWindow(g2d);
         this.frame = frame;
 
-/***
- * Docelowo ustawienie scieżki dla ikon i folderów chciałbym zrobić w oknie ustawień w aplikacji
- * Stąd na chwilę obecną po prostu ścieżki podane są tutaj oraz w klasach ikon
- */
-        switch (System.getProperty("os.name")) {
-            case "Windows 10":
-                path = "D:\\PWR";
-                break;
-            case "Linux":
-                path = "home";
-                break;
-        }
 //      Action Listeners for mouse
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -58,8 +45,8 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         }
 
 //      Flags
-        mainWindowFlag = true;
-        menuFlag = false;
+//        mainWindowFlag = true;
+//        menuFlag = false;
     }
 
 // JComponent Functions
@@ -75,20 +62,19 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         mousePosY = MouseInfo.getPointerInfo().getLocation().getY() - this.getLocationOnScreen().getY();
 
 //      Draw Main Window
-        mainWindow.drawMainWindow(g2d, mousePosX, mousePosY);
+        mainWindow.drawMainWindow(g2d, mousePosX, mousePosY, settings.getSubjects());
         settings.setDefaultDrawing(g2d);
 
-//      Draw Menu Window
-        if (menuFlag) {
-            settings.drawShadow(g2d);
-            menu.drawMenuWindow(g2d);
-        }
+////      Draw Menu Window
+//        if (menuFlag) {
+//        settings.drawShadow(g2d);
+//        }
 
 //      Draw Notes Window
-        if (notesFlag) {
-            settings.drawShadow(g2d);
-            notes.drawNoteWindow(g2d, mousePosX, mousePosY);
-        }
+//        if (notesFlag) {
+//        settings.drawShadow(g2d);
+//        notes.drawNoteWindow(g2d, mousePosX, mousePosY);
+//        }
     }
 
     @Override
@@ -98,15 +84,15 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
 
 //  Mouse Listener Functions
     public void mouseClicked(MouseEvent e) {
-        if (mainWindowFlag) {
+//        if (mainWindowFlag) {
 //          Menu for subject
             if (e.getButton() == 3) {
                 for (Subject s : settings.getSubjects()) {
                     if (s.isOver(getMousePosition().getX(), getMousePosition().getY())) {
                         s.setClickedFlag(false);
                         mainWindow.getClearIcon().setVisableFlag(false);
-                        menuFlag = true;
-                        menu = new Menu(g2d, s);
+//                        menuFlag = true;
+                        menu = new MenuWindow(frame, s, settings.getSubjects());
                         break;
                     }
                 }
@@ -125,83 +111,82 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
             }
             repaint();
 
-            if (menuFlag) {
-                byte menuAction = menu.menuAction(e);
-                switch (menuAction) {
-                    case 1:
-//                  Exit
-                        menuFlag = false;
-                        break;
-                    case 2:
-//                  Delete subject
-                        settings.getSubjects().remove(menu.getSubject());
-                        menuFlag = false;
-                        break;
-                    case 3:
-//                  Open Folder
-                        File file = new File(path + "\\" + menu.getSubject().getName());
-                        if (!file.exists()) {
-                            file.mkdir();
-                        }
-                        try {
-                            Desktop.getDesktop().open(file);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                        break;
-                    case 4:
-//                  Edit subject
-                        settings.editSubject(this.frame, menu.getSubject().convertSubjectToData());
-                        settings.getSubjects().remove(menu.getSubject());
-                        menuFlag = false;
-                        repaint();
+//            if (menuFlag) {
+//                byte menuAction = menu.menuAction(e);
+//                switch (menuAction) {
+//                    case 1:
+////                  Exit
+//                        menuFlag = false;
+//                        break;
+//                    case 2:
+////                  Delete subject
+//                        settings.getSubjects().remove(menu.getSubject());
+//                        menuFlag = false;
+//                        break;
+//                    case 3:
+////                  Open Folder
+//                        File file = new File(path + "\\" + menu.getSubject().getName());
+//                        if (!file.exists()) {
+//                            file.mkdir();
+//                        }
+//                        try {
+//                            Desktop.getDesktop().open(file);
+//                        } catch (IOException ex) {
+//                            ex.printStackTrace();
+//                        }
+//                        break;
+//                    case 4:
+////                  Edit subject
+//                        settings.editSubject(this.frame, menu.getSubject().convertSubjectToData());
+//                        settings.getSubjects().remove(menu.getSubject());
+//                        menuFlag = false;
+//                        repaint();
+//
+//                        break;
+//                    case 5:
+////                  Open Notes
+//                        menuFlag = false;
+//                        notesFlag = true;
+//                        notes = new Notes(g2d, menu.getSubject());
+//                        break;
+//                }
+//            }
+//            if (notesFlag) {
 
-                        break;
-                    case 5:
-//                  Open Notes
-                        menuFlag = false;
-                        notesFlag = true;
-                        notes = new Notes(g2d, menu.getSubject());
-                        break;
-                }
-            }
-            if (notesFlag) {
+////      Edit Note
+//                if (e.getButton() == 3) {
+//                    for (Note n : settings.getNotes()) {
+//                        if (n.isOver(getMousePosition().getX(), getMousePosition().getY())) {
+//                            n.setClickedFlag(false);
+//                            settings.editNote(this.frame, n.getDataMap());
+//                            settings.getNotes().remove(n);
+//                            break;
+//                        }
+//                    }
+//                }
 
-//      Edit Note
-                if (e.getButton() == 3) {
-                    for (Note n : settings.getNotes()) {
-                        if (n.isOver(getMousePosition().getX(), getMousePosition().getY())) {
-                            n.setClickedFlag(false);
-                            settings.editNote(this.frame, n.getDataMap());
-                            settings.getNotes().remove(n);
-                            break;
-                        }
-                    }
-                }
-
-                byte noteAction = notes.notesAction(e);
-                switch (noteAction) {
-                    case 1:
-//                  Exit
-                        notesFlag = false;
-                        menuFlag = true;
-                        break;
-                    case 2:
-//                  Add notes
-                        System.out.println(notes.getSubject().getName());
-                        settings.createNote(this.frame, notes.getSubject());
-                        break;
-                    case 3:
-//                  Save notes
-//                        settings.saveNotes();
-//                        notes.getSubject().setNoteArrayList(settings.getNotesList());
-                        System.out.println(notes.getSubject().convertSubjectToData().getNotes());
-                        break;
-                }
-            }
+//                byte noteAction = notes.notesAction(e);
+//                switch (noteAction) {
+//                    case 1:
+////                  Exit
+////                        notesFlag = false;
+////                        menuFlag = true;
+//                        break;
+//                    case 2:
+////                  Add notes
+//                        System.out.println(notes.getSubject().getName());
+//                        settings.createNote(this.frame, notes.getSubject());
+//                        break;
+//                    case 3:
+////                  Save notes
+////                        settings.saveNotes();
+////                        notes.getSubject().setNoteArrayList(settings.getNotesList());
+//                        System.out.println(notes.getSubject().convertSubjectToData().getNotes());
+//                        break;
+//                }
+//            }
             repaint();
-
-        }
+//        }
     }
 
     @Override
@@ -218,17 +203,17 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         }
 
 //      Pick up note
-        if(notesFlag) {
-            if (e.getButton() == 1) {
-                for (Note n : notes.getSubject().getNoteArrayList()) {
-                    if (n.isOver(getMousePosition().getX(), getMousePosition().getY())) {
-                        mainWindow.getClearIcon().setVisableFlag();
-                        n.setClickedFlag();
-                        break;
-                    }
-                }
-            }
-        }
+//        if(notesFlag) {
+//            if (e.getButton() == 1) {
+//                for (Note n : notes.getSubject().getNoteArrayList()) {
+//                    if (n.isOver(getMousePosition().getX(), getMousePosition().getY())) {
+//                        mainWindow.getClearIcon().setVisableFlag();
+//                        n.setClickedFlag();
+//                        break;
+//                    }
+//                }
+//            }
+//        }
     }
 
     @Override
@@ -251,25 +236,25 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         }
 
 //      Put note down
-        if(notesFlag) {
-            if (e.getButton() == 1) {
-                for (Note n : notes.getSubject().getNoteArrayList()) {
-                    if (n.isOver(getMousePosition().getX(), getMousePosition().getY())) {
-                        mainWindow.getClearIcon().setVisableFlag();
-                        n.setClickedFlag();
-                    }
-                }
-            }
-            if (e.getButton() == 1) {
-                    if (mainWindow.getClearIcon().isOver(getMousePosition().getX(), getMousePosition().getY())) {
-                        for (Note n : notes.getSubject().getNoteArrayList()) {
-                            if (n.getClickedFlag()){
-                                settings.getNotes().remove(n);
-                            }
-                    }
-                }
-            }
-        }
+//        if(notesFlag) {
+//            if (e.getButton() == 1) {
+//                for (Note n : notes.getSubject().getNoteArrayList()) {
+//                    if (n.isOver(getMousePosition().getX(), getMousePosition().getY())) {
+//                        mainWindow.getClearIcon().setVisableFlag();
+//                        n.setClickedFlag();
+//                    }
+//                }
+//            }
+//            if (e.getButton() == 1) {
+//                    if (mainWindow.getClearIcon().isOver(getMousePosition().getX(), getMousePosition().getY())) {
+//                        for (Note n : notes.getSubject().getNoteArrayList()) {
+//                            if (n.getClickedFlag()){
+//                                settings.getNotes().remove(n);
+//                            }
+//                    }
+//                }
+//            }
+//        }
     }
 
     @Override
@@ -282,9 +267,9 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (!menuFlag) {
+//        if (!menuFlag) {
             repaint();
-        }
+//        }
     }
 
     @Override

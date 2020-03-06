@@ -49,7 +49,7 @@ public class Notes {
     public void drawNoteWindow(Graphics2D g, double mousePosX, double mousePosY) {
 //      Background
         g.setColor(notesSettings.getNotesColor());
-        g.fillRect(notesSettings.getNoteWindowPosX(), notesSettings.getNoteWindowPosY(), notesSettings.getNoteWindowSizeX(), notesSettings.getNoteWindowSizeY());
+        g.fillRect(notesSettings.getNoteWindowPosX(), notesSettings.getNoteWindowPosY(), notesSettings.getNoteWindowWidth(), notesSettings.getNoteWindowHeight());
 
 //      Line
         g.setColor(notesSettings.getNoteLineColor());

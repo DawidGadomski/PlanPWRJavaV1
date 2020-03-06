@@ -1,4 +1,8 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /***
  * Ustawienai okna notatek
@@ -6,6 +10,16 @@ import java.awt.*;
 public class NotesSettings extends Settings {
     // Settings
     private Color notesColor;
+
+    //  URLs
+    private String backIconURL;
+    private String addIconURL;
+    private String saveIconURL;
+
+//  Icons
+    private BufferedImage backIcon;
+    private BufferedImage addIcon;
+    private BufferedImage saveIcon;
 
     // Note settings
     private int noteWidth;
@@ -15,8 +29,8 @@ public class NotesSettings extends Settings {
 
     // Note window settings
 
-    private int noteWindowSizeX;
-    private int noteWindowSizeY;
+    private int noteWindowWidth;
+    private int noteWindowHeight;
 
     // Separate line settings
     private Color noteLineColor;
@@ -49,6 +63,21 @@ public class NotesSettings extends Settings {
 //      Notes Settings
         notesColor = new Color(155, 155, 155);
 
+//  URLs
+        backIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\back.png";
+        saveIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\save.png";
+        addIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\add.png";
+
+
+//      Icons
+        try{
+            backIcon = ImageIO.read(new File(getBackIconURL()));
+            addIcon = ImageIO.read(new File(getAddIconURL()));
+            saveIcon = ImageIO.read(new File(getSaveIconURL()));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
 //      Note settings
         noteWidth = 385;
         noteHeight = 200;
@@ -56,23 +85,23 @@ public class NotesSettings extends Settings {
         noteColor = new Color(200, 200, 200);
 
 //      Note window settings
-        noteWindowSizeX = 1020;
-        noteWindowSizeY = 600;
+        noteWindowWidth = 1020;
+        noteWindowHeight = 600;
 
 //      Separate line settings
         noteLineColor = new Color(127,127,127);
         noteLineOffsetX = 100;
         noteLineOffsetY = 20;
-        noteLineStartX = noteWindowPosX + noteWindowSizeX - noteLineOffsetX;
+        noteLineStartX = noteWindowPosX + noteWindowWidth - noteLineOffsetX;
         noteLineStartY = noteWindowPosY + noteLineOffsetY;
-        noteLineEndX = noteWindowPosX + noteWindowSizeX - noteLineOffsetX;
-        noteLineEndY = noteWindowPosY + noteWindowSizeY - noteLineOffsetY;
+        noteLineEndX = noteWindowPosX + noteWindowWidth - noteLineOffsetX;
+        noteLineEndY = noteWindowPosY + noteWindowHeight - noteLineOffsetY;
 
 //      Icons settings
         noteIconsSize = 64;
         noteIconsOffsetX = 20;
         noteIconsOffsetY = 20;
-        noteIconPosX = noteWindowPosX + noteWindowSizeX - noteIconsSize - noteIconsOffsetX;
+        noteIconPosX = noteWindowPosX + noteWindowWidth - noteIconsSize - noteIconsOffsetX;
         noteBackIconPosY = noteWindowPosY + noteIconsOffsetY;
         noteAddIconPosY = noteWindowPosY + 2 * noteIconsOffsetY + noteIconsSize;
         noteSaveIconPosY = noteWindowPosY + 3 * noteIconsOffsetY + 2 * noteIconsSize;
@@ -87,6 +116,30 @@ public class NotesSettings extends Settings {
 //  Getters and Setters
     public Color getNotesColor() {
         return notesColor;
+    }
+
+    public String getBackIconURL() {
+        return backIconURL;
+    }
+
+    public String getAddIconURL() {
+        return addIconURL;
+    }
+
+    public String getSaveIconURL() {
+        return saveIconURL;
+    }
+
+    public BufferedImage getBackIcon() {
+        return backIcon;
+    }
+
+    public BufferedImage getAddIcon() {
+        return addIcon;
+    }
+
+    public BufferedImage getSaveIcon() {
+        return saveIcon;
     }
 
     public int getNoteWidth() {
@@ -113,12 +166,12 @@ public class NotesSettings extends Settings {
         return noteWindowPosY;
     }
 
-    public int getNoteWindowSizeX() {
-        return noteWindowSizeX;
+    public int getNoteWindowWidth() {
+        return noteWindowWidth;
     }
 
-    public int getNoteWindowSizeY() {
-        return noteWindowSizeY;
+    public int getNoteWindowHeight() {
+        return noteWindowHeight;
     }
 
     public Color getNoteLineColor() {
