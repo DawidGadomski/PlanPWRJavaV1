@@ -25,6 +25,7 @@ public class Subject {
     private ArrayList<Note> noteArrayList;
     private int absences;
     private int allAbsences;
+    private ArrayList<String> testList;
 
     /***
      * Tworzenie nowego przedmiotu
@@ -36,6 +37,7 @@ public class Subject {
 //      Init
         settings = new Settings();
         this.noteArrayList = new ArrayList<Note>();
+        this.testList = new ArrayList<String>();
         this.width = 140;
         this.height = 100;
         this.color = new Color(255,0,255);
@@ -85,6 +87,7 @@ public class Subject {
         this.week = dataOfSubject.getWeek();
         this.absences = dataOfSubject.getAbsences();
         this.allAbsences = dataOfSubject.getAllAbsences();
+        this.testList = dataOfSubject.getTestList();
 
         for(DataOfNote dataOfNote: dataOfSubject.getNotes()){
             noteArrayList.add(new Note(dataOfNote));
@@ -130,6 +133,14 @@ public class Subject {
     }
     public int getType(){
         return this.type;
+    }
+
+    public ArrayList<String> getTestList() {
+        return testList;
+    }
+
+    public void setTestList(ArrayList<String> testList) {
+        this.testList = testList;
     }
 
     public int getAbsences() {
@@ -179,7 +190,7 @@ public class Subject {
         }
 //      Return Data Of Subject
         return new DataOfSubject(this.posX, this.posY, this.name, this.term, this.time, this.prof,
-                this.room, this.type, this.week, dataOfNoteArrayList, this.absences, this.allAbsences);
+                this.room, this.type, this.week, dataOfNoteArrayList, this.absences, this.allAbsences, this.testList);
     }
 
     /***

@@ -16,6 +16,7 @@ public class DataOfSubject {
     private ArrayList<DataOfNote> notes;
     private int absences;
     private int allAbsences;
+    private ArrayList<String> testList;
 
     /***
      * Konstruktor
@@ -31,7 +32,8 @@ public class DataOfSubject {
      * @param noteArrayList - lista notatek
      */
     public DataOfSubject(int posX, int posY, String name, String term, int time, String prof,
-                         String room, int type, String week, ArrayList<DataOfNote> noteArrayList, int absences, int allAbsences) {
+                         String room, int type, String week, ArrayList<DataOfNote> noteArrayList,
+                         int absences, int allAbsences, ArrayList<String> testList) {
         this.posX = posX;
         this.posY = posY;
         this.name = name;
@@ -44,11 +46,16 @@ public class DataOfSubject {
         this.notes = noteArrayList;
         this.absences = absences;
         this.allAbsences = allAbsences;
+        this.testList = testList;
     }
 
 //  Getters and Setters
     public void setNotes(ArrayList<DataOfNote> notesList) {
         this.notes = notesList;
+    }
+
+    public ArrayList<String> getTestList() {
+        return testList;
     }
 
     public int getPosX() {

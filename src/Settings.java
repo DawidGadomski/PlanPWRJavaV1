@@ -145,9 +145,9 @@ public class Settings {
      * @param frame - JFrame która będzie rodzicem dla okna formularza
      * @param d - dane przedmiotu dla którego wywołana jest edycja zaweira dane potrzebne do wypełnienia formularza
      */
-    public void editNote(JDialog frame, DataOfNote d){
+    public Note editNote(JDialog frame, DataOfNote d){
         NoteInputForm f = new NoteInputForm(frame, d);
-        notes.add(new Note(d.getPosX(), d.getPosY(), f.getDataMap()));
+        return new Note(d.getPosX(), d.getPosY(), f.getDataMap());
     }
 
     /***

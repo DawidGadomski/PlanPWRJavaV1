@@ -36,7 +36,7 @@ public class TestInputForm extends JDialog implements ActionListener {
     //  Buttons
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == bAccept){
-            setOutput(lName.getText() + " - " + lDate.getText());
+            setOutput(tfName.getText() + " - " + tfDate.getText());
             setVisible(false);
         }
         else if(e.getSource() == bCancel){
