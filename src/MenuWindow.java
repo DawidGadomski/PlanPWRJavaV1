@@ -482,8 +482,10 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     public void mouseClicked(MouseEvent e) {
         if(e.getButton() == 3){
             addTest = new TestInputForm(this, listModel.get(testList.getSelectedIndex()));
+            if(addTest.getOutput() != null){
+                listModel.addElement(addTest.getOutput());
+            }
             listModel.remove(testList.getSelectedIndex());
-            listModel.addElement(addTest.getOutput());
             subject.getTestList().add(addTest.getOutput());
         }
     }
