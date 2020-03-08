@@ -1,13 +1,12 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MenuWindow extends JDialog implements ActionListener {
+public class MenuWindow extends JDialog implements ActionListener, MouseListener {
     private Subject subject;
     private MenuSettings menuSettings;
     private NotesWindow notes;
@@ -268,6 +267,7 @@ public class MenuWindow extends JDialog implements ActionListener {
         testList.setPreferredSize(new Dimension(menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight()));
         testList.setFont(menuSettings.getMenuTextFont());
         testList.setForeground(Color.WHITE);
+        testList.addMouseListener(this);
 
         listScroller = new JScrollPane(testList);
         listScroller.setPreferredSize(new Dimension(menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight()));
@@ -476,5 +476,35 @@ public class MenuWindow extends JDialog implements ActionListener {
             minusButton.setVisible(false);
             okButton.setVisible(false);
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getButton() == 3){
+            addTest = new TestInputForm(this, listModel.get(testList.getSelectedIndex()));
+            listModel.remove(testList.getSelectedIndex());
+            listModel.addElement(addTest.getOutput());
+            subject.getTestList().add(addTest.getOutput());
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

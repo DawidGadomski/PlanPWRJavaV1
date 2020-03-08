@@ -1,3 +1,5 @@
+import com.sun.jdi.JDIPermission;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,12 +14,32 @@ public class TestInputForm extends JDialog implements ActionListener {
     private JButton bAccept;
     private JPanel pPanel;
     private String output;
+    private String[] data;
 
     public TestInputForm(JDialog frame){
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
         setContentPane(pPanel);
         bCancel.addActionListener(this);
         bAccept.addActionListener(this);
+        pack();
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(frame);
+        setResizable(false);
+        setVisible(true);
+    }
+
+    public TestInputForm(JDialog frame, String data){
+        super(frame, ModalityType.APPLICATION_MODAL);
+        this.data = data.split(" - ");
+        tfName.setText(this.data[0]);
+        tfDate.setText(this.data[1]);
+
+        setContentPane(pPanel);
+        bCancel.addActionListener(this);
+        bAccept.addActionListener(this);
+
+        bAccept.setText("OK");
+        bCancel.setText("Usuń");
         pack();
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(frame);
