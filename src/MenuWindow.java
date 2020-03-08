@@ -40,8 +40,12 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 
     private JSeparator sLine;
     private JLabel lName;
+    private JLabel lTextName;
     private JLabel lTerm;
+    private JLabel lTextTerm;
     private JLabel lRoom;
+    private JLabel lTextRoom;
+    private JLabel lTextProf;
     private JLabel lProf;
     private JLabel lTests;
     private JScrollPane listScroller;
@@ -144,19 +148,35 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     }
 
     private void initLabels(){
-        lName = new JLabel("Nazwa: " + subject.getName());
+        lTextName = new JLabel("Nazwa: ");
+        lTextName.setFont(menuSettings.getMenuTextFont());
+        lTextName.setForeground(Color.WHITE);
+
+        lName = new JLabel(subject.getName());
         lName.setFont(menuSettings.getMenuTextFont());
         lName.setForeground(Color.WHITE);
 
-        lTerm = new JLabel("Termin: " + subject.getTerm());
+        lTextTerm = new JLabel("Termin: ");
+        lTextTerm.setFont(menuSettings.getMenuTextFont());
+        lTextTerm.setForeground(Color.WHITE);
+
+        lTerm = new JLabel(subject.getTerm());
         lTerm.setFont(menuSettings.getMenuTextFont());
         lTerm.setForeground(Color.WHITE);
 
-        lRoom = new JLabel("Sala: " + subject.getRoom());
+        lTextRoom = new JLabel("Sala: ");
+        lTextRoom.setFont(menuSettings.getMenuTextFont());
+        lTextRoom.setForeground(Color.WHITE);
+
+        lRoom = new JLabel(subject.getRoom());
         lRoom.setFont(menuSettings.getMenuTextFont());
         lRoom.setForeground(Color.WHITE);
 
-        lProf = new JLabel("Prowadzący: " + subject.getProf());
+        lTextProf = new JLabel("Prowadzący: ");
+        lTextProf.setFont(menuSettings.getMenuTextFont());
+        lTextProf.setForeground(Color.WHITE);
+
+        lProf = new JLabel(subject.getProf());
         lProf.setFont(menuSettings.getMenuTextFont());
         lProf.setForeground(Color.WHITE);
 
@@ -278,11 +298,19 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 
     private void initTextPanel(){
         textPanel.setBorder(new EmptyBorder(10, 10, 0, 10));
+        textPanel.add(lTextName);
+        textPanel.add(Box.createVerticalGlue());
         textPanel.add(lName);
+        textPanel.add(Box.createVerticalGlue());
+        textPanel.add(lTextTerm);
         textPanel.add(Box.createVerticalGlue());
         textPanel.add(lTerm);
         textPanel.add(Box.createVerticalGlue());
+        textPanel.add(lTextRoom);
+        textPanel.add(Box.createVerticalGlue());
         textPanel.add(lRoom);
+        textPanel.add(Box.createVerticalGlue());
+        textPanel.add(lTextProf);
         textPanel.add(Box.createVerticalGlue());
         textPanel.add(lProf);
         textPanel.add(Box.createVerticalGlue());
