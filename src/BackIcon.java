@@ -6,10 +6,10 @@ import java.io.IOException;
 public class BackIcon extends Icon{
     public BackIcon(int x, int y, int size) {
         super(x, y);
-        imgURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\back.png";
+        file = new File("back.png");
         this.size = size;
         try{
-            image = ImageIO.read(new File(imgURL));
+            image = ImageIO.read(file);
         } catch (IOException e){
             e.printStackTrace();
         }

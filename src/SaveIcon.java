@@ -6,10 +6,10 @@ import java.io.IOException;
 public class SaveIcon extends Icon {
     public SaveIcon(int x, int y, int size) {
         super(x, y);
-        imgURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\save.png";
+        file = new File("Icons/save.png");
         this.size = size;
         try{
-            image = ImageIO.read(new File(imgURL));
+            image = ImageIO.read(file);
         } catch (IOException e){
             e.printStackTrace();
         }

@@ -8,10 +8,10 @@ public class ClearIcon extends Icon {
 
     public ClearIcon(int x, int y, int size) {
         super(x, y);
-        imgURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\clear.png";
+        file = new File("Icons/clear.png");
         this.size = size;
         try{
-            image = ImageIO.read(new File(imgURL));
+            image = ImageIO.read(file);
         } catch (IOException e){
             e.printStackTrace();
         }

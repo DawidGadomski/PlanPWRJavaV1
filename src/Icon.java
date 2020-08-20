@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 /***
  * Obiekt Ikony
@@ -8,7 +9,7 @@ import java.awt.image.BufferedImage;
  */
 public class Icon extends JComponent {
     protected int size;
-    protected String imgURL;
+    protected File file;
     protected int posX, posY;
     protected BufferedImage image;
 

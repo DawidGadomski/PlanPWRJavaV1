@@ -6,10 +6,11 @@ import java.io.IOException;
 public class AddIcon extends Icon {
     public AddIcon(int x, int y, int size) {
         super(x, y);
-        imgURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\add.png";
+        file = new File("Icons/add.png");
+        System.out.println(file.getAbsolutePath());
         this.size = size;
         try{
-            image = ImageIO.read(new File(imgURL));
+            image = ImageIO.read(file);
         } catch (IOException e){
             e.printStackTrace();
         }

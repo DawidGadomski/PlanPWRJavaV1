@@ -109,29 +109,40 @@ public class MenuSettings extends Settings {
         menuTextFont = new Font("Arial", Font.PLAIN, menuTextSize);
 
 //  URLs
-        backIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\back.png";
-        clearIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\clear.png";
-        docIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\folder.png";
-        editIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\edit.png";
-        notesIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\document.png";
-        addTestIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\add.png";
-        editAbsencesIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\settings.png";
-        plusIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\add.png";
-        minusIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\minus.png";
-        okIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\tick.png";
+        File iBack = new File("Icons/back.png");
+        File iClear = new File("Icons/clear.png");
+        File iDoc = new File("Icons/folder.png");
+        File iEdit = new File("Icons/edit.png");
+        File iNotes = new File("Icons/document.png");
+        File iAddTest = new File("Icons/add.png");
+        File iEditAbsences = new File("Icons/edit.png");
+        File iPlus = new File("Icons/add.png");
+        File iMinus = new File("Icons/minus.png");
+        File iOk = new File("Icons/tick.png");
+
+        backIconURL = iBack.getAbsolutePath();
+        clearIconURL = iClear.getAbsolutePath();
+        docIconURL = iDoc.getAbsolutePath();
+        editIconURL = iEdit.getAbsolutePath();
+        notesIconURL = iNotes.getAbsolutePath();
+        addTestIconURL = iAddTest.getAbsolutePath();
+        editAbsencesIconURL = iEditAbsences.getAbsolutePath();
+        plusIconURL = iPlus.getAbsolutePath();
+        minusIconURL = iMinus.getAbsolutePath();
+        okIconURL = iOk.getAbsolutePath();
 
 //      Icons
         try{
-            backIcon = ImageIO.read(new File(getBackIconURL()));
-            addTestIcon = ImageIO.read(new File(getAddTestIconURL()));
-            deleteIcon = ImageIO.read(new File(getClearIconURL()));
-            noteIcon = ImageIO.read(new File(getNotesIconURL()));
-            editIcon = ImageIO.read(new File(getEditIconURL()));
-            docIcon = ImageIO.read(new File(getDocIconURL()));
-            editAbsencesIcon = ImageIO.read(new File(getEditAbsencesIconURL()));
-            plusIcon = ImageIO.read(new File(getPlusIconURL()));
-            minusIcon = ImageIO.read(new File(getMinusIconURL()));
-            okIcon = ImageIO.read(new File(getOkIconURL()));
+            backIcon = ImageIO.read(iBack);
+            addTestIcon = ImageIO.read(iClear);
+            deleteIcon = ImageIO.read(iDoc);
+            noteIcon = ImageIO.read(iEdit);
+            editIcon = ImageIO.read(iNotes);
+            docIcon = ImageIO.read(iAddTest);
+            editAbsencesIcon = ImageIO.read(iEditAbsences);
+            plusIcon = ImageIO.read(iPlus);
+            minusIcon = ImageIO.read(iMinus);
+            okIcon = ImageIO.read(iOk);
         }catch (IOException e){
             e.printStackTrace();
         }

@@ -6,10 +6,10 @@ import java.io.IOException;
 public class EditIcon extends Icon{
     public EditIcon(int x, int y, int size) {
         super(x, y);
-        imgURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\edit.png";
+        file = new File("Icons/edit.png");
         this.size = size;
         try{
-            image = ImageIO.read(new File(imgURL));
+            image = ImageIO.read(file);
         } catch (IOException e){
             e.printStackTrace();
         }
