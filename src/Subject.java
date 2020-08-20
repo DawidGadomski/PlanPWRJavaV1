@@ -26,6 +26,7 @@ public class Subject {
     private int absences;
     private int allAbsences;
     private ArrayList<String> testList;
+    private ArrayList<LinkCard> linksList;
 
     /***
      * Tworzenie nowego przedmiotu
@@ -38,6 +39,7 @@ public class Subject {
         settings = new Settings();
         this.noteArrayList = new ArrayList<Note>();
         this.testList = new ArrayList<String>();
+        this.linksList = new ArrayList<LinkCard>();
         this.width = 140;
         this.height = 100;
         this.color = new Color(255,0,255);
@@ -71,6 +73,7 @@ public class Subject {
 //      Init
         settings = new Settings();
         noteArrayList = new ArrayList<Note>();
+        this.linksList = new ArrayList<LinkCard>();
         this.width = 140;
         this.height = 100;
         this.color = new Color(255,0,255);
@@ -137,6 +140,10 @@ public class Subject {
 
     public ArrayList<String> getTestList() {
         return testList;
+    }
+
+    public ArrayList<LinkCard> getLinksList(){
+        return this.linksList;
     }
 
     public void setTestList(ArrayList<String> testList) {

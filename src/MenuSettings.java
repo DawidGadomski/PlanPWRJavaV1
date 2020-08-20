@@ -24,6 +24,7 @@ public class MenuSettings extends Settings {
     private String plusIconURL;
     private String minusIconURL;
     private String okIconURL;
+    private String linksIconURL;
 
 //  Icons
     private BufferedImage backIcon;
@@ -36,6 +37,7 @@ public class MenuSettings extends Settings {
     private BufferedImage plusIcon;
     private BufferedImage minusIcon;
     private BufferedImage okIcon;
+    private BufferedImage linksIcon;
 
 //  Menu window settings
     private Color bgColor;
@@ -119,6 +121,7 @@ public class MenuSettings extends Settings {
         File iPlus = new File("Icons/add.png");
         File iMinus = new File("Icons/minus.png");
         File iOk = new File("Icons/tick.png");
+        File iLinks = new File("Icons/www.png");
 
         backIconURL = iBack.getAbsolutePath();
         clearIconURL = iClear.getAbsolutePath();
@@ -130,6 +133,7 @@ public class MenuSettings extends Settings {
         plusIconURL = iPlus.getAbsolutePath();
         minusIconURL = iMinus.getAbsolutePath();
         okIconURL = iOk.getAbsolutePath();
+        linksIconURL = iLinks.getAbsolutePath();
 
 //      Icons
         try{
@@ -143,6 +147,7 @@ public class MenuSettings extends Settings {
             plusIcon = ImageIO.read(iPlus);
             minusIcon = ImageIO.read(iMinus);
             okIcon = ImageIO.read(iOk);
+            linksIcon = ImageIO.read(iLinks);
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -306,6 +311,10 @@ public class MenuSettings extends Settings {
 
     public BufferedImage getOkIcon() {
         return okIcon;
+    }
+
+    public BufferedImage getLinksIcon() {
+        return linksIcon;
     }
 
     public int getMenuWindowPosX() {

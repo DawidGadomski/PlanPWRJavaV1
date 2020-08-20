@@ -10,6 +10,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     private Subject subject;
     private MenuSettings menuSettings;
     private NotesWindow notes;
+    private LinksWindow linksWindow;
     private TestInputForm addTest;
     private ArrayList<Subject> subjects;
     private int allAbsences;
@@ -36,6 +37,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     private JButton plusButton;
     private JButton minusButton;
     private JButton okButton;
+    private JButton linksButton;
 
 
     private JSeparator sLine;
@@ -65,6 +67,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     private Image plusIcon;
     private Image minusIcon;
     private Image okIcon;
+    private Image linksIcon;
 
 //  Flags
     private boolean editAbsencesFlag;
@@ -123,6 +126,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         plusIcon = menuSettings.getPlusIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
         minusIcon = menuSettings.getMinusIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
         okIcon = menuSettings.getOkIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        linksIcon = menuSettings.getLinksIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
 
     }
 
@@ -271,6 +275,13 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 //        okButton.setBorder(BorderFactory.createEmptyBorder());
         okButton.setContentAreaFilled(false);
         okButton.addActionListener(this);
+
+        linksButton = new JButton(new ImageIcon(linksIcon));
+        linksButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        linksButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
+        linksButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
+        linksButton.setContentAreaFilled(false);
+        linksButton.addActionListener(this);
     }
 
     private void initDiffComponents(){
@@ -331,6 +342,12 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         iconPanel.add(sLine);
 
         iconPanel.add(editButton);
+        iconPanel.add(Box.createHorizontalGlue());
+        sLine = new JSeparator(SwingConstants.VERTICAL);
+        sLine.setBackground(menuSettings.getLineColor());
+        iconPanel.add(sLine);
+
+        iconPanel.add(linksButton);
         iconPanel.add(Box.createHorizontalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
         sLine.setBackground(menuSettings.getLineColor());
@@ -476,6 +493,10 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         else if(e.getSource() == deleteButton){
             this.subjects.remove(this.subject);
             dWindow.setVisible(false);
+        }
+        else if(e.getSource() == linksButton){
+            dWindow.setVisible(false);
+            linksWindow = new LinksWindow(this, this.subject);
         }
         else if(e.getSource() == addTestButton){
             addTest = new TestInputForm(this);
