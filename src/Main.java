@@ -27,7 +27,7 @@ public class Main extends JFrame{
     private void initGui(){
         mainFrame = new JFrame("PLAN PWR");
         mainFrame.setContentPane(panel1);
-        mainFrame.setResizable(false);
+//        mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.pack();
     }

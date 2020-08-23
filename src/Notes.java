@@ -1,3 +1,11 @@
+import Icons.AddIcon;
+import Icons.BackIcon;
+import Icons.ClearIcon;
+import Icons.SaveIcon;
+import Settings.NotesSettings;
+import Object.Note;
+import Object.Subject;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 

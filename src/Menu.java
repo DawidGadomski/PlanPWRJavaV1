@@ -1,3 +1,6 @@
+import Icons.*;
+import Settings.MenuSettings;
+import Object.Subject;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
