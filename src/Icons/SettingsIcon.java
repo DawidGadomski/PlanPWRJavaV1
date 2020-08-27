@@ -8,7 +8,6 @@ public class SettingsIcon extends Icon{
     public SettingsIcon(int x, int y, int size) {
         super(x, y);
         file = new File("Icons/settings.png");
-        System.out.println(file.getAbsolutePath());
         this.size = size;
         try{
             image = ImageIO.read(file);

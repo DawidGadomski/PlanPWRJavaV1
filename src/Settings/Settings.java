@@ -35,6 +35,8 @@ public class Settings {
     protected int windowHeight;
     protected int tileWidth;
     protected int tileHeight;
+    private int smallWindowWidth;
+    private int smallWindowHeight;
     private Color backgroundColor;
     private Color gridColor;
     private Color workSurfaceColor;
@@ -102,6 +104,8 @@ public class Settings {
         windowHeight = screenDimension.height;
         tileWidth = windowWidth / 58;
         tileHeight = windowHeight / 13;
+        smallWindowWidth = windowWidth/2;
+        smallWindowHeight = windowHeight/2;
         backgroundColor = new Color(40, 40, 40);
         gridColor = new Color(155, 155, 155);
         workSurfaceColor = new Color(200, 200, 200);
@@ -327,6 +331,14 @@ public class Settings {
 
     public Stroke getDefaultThickness() {
         return defaultThickness;
+    }
+
+    public int getSmallWindowWidth() {
+        return smallWindowWidth;
+    }
+
+    public int getSmallWindowHeight() {
+        return smallWindowHeight;
     }
 
     public int getWorkSurfacePosX() {
