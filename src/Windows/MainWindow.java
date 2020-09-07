@@ -48,7 +48,7 @@ public class MainWindow {
         // Icons
         addIcon = new AddIcon(mainWindowSettings.getAddIconPosX(), mainWindowSettings.getAddIconPosY(), mainWindowSettings.getIconsWidth());
         saveIcon = new SaveIcon(mainWindowSettings.getSaveIconPosX(), mainWindowSettings.getSaveIconPosY(), mainWindowSettings.getIconsWidth());
-        settingsIcon = new SettingsIcon(mainWindowSettings.getSettingsIconPosX(), mainWindowSettings.getSettingsIconPosY(), mainWindowSettings.getIconsHeight());
+        settingsIcon = new SettingsIcon(mainWindowSettings.getSettingsIconPosX(), mainWindowSettings.getSettingsIconPosY(), mainWindowSettings.getIconsWidth());
 
 //        addIcon = mainWindowSettings.getAddIcon().getScaledInstance(mainWindowSettings.getTileWidth(), mainWindowSettings.getTileHeight(), Image.SCALE_DEFAULT);
 //        saveIcon = mainWindowSettings.getSaveIcon().getScaledInstance(mainWindowSettings.getTileWidth(), mainWindowSettings.getTileHeight(), Image.SCALE_DEFAULT);

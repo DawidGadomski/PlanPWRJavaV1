@@ -1,8 +1,11 @@
 package Settings;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 
 public class LinksSettings extends Settings{
     private Color linksBGColor;
@@ -38,6 +41,8 @@ public class LinksSettings extends Settings{
 //        linksPosY = linkWindowPosY + 25;
         linksWidth = linkWindowWidth / 2 - 30;
         linksHeight = linkWindowHeight / 2 - 50;
+
+
     }
 
     public int getLinksWidth() {

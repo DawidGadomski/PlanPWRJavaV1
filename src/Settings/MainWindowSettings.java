@@ -78,11 +78,11 @@ public class MainWindowSettings extends Settings {
 //      Icons settings
         clearIconPosX = windowWidth - tileWidth * 3;
         clearIconPosY = windowHeight - tileHeight * 2;
-        saveIconPosX = 5;
+        saveIconPosX = 0;
         saveIconPosY = 5;
-        addIconPosX = tileWidth + 5;
+        addIconPosX = tileWidth;
         addIconPosY = 5;
-        settingsIconPosX = tileWidth * 2 + 5;
+        settingsIconPosX = tileWidth * 2;
         settingsIconPosY = 5;
         iconsWidth = tileWidth;
         iconsHeight = tileHeight;
