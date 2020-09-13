@@ -92,11 +92,11 @@ public class MainWindow {
      */
     private void drawBackground(Graphics2D g){
 //      Background
-        g.setColor(mainWindowSettings.getBackgroundColor());
+        g.setColor(mainWindowSettings.getGridBackgroundColor());
         g.fillRect(0,0,mainWindowSettings.getWindowWidth(),mainWindowSettings.getWindowHeight());
 
 //      Grid
-        g.setColor(mainWindowSettings.getGridColor());
+        g.setColor(mainWindowSettings.getThirdColor());
         for(int x=mainWindowSettings.getWorkSurfacePosX(); x <= mainWindowSettings.getWindowWidth(); x+=mainWindowSettings.getTileWidth()){
             g.drawLine(x, 0, x, (mainWindowSettings.getWindowHeight() - mainWindowSettings.getWorkspaceHeight()));
         }
@@ -105,7 +105,7 @@ public class MainWindow {
         }
 
 //      Workspace
-        g.setColor(mainWindowSettings.getWorkSurfaceColor());
+        g.setColor(mainWindowSettings.getFourthColor());
         g.fillRect(mainWindowSettings.getWorkspacePosX(), mainWindowSettings.getWorkspacePosY(), mainWindowSettings.getWorkspaceWidth(), mainWindowSettings.getWorkspaceHeight());
 
 //      Grid line

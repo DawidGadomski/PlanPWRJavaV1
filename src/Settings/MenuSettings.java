@@ -10,10 +10,6 @@ import java.io.IOException;
  * Ustawienai okna menu
  */
 public class MenuSettings extends Settings {
-// Settings.Settings
-    private Color fontColor;
-    private int menuTextSize;
-    private Font menuTextFont;
 
 //  URLs
     private String docIconURL;
@@ -36,14 +32,12 @@ public class MenuSettings extends Settings {
     private BufferedImage linksIcon;
 
 //  Menu window settings
-    private Color bgColor;
     private int menuWindowPosX;
     private int menuWindowPosY;
     private int menuWindowWidth;
     private int menuWindowHeightY;
 
 //  Separate line settings
-    private Color lineColor;
     private int lineOffsetX;
     private int lineOffsetY;
     private int lineStartX;
@@ -61,7 +55,6 @@ public class MenuSettings extends Settings {
     private int menuForthTextPosY;
 
 //  Tests settings
-    private Color testBGColor;
     private int testInfoPosX;
     private int testInfoPosY;
     private int testInfoWidth;
@@ -70,7 +63,6 @@ public class MenuSettings extends Settings {
     private int testInfoTextPosY;
 
 //  Absences settings
-    private Color absencesBgColor;
     private int absencesInfoPosX;
     private int absencesInfoPosY;
     private int absencesInfoWidth;
@@ -82,7 +74,6 @@ public class MenuSettings extends Settings {
     private int menuIconPosX;
     private int menuIconPosY;
     private int menuIconOffset;
-    private int menuIconSize;
     private int menuBackIconPosX;
     private int menuBackIconPosY;
     private int menuDocIconPosX;
@@ -95,16 +86,11 @@ public class MenuSettings extends Settings {
     private int menuClearIconPosY;
     private int addTestIconPosX;
     private int addTestIconPosY;
-    private int smallIconSize;
 
     /***
      * Konstruktor opcji menu
      */
     public MenuSettings(){
-//      Settings.Settings
-        fontColor = Color.WHITE;
-        menuTextSize = 20;
-        menuTextFont = new Font("Arial", Font.PLAIN, menuTextSize);
 
 //  URLs
         File iDoc = new File("Icons/folder.png");
@@ -140,14 +126,12 @@ public class MenuSettings extends Settings {
         }
 
 //      Menu window settings
-        bgColor = new Color(150,150,150);
         menuWindowPosX = 300;
         menuWindowPosY = 150;
         menuWindowWidth = windowWidth/2;
         menuWindowHeightY = windowHeight/2;
 
 //      Separate line settings
-        lineColor = new Color(127,127,127);
         lineOffsetX = 20;
         lineOffsetY = 80;
         lineStartX = menuWindowPosX + lineOffsetX;
@@ -160,12 +144,11 @@ public class MenuSettings extends Settings {
         menuTextOffsetY = 20;
         menuTextPosX = menuWindowPosX + menuTextOffsetX;
         menuFirstTextPosY = menuWindowPosY + menuTextOffsetY;
-        menuSecondTextPosY = menuWindowPosY + 2 * menuTextOffsetY + menuTextSize;
-        menuThirdTextPosY = menuWindowPosY + 4 * menuTextOffsetY + menuTextSize;
-        menuForthTextPosY = menuWindowPosY + 6 * menuTextOffsetY + menuTextSize;
+        menuSecondTextPosY = menuWindowPosY + 2 * menuTextOffsetY + mediumTextSize;
+        menuThirdTextPosY = menuWindowPosY + 4 * menuTextOffsetY + mediumTextSize;
+        menuForthTextPosY = menuWindowPosY + 6 * menuTextOffsetY + mediumTextSize;
 
 //      Tests settings
-        testBGColor = new Color(127, 127, 127);
         testInfoPosX = menuWindowPosX + menuWindowWidth / 2 + 25;
         testInfoPosY = menuWindowPosY + 25;
         testInfoWidth = menuWindowWidth / 2 - 30;
@@ -174,7 +157,6 @@ public class MenuSettings extends Settings {
         testInfoTextPosY = testInfoPosY - 5;
 
 //      Absences settings
-        absencesBgColor = new Color(127, 127,127);
         absencesInfoPosX = menuWindowPosX + menuWindowWidth / 2 + 25;
         absencesInfoPosY = menuWindowPosY + menuWindowHeightY / 2;
         absencesInfoWidth = menuWindowWidth / 2 - 30;
@@ -186,38 +168,21 @@ public class MenuSettings extends Settings {
         menuIconPosX = menuWindowPosX;
         menuIconPosY = 380;
         menuIconOffset = 33;
-        menuIconSize = 64;
         menuBackIconPosX = menuIconPosX + menuIconOffset;
         menuBackIconPosY = menuIconPosY;
-        menuDocIconPosX = menuIconPosX + menuIconSize + 2 * menuIconOffset;
+        menuDocIconPosX = menuIconPosX + bigIconSize + 2 * menuIconOffset;
         menuDocIconPosY = menuIconPosY;
-        menuFolderIconPosX = menuIconPosX + 2 * menuIconSize + 3 * menuIconOffset;
+        menuFolderIconPosX = menuIconPosX + 2 * bigIconSize + 3 * menuIconOffset;
         menuFolderIconPosY = menuIconPosY;
-        menuEditIconPosX = menuIconPosX + 3 * menuIconSize + 4 * menuIconOffset;
+        menuEditIconPosX = menuIconPosX + 3 * bigIconSize + 4 * menuIconOffset;
         menuEditIconPosY = menuIconPosY;
-        menuClearIconPosX = menuIconPosX + 4 * menuIconSize + 5 * menuIconOffset;
+        menuClearIconPosX = menuIconPosX + 4 * bigIconSize + 5 * menuIconOffset;
         menuClearIconPosY = menuIconPosY;
         addTestIconPosX = menuWindowPosX + menuWindowWidth / 2;
         addTestIconPosY = menuWindowPosY + 30;
-        smallIconSize = 20;
     }
 
-//  Setters and Getters
-    public Color getFontColor() {
-        return fontColor;
-    }
-
-    public int getMenuTextSize() {
-        return menuTextSize;
-    }
-
-    public Font getMenuTextFont() {
-        return menuTextFont;
-    }
-
-    public Color getBgColor() {
-        return bgColor;
-    }
+//  Getters
 
     public String getDocIconURL() {
         return docIconURL;
@@ -230,7 +195,6 @@ public class MenuSettings extends Settings {
     public String getNotesIconURL() {
         return notesIconURL;
     }
-
 
     public String getPlusIconURL() {
         return plusIconURL;
@@ -294,10 +258,6 @@ public class MenuSettings extends Settings {
 
     public int getMenuWindowHeightY() {
         return menuWindowHeightY;
-    }
-
-    public Color getLineColor() {
-        return lineColor;
     }
 
     public int getLineOffsetX() {
@@ -364,10 +324,6 @@ public class MenuSettings extends Settings {
         return menuIconOffset;
     }
 
-    public int getMenuIconSize() {
-        return menuIconSize;
-    }
-
     public int getMenuBackIconPosX() {
         return menuBackIconPosX;
     }
@@ -408,10 +364,6 @@ public class MenuSettings extends Settings {
         return menuClearIconPosY;
     }
 
-    public Color getTestBGColor() {
-        return testBGColor;
-    }
-
     public int getTestInfoPosX() {
         return testInfoPosX;
     }
@@ -436,20 +388,12 @@ public class MenuSettings extends Settings {
         return addTestIconPosY;
     }
 
-    public int getSmallIconSize() {
-        return smallIconSize;
-    }
-
     public int getTestInfoTextPosX() {
         return testInfoTextPosX;
     }
 
     public int getTestInfoTextPosY() {
         return testInfoTextPosY;
-    }
-
-    public Color getAbsencesBgColor() {
-        return absencesBgColor;
     }
 
     public int getAbsencesInfoPosX() {

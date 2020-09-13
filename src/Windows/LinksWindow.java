@@ -47,7 +47,7 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
         dWindow.setSize(linksSettings.getLinksWidth(), linksSettings.getLinksHeight());
         dWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dWindow.setLocationRelativeTo(frame);
-        dWindow.setBackground(linksSettings.getLinksBGColor());
+        dWindow.setBackground(linksSettings.getFirstColor());
 
         initIcons();
         initPanels();
@@ -64,37 +64,37 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
     }
 
     public void initIcons(){
-        backIcon = linksSettings.getBackIcon().getScaledInstance(linksSettings.getIconSize(), linksSettings.getIconSize(), Image.SCALE_DEFAULT);
-        addIcon = linksSettings.getAddIcon().getScaledInstance(linksSettings.getIconSize(), linksSettings.getIconSize(), Image.SCALE_DEFAULT);
+        backIcon = linksSettings.getBackIcon().getScaledInstance(linksSettings.getBigIconSize(), linksSettings.getBigIconSize(), Image.SCALE_DEFAULT);
+        addIcon = linksSettings.getAddIcon().getScaledInstance(linksSettings.getBigIconSize(), linksSettings.getBigIconSize(), Image.SCALE_DEFAULT);
     }
 
     public void initPanels(){
         buttonsPanel = new JPanel();
-        buttonsPanel.setBackground(linksSettings.getBgColor());
+        buttonsPanel.setBackground(linksSettings.getFirstColor());
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
     }
 
     public void initLabels(){
         lLinks = new JLabel("Links");
-        lLinks.setFont(linksSettings.getFont());
+        lLinks.setFont(linksSettings.getBigTextFont());
         lLinks.setForeground(Color.WHITE);
-        lLinks.setBackground(linksSettings.getLinksBGColor());
+        lLinks.setBackground(linksSettings.getFirstColor());
         lLinks.setHorizontalAlignment(SwingConstants.CENTER);
 
     }
 
     public void initButtons(){
         addButton = new JButton(new ImageIcon(addIcon));
-        addButton.setMinimumSize(new Dimension(linksSettings.getIconSize(), linksSettings.getIconSize()));
-        addButton.setPreferredSize(new Dimension(linksSettings.getIconSize(), linksSettings.getIconSize()));
-        addButton.setMaximumSize(new Dimension(Short.MAX_VALUE, linksSettings.getIconSize()));
+        addButton.setMinimumSize(new Dimension(linksSettings.getBigIconSize(), linksSettings.getBigIconSize()));
+        addButton.setPreferredSize(new Dimension(linksSettings.getBigIconSize(), linksSettings.getBigIconSize()));
+        addButton.setMaximumSize(new Dimension(Short.MAX_VALUE, linksSettings.getBigIconSize()));
         addButton.setContentAreaFilled(false);
         addButton.addActionListener(this);
 
         backButton = new JButton(new ImageIcon(backIcon));
-        backButton.setMinimumSize(new Dimension(linksSettings.getIconSize(), linksSettings.getIconSize()));
-        backButton.setPreferredSize(new Dimension(linksSettings.getIconSize(), linksSettings.getIconSize()));
-        backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, linksSettings.getIconSize()));
+        backButton.setMinimumSize(new Dimension(linksSettings.getBigIconSize(), linksSettings.getBigIconSize()));
+        backButton.setPreferredSize(new Dimension(linksSettings.getBigIconSize(), linksSettings.getBigIconSize()));
+        backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, linksSettings.getBigIconSize()));
         backButton.setContentAreaFilled(false);
         backButton.addActionListener(this);
 
@@ -110,9 +110,9 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
         linkList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         linkList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         linkList.setVisibleRowCount(-1);
-        linkList.setBackground(linksSettings.getLinksBGColor());
+        linkList.setBackground(linksSettings.getSecondColor());
         linkList.setPreferredSize(new Dimension(linksSettings.getWindowWidth(), linksSettings.getWindowHeight()));
-        linkList.setFont(linksSettings.getFont());
+        linkList.setFont(linksSettings.getBigTextFont());
         linkList.setForeground(Color.WHITE);
         linkList.addMouseListener(this);
 

@@ -37,14 +37,12 @@ public class Settings {
     protected int tileHeight;
     private int smallWindowWidth;
     private int smallWindowHeight;
-    private Color backgroundColor;
-    private Color gridColor;
-    private Color workSurfaceColor;
+
     private Stroke lineThickness5;
     private Stroke lineThickness3;
     private SimpleDateFormat sdf;
     private String[] days;
-    private Color transparency;
+
     private AffineTransform defaultTransform;
     private Font defaultFont;
     private Stroke defaultThickness;
@@ -54,10 +52,31 @@ public class Settings {
     private String addIconURL;
     private String saveIconURL;
 
+    protected int bigIconSize;
+    protected int smallIconSize;
+
     private BufferedImage backIcon;
     private BufferedImage addIcon;
     private BufferedImage clearIcon;
     private BufferedImage saveIcon;
+
+    // Text
+    private Font mediumTextFont;
+    private Font bigTextFont;
+    private Font smallTextFont;
+
+    protected int mediumTextSize;
+    private int bigTextSize;
+    private int smallTextSize;
+
+    // Colors
+    private Color firstColor;
+    private Color secondColor;
+    private Color textColor;
+    private Color gridBackgroundColor;
+    private Color thirdColor;
+    private Color fourthColor;
+    private Color transparency;
 
     /***
      * Ustawienia potrzebne w głównej klasie ustawień
@@ -106,14 +125,12 @@ public class Settings {
         tileHeight = windowHeight / 13;
         smallWindowWidth = windowWidth/2;
         smallWindowHeight = windowHeight/2;
-        backgroundColor = new Color(40, 40, 40);
-        gridColor = new Color(155, 155, 155);
-        workSurfaceColor = new Color(200, 200, 200);
+
         lineThickness5 = new BasicStroke(5);
         lineThickness3 = new BasicStroke(3);
         sdf =  new SimpleDateFormat("HH.mm");
         days  = new String[]{"pn", "wt", "sr", "cz", "pt"};
-        transparency  = new Color(0f,0f,0f,.5f);
+
 
 //      Needed Settings.Settings
         workSurfacePosX = tileWidth * 3;
@@ -140,6 +157,29 @@ public class Settings {
         addIconURL = iAdd.getAbsolutePath();
         saveIconURL = iSave.getAbsolutePath();
 
+        // Text
+        mediumTextSize = 26;
+        bigTextSize = 32;
+        smallTextSize = 20;
+
+        mediumTextFont = new Font("Arial", Font.PLAIN, mediumTextSize);
+        bigTextFont = new Font("Arial", Font.PLAIN, bigTextSize);
+        smallTextFont = new Font("Arial", Font.PLAIN, smallTextSize);
+
+        // Colors
+        textColor = new Color(255,255,255);
+
+        firstColor = new Color(127, 127, 127);  // main color of background
+        secondColor = new Color(150,150,150);   // second color of background
+        thirdColor = new Color(155, 155, 155); // lines color
+        fourthColor = new Color(200, 200, 200); // work surface color
+
+        gridBackgroundColor = new Color(40, 40, 40);
+        transparency  = new Color(0f,0f,0f,.5f);
+
+        bigIconSize = 64;
+        smallIconSize = 20;
+
         try{
             backIcon = ImageIO.read(iBack);
             addIcon = ImageIO.read(iAdd);
@@ -148,7 +188,6 @@ public class Settings {
         } catch (IOException e){
             e.printStackTrace();
         }
-
     }
 
     /***
@@ -365,16 +404,16 @@ public class Settings {
         return tileHeight;
     }
 
-    public Color getBackgroundColor() {
-        return backgroundColor;
+    public Color getGridBackgroundColor() {
+        return gridBackgroundColor;
     }
 
-    public Color getGridColor() {
-        return gridColor;
+    public Color getThirdColor() {
+        return thirdColor;
     }
 
-    public Color getWorkSurfaceColor() {
-        return workSurfaceColor;
+    public Color getFourthColor() {
+        return fourthColor;
     }
 
     public ArrayList<Subject> getSubjects() {
@@ -435,5 +474,49 @@ public class Settings {
 
     public BufferedImage getSaveIcon() {
         return saveIcon;
+    }
+
+    public int getBigIconSize() {
+        return bigIconSize;
+    }
+
+    public int getSmallIconSize() {
+        return smallIconSize;
+    }
+
+    public Font getMediumTextFont() {
+        return mediumTextFont;
+    }
+
+    public Font getBigTextFont() {
+        return bigTextFont;
+    }
+
+    public Font getSmallTextFont() {
+        return smallTextFont;
+    }
+
+    public int getMediumTextSize() {
+        return mediumTextSize;
+    }
+
+    public int getBigTextSize() {
+        return bigTextSize;
+    }
+
+    public int getSmallTextSize() {
+        return smallTextSize;
+    }
+
+    public Color getFirstColor() {
+        return firstColor;
+    }
+
+    public Color getSecondColor() {
+        return secondColor;
+    }
+
+    public Color getTextColor() {
+        return textColor;
     }
 }

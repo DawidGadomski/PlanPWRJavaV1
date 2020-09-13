@@ -125,14 +125,14 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     }
 
     private void initIcons(){
-        backIcon = menuSettings.getBackIcon().getScaledInstance(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize(), Image.SCALE_DEFAULT);
-        deleteIcon = menuSettings.getClearIcon().getScaledInstance(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize(), Image.SCALE_DEFAULT);
-        docIcon = menuSettings.getDocIcon().getScaledInstance(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize(), Image.SCALE_DEFAULT);
-        noteIcon = menuSettings.getNoteIcon().getScaledInstance(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize(), Image.SCALE_DEFAULT);
-        editIcon = menuSettings.getEditIcon().getScaledInstance(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize(), Image.SCALE_DEFAULT);
+        backIcon = menuSettings.getBackIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
+        deleteIcon = menuSettings.getClearIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
+        docIcon = menuSettings.getDocIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
+        noteIcon = menuSettings.getNoteIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
+        editIcon = menuSettings.getEditIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
         addTestIcon = menuSettings.getAddIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
         editAbsencesIcon = menuSettings.getEditAbsencesIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
-        plusIcon = menuSettings.getPlusIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        plusIcon = menuSettings.getAddIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
         minusIcon = menuSettings.getMinusIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
         okIcon = menuSettings.getOkIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
         linksIcon = menuSettings.getLinksIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
@@ -141,20 +141,20 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 
     private void initPanels(){
         iconPanel = new JPanel();
-        iconPanel.setBackground(menuSettings.getBgColor());
+        iconPanel.setBackground(menuSettings.getFirstColor());
         iconPanel.setLayout(new BoxLayout(iconPanel, BoxLayout.X_AXIS));
 
         textPanel = new JPanel();
-        textPanel.setBackground(menuSettings.getBgColor());
+        textPanel.setBackground(menuSettings.getFirstColor());
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.PAGE_AXIS));
 
         advancePanel = new JPanel();
-        advancePanel.setBackground(menuSettings.getBgColor());
+        advancePanel.setBackground(menuSettings.getFirstColor());
         advancePanel.setLayout(new GridBagLayout());
         constraints = new GridBagConstraints();
 
         absencesPanel = new JPanel();
-        absencesPanel.setBackground(menuSettings.getAbsencesBgColor());
+        absencesPanel.setBackground(menuSettings.getSecondColor());
         absencesPanel.setLayout(new BoxLayout(absencesPanel, BoxLayout.LINE_AXIS));
         absencesPanel.setSize(new Dimension(menuSettings.getAbsencesInfoWidth(), menuSettings.getAbsencesInfoHeight()));
 
@@ -162,44 +162,44 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 
     private void initLabels(){
         lTextName = new JLabel("Nazwa: ");
-        lTextName.setFont(menuSettings.getMenuTextFont());
+        lTextName.setFont(menuSettings.getMediumTextFont());
         lTextName.setForeground(Color.WHITE);
 
         lName = new JLabel(subject.getName());
-        lName.setFont(menuSettings.getMenuTextFont());
+        lName.setFont(menuSettings.getMediumTextFont());
         lName.setForeground(Color.WHITE);
 
         lTextTerm = new JLabel("Termin: ");
-        lTextTerm.setFont(menuSettings.getMenuTextFont());
+        lTextTerm.setFont(menuSettings.getMediumTextFont());
         lTextTerm.setForeground(Color.WHITE);
 
         lTerm = new JLabel(subject.getTerm());
-        lTerm.setFont(menuSettings.getMenuTextFont());
+        lTerm.setFont(menuSettings.getMediumTextFont());
         lTerm.setForeground(Color.WHITE);
 
         lTextRoom = new JLabel("Sala: ");
-        lTextRoom.setFont(menuSettings.getMenuTextFont());
+        lTextRoom.setFont(menuSettings.getMediumTextFont());
         lTextRoom.setForeground(Color.WHITE);
 
         lRoom = new JLabel(subject.getRoom());
-        lRoom.setFont(menuSettings.getMenuTextFont());
+        lRoom.setFont(menuSettings.getMediumTextFont());
         lRoom.setForeground(Color.WHITE);
 
         lTextProf = new JLabel("Prowadzący: ");
-        lTextProf.setFont(menuSettings.getMenuTextFont());
+        lTextProf.setFont(menuSettings.getMediumTextFont());
         lTextProf.setForeground(Color.WHITE);
 
         lProf = new JLabel(subject.getProf());
-        lProf.setFont(menuSettings.getMenuTextFont());
+        lProf.setFont(menuSettings.getMediumTextFont());
         lProf.setForeground(Color.WHITE);
 
         lTests = new JLabel("Kolokwia");
-        lTests.setFont(menuSettings.getMenuTextFont());
+        lTests.setFont(menuSettings.getMediumTextFont());
         lTests.setForeground(Color.WHITE);
         lTests.setHorizontalAlignment(SwingConstants.RIGHT);
 
         lAbsences = new JLabel("Nieobecności");
-        lAbsences.setFont(menuSettings.getMenuTextFont());
+        lAbsences.setFont(menuSettings.getMediumTextFont());
         lAbsences.setForeground(Color.WHITE);
         lAbsences.setHorizontalAlignment(SwingConstants.RIGHT);
     }
@@ -222,41 +222,41 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         editAbsencesButton.addActionListener(this);
 
         backButton = new JButton(new ImageIcon(backIcon));
-        backButton.setMinimumSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
-        backButton.setPreferredSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
-        backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getMenuIconSize()));
+        backButton.setMinimumSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        backButton.setPreferredSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getBigIconSize()));
 //        backButton.setBorder(BorderFactory.createEmptyBorder());
         backButton.setContentAreaFilled(false);
         backButton.addActionListener(this);
 
         docButton = new JButton(new ImageIcon(docIcon));
-        docButton.setMinimumSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
-        docButton.setPreferredSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
-        docButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getMenuIconSize()));
+        docButton.setMinimumSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        docButton.setPreferredSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        docButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getBigIconSize()));
 //        docButton.setBorder(BorderFactory.createEmptyBorder());
         docButton.setContentAreaFilled(false);
         docButton.addActionListener(this);
 
         editButton = new JButton(new ImageIcon(editIcon));
-        editButton.setMinimumSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
-        editButton.setPreferredSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
-        editButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getMenuIconSize()));
+        editButton.setMinimumSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        editButton.setPreferredSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        editButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getBigIconSize()));
 //        editButton.setBorder(BorderFactory.createEmptyBorder());
         editButton.setContentAreaFilled(false);
         editButton.addActionListener(this);
 
         noteButton = new JButton(new ImageIcon(noteIcon));
-        noteButton.setMinimumSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
-        noteButton.setPreferredSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
-        noteButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getMenuIconSize()));
+        noteButton.setMinimumSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        noteButton.setPreferredSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        noteButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getBigIconSize()));
 //        noteButton.setBorder(BorderFactory.createEmptyBorder());
         noteButton.setContentAreaFilled(false);
         noteButton.addActionListener(this);
 
         deleteButton = new JButton(new ImageIcon(deleteIcon));
-        deleteButton.setMinimumSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
-        deleteButton.setPreferredSize(new Dimension(menuSettings.getMenuIconSize(), menuSettings.getMenuIconSize()));
-        deleteButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getMenuIconSize()));
+        deleteButton.setMinimumSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        deleteButton.setPreferredSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        deleteButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getBigIconSize()));
 //        deleteButton.setBorder(BorderFactory.createEmptyBorder());
         deleteButton.setContentAreaFilled(false);
         deleteButton.addActionListener(this);
@@ -303,9 +303,9 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         testList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         testList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         testList.setVisibleRowCount(-1);
-        testList.setBackground(menuSettings.getTestBGColor());
+        testList.setBackground(menuSettings.getSecondColor());
         testList.setPreferredSize(new Dimension(menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight()));
-        testList.setFont(menuSettings.getMenuTextFont());
+        testList.setFont(menuSettings.getMediumTextFont());
         testList.setForeground(Color.WHITE);
         testList.addMouseListener(this);
 
@@ -313,7 +313,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         listScroller.setPreferredSize(new Dimension(menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight()));
 
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(menuSettings.getLineColor());
+        sLine.setBackground(menuSettings.getThirdColor());
     }
 
     private void initTextPanel(){
@@ -347,25 +347,25 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         iconPanel.add(docButton);
         iconPanel.add(Box.createHorizontalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(menuSettings.getLineColor());
+        sLine.setBackground(menuSettings.getThirdColor());
         iconPanel.add(sLine);
 
         iconPanel.add(editButton);
         iconPanel.add(Box.createHorizontalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(menuSettings.getLineColor());
+        sLine.setBackground(menuSettings.getThirdColor());
         iconPanel.add(sLine);
 
         iconPanel.add(linksButton);
         iconPanel.add(Box.createHorizontalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(menuSettings.getLineColor());
+        sLine.setBackground(menuSettings.getThirdColor());
         iconPanel.add(sLine);
 
         iconPanel.add(noteButton);
         iconPanel.add(Box.createHorizontalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(menuSettings.getLineColor());
+        sLine.setBackground(menuSettings.getThirdColor());
         iconPanel.add(sLine);
 
         iconPanel.add(deleteButton);

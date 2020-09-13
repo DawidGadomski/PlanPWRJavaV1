@@ -26,7 +26,7 @@ public class MainWindowSettings extends Settings {
     private Font daysFont;
     private Font timesFont;
 
-    //  Icons.Icon surface
+    //  Icons surface
     private int iconSurfacePosX;
     private int iconSurfacePosY;
     private int iconSurfaceWidth;
@@ -89,7 +89,7 @@ public class MainWindowSettings extends Settings {
         clearIconSize = 64;
     }
 
-//  Setters and Getters
+//  Getters
     public int getTimePosX() {
         return timePosX;
     }

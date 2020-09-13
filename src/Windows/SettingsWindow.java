@@ -48,7 +48,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         dWindow.setSize(settings.getSmallWindowWidth(), settings.getSmallWindowHeight());
         dWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dWindow.setLocationRelativeTo(frame);
-        dWindow.setBackground(settings.getBackgroundColor());
+        dWindow.setBackground(settings.getGridBackgroundColor());
 
         pCard = new JPanel();
         pCard.setLayout(new CardLayout());
@@ -68,56 +68,56 @@ public class SettingsWindow extends JDialog implements ActionListener {
 
     public void initButtonsPanel(){
         buttonsPanel = new JPanel();
-        buttonsPanel.setBackground(settings.getBgColor());
+        buttonsPanel.setBackground(settings.getFirstColor());
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
 
-        backIcon = settings.getBackImage().getScaledInstance(settings.getIconSize(), settings.getIconSize(), Image.SCALE_DEFAULT);
-        colorsIcon = settings.getColorsImage().getScaledInstance(settings.getIconSize(), settings.getIconSize(), Image.SCALE_DEFAULT);
-        aboutIcon = settings.getAboutImage().getScaledInstance(settings.getIconSize(), settings.getIconSize(), Image.SCALE_DEFAULT);
-        advancedIcon = settings.getAdvancedImage().getScaledInstance(settings.getIconSize(), settings.getIconSize(), Image.SCALE_DEFAULT);
+        backIcon = settings.getBackIcon().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(), Image.SCALE_DEFAULT);
+        colorsIcon = settings.getColorsImage().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(), Image.SCALE_DEFAULT);
+        aboutIcon = settings.getAboutImage().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(), Image.SCALE_DEFAULT);
+        advancedIcon = settings.getAdvancedImage().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(), Image.SCALE_DEFAULT);
 
         backButton = new JButton(new ImageIcon(backIcon));
-        backButton.setMinimumSize(new Dimension(settings.getIconSize(), settings.getIconSize()));
-        backButton.setPreferredSize(new Dimension(settings.getIconSize(), settings.getIconSize()));
-        backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getIconSize()));
+        backButton.setMinimumSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
+        backButton.setPreferredSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
+        backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getBigIconSize()));
 //        backButton.setContentAreaFilled(false);
         backButton.addActionListener(this);
 
         colorsPanelButton = new JButton(new ImageIcon(colorsIcon));
-        colorsPanelButton.setMinimumSize(new Dimension(settings.getIconSize(), settings.getIconSize()));
-        colorsPanelButton.setPreferredSize(new Dimension(settings.getIconSize(), settings.getIconSize()));
-        colorsPanelButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getIconSize()));
+        colorsPanelButton.setMinimumSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
+        colorsPanelButton.setPreferredSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
+        colorsPanelButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getBigIconSize()));
 //        colorsPanelButton.setContentAreaFilled(false);
         colorsPanelButton.addActionListener(this);
 
         advancedPanelButton = new JButton(new ImageIcon(advancedIcon));
-        advancedPanelButton.setMinimumSize(new Dimension(settings.getIconSize(), settings.getIconSize()));
-        advancedPanelButton.setPreferredSize(new Dimension(settings.getIconSize(), settings.getIconSize()));
-        advancedPanelButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getIconSize()));
+        advancedPanelButton.setMinimumSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
+        advancedPanelButton.setPreferredSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
+        advancedPanelButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getBigIconSize()));
 //        advancedPanelButton.setContentAreaFilled(false);
         advancedPanelButton.addActionListener(this);
 
         authorPanelButton = new JButton(new ImageIcon(aboutIcon));
-        authorPanelButton.setMinimumSize(new Dimension(settings.getIconSize(), settings.getIconSize()));
-        authorPanelButton.setPreferredSize(new Dimension(settings.getIconSize(), settings.getIconSize()));
-        authorPanelButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getIconSize()));
+        authorPanelButton.setMinimumSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
+        authorPanelButton.setPreferredSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
+        authorPanelButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getBigIconSize()));
 //        authorPanelButton.setContentAreaFilled(false);
         authorPanelButton.addActionListener(this);
 
         buttonsPanel.add(backButton);
         buttonsPanel.add(Box.createVerticalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(settings.getLineColor());
+        sLine.setBackground(settings.getThirdColor());
         buttonsPanel.add(sLine);
         buttonsPanel.add(colorsPanelButton);
         buttonsPanel.add(Box.createVerticalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(settings.getLineColor());
+        sLine.setBackground(settings.getThirdColor());
         buttonsPanel.add(sLine);
         buttonsPanel.add(authorPanelButton);
         buttonsPanel.add(Box.createVerticalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(settings.getLineColor());
+        sLine.setBackground(settings.getThirdColor());
         buttonsPanel.add(sLine);
         buttonsPanel.add(advancedPanelButton);
         buttonsPanel.add(Box.createVerticalGlue());
@@ -126,7 +126,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
     public void initAboutPanel(){
         aboutPanel = new JPanel();
         aboutPanel.setBorder(new EmptyBorder(10,10,10,10));
-        aboutPanel.setBackground(settings.getBgColor());
+        aboutPanel.setBackground(settings.getSecondColor());
         aboutPanel.setLayout(new BoxLayout(aboutPanel, BoxLayout.Y_AXIS));
 //        aboutPanel.setVisible(true);
 
@@ -152,7 +152,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
     public void initAdvancedPanel(){
         advancePanel = new JPanel();
         advancePanel.setBorder(new EmptyBorder(10,10,10,10));
-        advancePanel.setBackground(settings.getBgColor());
+        advancePanel.setBackground(settings.getSecondColor());
         advancePanel.setLayout(new BoxLayout(advancePanel, BoxLayout.X_AXIS));
 //        advancePanel.setVisible(false);
 
@@ -165,7 +165,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
     public void initColorsPanel(){
         colorPanel = new JPanel();
         colorPanel.setBorder(new EmptyBorder(10,10,10,10));
-        colorPanel.setBackground(settings.getBgColor());
+        colorPanel.setBackground(settings.getSecondColor());
         colorPanel.setLayout(new BoxLayout(colorPanel, BoxLayout.X_AXIS));
 //        colorPanel.setVisible(false);
 

@@ -19,6 +19,7 @@ public class NotesSettings extends Settings {
     private String saveIconURL;
 
 //  Icons
+
     private BufferedImage backIcon;
     private BufferedImage addIcon;
     private BufferedImage saveIcon;
@@ -69,7 +70,6 @@ public class NotesSettings extends Settings {
         backIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\back.png";
         saveIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\save.png";
         addIconURL = "C:\\Users\\dawik\\IdeaProjects\\Plan PWR\\Icons\\add.png";
-
 
 //      Icons
         try{
