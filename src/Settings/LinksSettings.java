@@ -9,6 +9,10 @@ public class LinksSettings extends Settings {
     private int linksWidth;
     private int linksHeight;
 
+    /***
+    * Ustawienia okna z zakładkami
+    */
+    
     public LinksSettings() {
         linkWindowPosX = 300;
         linkWindowPosY = 150;
