@@ -22,39 +22,49 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /***
  * Główne ustawienia
- * Wszystkie dane dotyczace pozycji elementów są narazie ustawione
- * Docelowo chciałbym by interfejs był skalowalny
- * Pozostałe klasy z ustawieniami dziedziczą po tej klasie
  */
 public class Settings {
     private String path;
 
-//  Main Settings.Settings
+//  Display metrics
     protected Dimension screenDimension;
     protected int windowWidth;
     protected int windowHeight;
+    protected int numberOfTilesX;
+    protected int numberOfTilesY;
     protected int tileWidth;
     protected int tileHeight;
     private int smallWindowWidth;
     private int smallWindowHeight;
-
+    
+//  Strokes
     private Stroke lineThickness5;
     private Stroke lineThickness3;
-    private SimpleDateFormat sdf;
-    private String[] days;
-
     private AffineTransform defaultTransform;
     private Font defaultFont;
     private Stroke defaultThickness;
-
+    
+//  Date
+    private SimpleDateFormat sdf;
+    private String[] days;
+    
+//  URLs
     private String backIconURL;
     private String clearIconURL;
     private String addIconURL;
     private String saveIconURL;
-
+    
+//  Icons files
+    private File iBack;
+    private File iClear;
+    private File iAdd;
+    private File iSave;
+    
+//  Icons size
     protected int bigIconSize;
     protected int smallIconSize;
 
+//  Icons
     private BufferedImage backIcon;
     private BufferedImage addIcon;
     private BufferedImage clearIcon;
@@ -80,7 +90,6 @@ public class Settings {
 
     /***
      * Ustawienia potrzebne w głównej klasie ustawień
-     * Możliwe że do zmiany
      */
     protected int noteWindowPosX;
     protected int noteWindowPosY;
@@ -89,7 +98,7 @@ public class Settings {
     protected int workSurfaceWidth;
     protected int workSurfaceHeight;
 
-//  File Settings.Settings
+//  File
     private JFileChooser fileChooser;
     private FileNameExtensionFilter fileNameFilter;
     private FileWriter fileWriter;
@@ -117,22 +126,29 @@ public class Settings {
                 break;
         }
 
-//      Settings.Settings
+//      Display metrics
         screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
         windowWidth = screenDimension.width;
         windowHeight = screenDimension.height;
-        tileWidth = windowWidth / 58;
-        tileHeight = windowHeight / 13;
+        
+        numberOfTilesX = 58;
+        numberOfTilesY = 13;
+        
+        tileWidth = windowWidth / numberOfTilesX;
+        tileHeight = windowHeight / numberOfTilesY;
         smallWindowWidth = windowWidth/2;
         smallWindowHeight = windowHeight/2;
 
+//      Strokes
         lineThickness5 = new BasicStroke(5);
         lineThickness3 = new BasicStroke(3);
+        
+//      Date
         sdf =  new SimpleDateFormat("HH.mm");
         days  = new String[]{"pn", "wt", "sr", "cz", "pt"};
 
 
-//      Needed Settings.Settings
+//      Needed Settings
         workSurfacePosX = tileWidth * 3;
         workSurfacePosY = tileHeight;
         workSurfaceWidth = windowWidth - workSurfacePosX;
@@ -145,19 +161,20 @@ public class Settings {
         subjectsList = new ArrayList<DataOfSubject>();
         notesList = new ArrayList<DataOfNote>();
         notes = new ArrayList<Note>();
+        
+//      Icons files
+        iBack = new File("Icons/back.png");
+        iClear = new File("Icons/clear.png");
+        iAdd = new File("Icons/add.png");
+        iSave = new File("Icons/save.png");
 
-
-        File iBack = new File("Icons/back.png");
-        File iClear = new File("Icons/clear.png");
-        File iAdd = new File("Icons/add.png");
-        File iSave = new File("Icons/save.png");
-
+//      URLs
         backIconURL = iBack.getAbsolutePath();
         clearIconURL = iClear.getAbsolutePath();
         addIconURL = iAdd.getAbsolutePath();
         saveIconURL = iSave.getAbsolutePath();
 
-        // Text
+//      Text
         mediumTextSize = 26;
         bigTextSize = 32;
         smallTextSize = 20;
@@ -166,9 +183,8 @@ public class Settings {
         bigTextFont = new Font("Arial", Font.PLAIN, bigTextSize);
         smallTextFont = new Font("Arial", Font.PLAIN, smallTextSize);
 
-        // Colors
+//      Colors
         textColor = new Color(255,255,255);
-
         firstColor = new Color(127, 127, 127);  // main color of background
         secondColor = new Color(150,150,150);   // second color of background
         thirdColor = new Color(155, 155, 155); // lines color
@@ -176,10 +192,12 @@ public class Settings {
 
         gridBackgroundColor = new Color(40, 40, 40);
         transparency  = new Color(0f,0f,0f,.5f);
-
+        
+//      Icons size
         bigIconSize = 64;
         smallIconSize = 20;
 
+//      Icons
         try{
             backIcon = ImageIO.read(iBack);
             addIcon = ImageIO.read(iAdd);
