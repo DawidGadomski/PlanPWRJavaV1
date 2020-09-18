@@ -13,7 +13,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
     private JPanel pCard;
     private JPanel buttonsPanel;
     private JPanel aboutPanel;
-    private JPanel colorPanel;
+
     private JPanel advancePanel;
 
     private Image aboutIcon;
@@ -32,10 +32,33 @@ public class SettingsWindow extends JDialog implements ActionListener {
     private JLabel lVersion;
     private JLabel lAbout;
     private JLabel lAdvanced;
+
+//    Color Panel
+    private JPanel colorPanel;
+    private JPanel colorsPanel;
+    private JPanel colorsInfo;
+    private JPanel colorsButtons;
     private JLabel lColors;
-    private JLabel lBackgroundColors;
-    private JLabel lTextColor;
+    private JLabel lMainColor;
+    private JLabel lMainColorInfo;
+    private JLabel lSecondColor;
+    private JLabel lSecondColorInfo;
+    private JLabel lThirdColor;
+    private JLabel lThirdColorInfo;
+    private JLabel lFourthColor;
+    private JLabel lFourthColorInfo;
     private JLabel lGridColor;
+    private JLabel lGridColorInfo;
+    private JLabel lTextColor;
+    private JLabel lTextColorInfo;
+
+    private JButton bMainColor;
+    private JButton bSecondColor;
+    private JButton bThirdColor;
+    private JButton bFourthColor;
+    private JButton bGridColor;
+    private JButton bTextColor;
+
 
     public SettingsWindow(JFrame frame){
         super(frame, ModalityType.APPLICATION_MODAL);
@@ -160,12 +183,14 @@ public class SettingsWindow extends JDialog implements ActionListener {
         lAdvanced.setForeground(settings.getTextColor());
         lAdvanced.setHorizontalAlignment(SwingConstants.CENTER);
         lAdvanced.setFont(settings.getBigTextFont());
+
+        advancePanel.add(lAdvanced);
     }
 
     public void initColorsPanel(){
         colorPanel = new JPanel();
         colorPanel.setBorder(new EmptyBorder(10,10,10,10));
-        colorPanel.setBackground(settings.getSecondColor());
+        colorPanel.setBackground(settings.getFirstColor());
         colorPanel.setLayout(new BoxLayout(colorPanel, BoxLayout.X_AXIS));
 //        colorPanel.setVisible(false);
 
@@ -173,6 +198,125 @@ public class SettingsWindow extends JDialog implements ActionListener {
         lColors.setFont(settings.getBigTextFont());
         lColors.setHorizontalAlignment(SwingConstants.CENTER);
         lColors.setForeground(settings.getTextColor());
+
+        colorsPanel = new JPanel();
+        colorsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        colorsPanel.setBackground(settings.getSecondColor());
+        colorsPanel.setLayout(new BoxLayout(colorsInfo, BoxLayout.Y_AXIS));
+
+        colorsInfo = new JPanel();
+        colorsInfo.setBorder(new EmptyBorder(10, 10, 10, 10));
+        colorsInfo.setBackground(settings.getSecondColor());
+        colorsInfo.setLayout(new BoxLayout(colorsInfo, BoxLayout.X_AXIS));
+
+        colorsButtons = new JPanel();
+        colorsButtons.setBorder(new EmptyBorder(10, 10, 10, 10));
+        colorsButtons.setBackground(settings.getSecondColor());
+        colorsButtons.setLayout(new BoxLayout(colorsInfo, BoxLayout.X_AXIS));
+
+        lMainColor = new JLabel("Main Color");
+        lMainColor.setFont(settings.getMediumTextFont());
+        lMainColor.setHorizontalAlignment(SwingConstants.LEFT);
+        lMainColor.setForeground(settings.getTextColor());
+
+        lMainColorInfo = new JLabel("Main color of app");
+        lMainColorInfo.setFont(settings.getSmallTextFont());
+        lMainColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
+        lMainColorInfo.setForeground(settings.getDarkTextColor());
+
+        lSecondColor = new JLabel("Second Color");
+        lSecondColor.setFont(settings.getMediumTextFont());
+        lSecondColor.setHorizontalAlignment(SwingConstants.LEFT);
+        lSecondColor.setForeground(settings.getTextColor());
+
+        lSecondColorInfo = new JLabel("Highlight color");
+        lSecondColorInfo.setFont(settings.getSmallTextFont());
+        lSecondColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
+        lSecondColorInfo.setForeground(settings.getDarkTextColor());
+
+        lThirdColor = new JLabel("Third Color");
+        lThirdColor.setFont(settings.getMediumTextFont());
+        lThirdColor.setHorizontalAlignment(SwingConstants.LEFT);
+        lThirdColor.setForeground(settings.getTextColor());
+
+        lThirdColorInfo = new JLabel("Lines color");
+        lThirdColorInfo.setFont(settings.getSmallTextFont());
+        lThirdColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
+        lThirdColorInfo.setForeground(settings.getDarkTextColor());
+
+        lFourthColor = new JLabel("Fourth Color");
+        lFourthColor.setFont(settings.getMediumTextFont());
+        lFourthColor.setHorizontalAlignment(SwingConstants.LEFT);
+        lFourthColor.setForeground(settings.getTextColor());
+
+        lFourthColorInfo = new JLabel("Color of the workspace");
+        lFourthColorInfo.setFont(settings.getSmallTextFont());
+        lFourthColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
+        lFourthColorInfo.setForeground(settings.getDarkTextColor());
+
+        lGridColor = new JLabel("Grid Color");
+        lGridColor.setFont(settings.getMediumTextFont());
+        lGridColor.setHorizontalAlignment(SwingConstants.LEFT);
+        lGridColor.setForeground(settings.getTextColor());
+
+        lGridColorInfo = new JLabel("Color of the grid");
+        lGridColorInfo.setFont(settings.getSmallTextFont());
+        lGridColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
+        lGridColorInfo.setForeground(settings.getDarkTextColor());
+
+        lTextColor = new JLabel("Text Color");
+        lTextColor.setFont(settings.getMediumTextFont());
+        lTextColor.setHorizontalAlignment(SwingConstants.LEFT);
+        lTextColor.setForeground(settings.getTextColor());
+
+        lTextColorInfo = new JLabel("Color of text in app");
+        lTextColorInfo.setFont(settings.getSmallTextFont());
+        lTextColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
+        lTextColorInfo.setForeground(settings.getDarkTextColor());
+
+        colorsInfo.add(lMainColor);
+        colorsInfo.add(lMainColorInfo);
+        colorsInfo.add(lSecondColor);
+        colorsInfo.add(lSecondColorInfo);
+        colorsInfo.add(lThirdColor);
+        colorsInfo.add(lThirdColorInfo);
+        colorsInfo.add(lFourthColor);
+        colorsInfo.add(lFourthColorInfo);
+        colorsInfo.add(lGridColor);
+        colorsInfo.add(lGridColorInfo);
+        colorsInfo.add(lTextColor);
+        colorsInfo.add(lTextColorInfo);
+
+        bMainColor = new JButton();
+        bMainColor.setBackground(settings.getFirstColor());
+
+        bSecondColor = new JButton();
+        bSecondColor.setBackground(settings.getSecondColor());
+
+        bThirdColor = new JButton();
+        bThirdColor.setBackground(settings.getThirdColor());
+
+        bFourthColor = new JButton();
+        bFourthColor.setBackground(settings.getFourthColor());
+
+        bGridColor = new JButton();
+        bGridColor.setBackground(settings.getGridBackgroundColor());
+
+        bTextColor = new JButton();
+        bTextColor.setBackground(settings.getTextColor());
+
+        colorsButtons.add(bMainColor);
+        colorsButtons.add(bSecondColor);
+        colorsButtons.add(bThirdColor);
+        colorsButtons.add(bFourthColor);
+        colorsButtons.add(bGridColor);
+        colorsButtons.add(bTextColor);
+
+        colorsPanel.add(colorsInfo);
+        colorsPanel.add(colorsButtons);
+
+        colorPanel.add(lColors);
+        colorPanel.add(colorsPanel);
     }
 
     @Override
