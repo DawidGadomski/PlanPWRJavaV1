@@ -7,10 +7,9 @@ import java.io.IOException;
 public class DocIcon extends Icon {
     public DocIcon(int x, int y, int size) {
         super(x, y);
-        file = new File("Icons/document.png");
         this.size = size;
         try{
-            image = ImageIO.read(file);
+            image = ImageIO.read(getClass().getResource("/resources/images/document.png"));
         } catch (IOException e){
             e.printStackTrace();
         }

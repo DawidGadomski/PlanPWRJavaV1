@@ -163,44 +163,45 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     private void initLabels(){
         lTextName = new JLabel("Nazwa: ");
         lTextName.setFont(menuSettings.getMediumTextFont());
-        lTextName.setForeground(Color.WHITE);
+        lTextName.setForeground(menuSettings.getTextColor());
 
         lName = new JLabel(subject.getName());
         lName.setFont(menuSettings.getMediumTextFont());
-        lName.setForeground(Color.WHITE);
+        lName.setForeground(menuSettings.getTextColor());
+        lName.setBackground(menuSettings.getSecondColor());
 
         lTextTerm = new JLabel("Termin: ");
         lTextTerm.setFont(menuSettings.getMediumTextFont());
-        lTextTerm.setForeground(Color.WHITE);
+        lTextTerm.setForeground(menuSettings.getTextColor());
 
         lTerm = new JLabel(subject.getTerm());
         lTerm.setFont(menuSettings.getMediumTextFont());
-        lTerm.setForeground(Color.WHITE);
+        lTerm.setForeground(menuSettings.getTextColor());
 
         lTextRoom = new JLabel("Sala: ");
         lTextRoom.setFont(menuSettings.getMediumTextFont());
-        lTextRoom.setForeground(Color.WHITE);
+        lTextRoom.setForeground(menuSettings.getTextColor());
 
         lRoom = new JLabel(subject.getRoom());
         lRoom.setFont(menuSettings.getMediumTextFont());
-        lRoom.setForeground(Color.WHITE);
+        lRoom.setForeground(menuSettings.getTextColor());
 
         lTextProf = new JLabel("Prowadzący: ");
         lTextProf.setFont(menuSettings.getMediumTextFont());
-        lTextProf.setForeground(Color.WHITE);
+        lTextProf.setForeground(menuSettings.getTextColor());
 
         lProf = new JLabel(subject.getProf());
         lProf.setFont(menuSettings.getMediumTextFont());
-        lProf.setForeground(Color.WHITE);
+        lProf.setForeground(menuSettings.getTextColor());
 
         lTests = new JLabel("Kolokwia");
         lTests.setFont(menuSettings.getMediumTextFont());
-        lTests.setForeground(Color.WHITE);
+        lTests.setForeground(menuSettings.getTextColor());
         lTests.setHorizontalAlignment(SwingConstants.RIGHT);
 
         lAbsences = new JLabel("Nieobecności");
         lAbsences.setFont(menuSettings.getMediumTextFont());
-        lAbsences.setForeground(Color.WHITE);
+        lAbsences.setForeground(menuSettings.getTextColor());
         lAbsences.setHorizontalAlignment(SwingConstants.RIGHT);
     }
 
@@ -301,7 +302,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 
         testList = new JList<String>(listModel); //data has type Object[]
         testList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        testList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        testList.setLayoutOrientation(JList.VERTICAL_WRAP);
         testList.setVisibleRowCount(-1);
         testList.setBackground(menuSettings.getSecondColor());
         testList.setPreferredSize(new Dimension(menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight()));
@@ -504,7 +505,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
             dWindow.setVisible(false);
         }
         else if(e.getSource() == linksButton){
-            dWindow.setVisible(false);
             linksWindow = new LinksWindow(this, this.subject);
         }
         else if(e.getSource() == addTestButton){

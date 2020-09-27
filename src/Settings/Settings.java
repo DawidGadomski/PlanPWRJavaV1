@@ -25,6 +25,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Settings {
     private String path;
+    private static final String AUTHOR_NAME = "Dawid Gadomski";
+    private static final String VERSION = "1.0";
+    private static final String[] LANGUAGES = {"English", "Polski"};
 
 //  Display metrics
     protected Dimension screenDimension;
@@ -83,6 +86,7 @@ public class Settings {
     private Color firstColor;
     private Color secondColor;
     private Color textColor;
+    private Color darkTextColor;
     private Color gridBackgroundColor;
     private Color thirdColor;
     private Color fourthColor;
@@ -185,6 +189,7 @@ public class Settings {
 
 //      Colors
         textColor = new Color(255,255,255);
+        darkTextColor = new Color(116, 94, 94);
         firstColor = new Color(127, 127, 127);  // main color of background
         secondColor = new Color(150,150,150);   // second color of background
         thirdColor = new Color(155, 155, 155); // lines color
@@ -199,13 +204,21 @@ public class Settings {
 
 //      Icons
         try{
-            backIcon = ImageIO.read(iBack);
-            addIcon = ImageIO.read(iAdd);
-            clearIcon = ImageIO.read(iClear);
-            saveIcon = ImageIO.read(iSave);
+            backIcon = ImageIO.read(getClass().getResource("/resources/images/back.png"));
+            addIcon = ImageIO.read(getClass().getResource("/resources/images/add.png"));
+            clearIcon = ImageIO.read(getClass().getResource("/resources/images/clear.png"));
+            saveIcon = ImageIO.read(getClass().getResource("/resources/images/save.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
+        for(int y = 0; y < backIcon.getHeight(); y++)
+            for(int x = 0; x < backIcon.getWidth(); x++)
+            {
+//                Color imageColor = new Color(backIcon.getRGB(x, y));
+                //mix imageColor and desired color
+                backIcon.setRGB(x, y, secondColor.getRGB());
+            }
+
     }
 
     /***
@@ -362,6 +375,12 @@ public class Settings {
     }
 //  Getters and Setters
 
+    public String getAuthorName(){return AUTHOR_NAME;}
+
+    public String getVersion(){return VERSION;}
+
+    public String[] getLanguages(){return LANGUAGES;}
+
     public String getPath() {
         return path;
     }
@@ -422,6 +441,10 @@ public class Settings {
         return tileHeight;
     }
 
+    public Color getDarkTextColor() {
+        return darkTextColor;
+    }
+
     public Color getGridBackgroundColor() {
         return gridBackgroundColor;
     }
@@ -432,6 +455,34 @@ public class Settings {
 
     public Color getFourthColor() {
         return fourthColor;
+    }
+
+    public void setFirstColor(Color firstColor) {
+        this.firstColor = firstColor;
+    }
+
+    public void setSecondColor(Color secondColor) {
+        this.secondColor = secondColor;
+    }
+
+    public void setTextColor(Color textColor) {
+        this.textColor = textColor;
+    }
+
+    public void setDarkTextColor(Color darkTextColor) {
+        this.darkTextColor = darkTextColor;
+    }
+
+    public void setGridBackgroundColor(Color gridBackgroundColor) {
+        this.gridBackgroundColor = gridBackgroundColor;
+    }
+
+    public void setThirdColor(Color thirdColor) {
+        this.thirdColor = thirdColor;
+    }
+
+    public void setFourthColor(Color fourthColor) {
+        this.fourthColor = fourthColor;
     }
 
     public ArrayList<Subject> getSubjects() {

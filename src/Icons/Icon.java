@@ -11,7 +11,6 @@ import java.io.File;
  */
 public class Icon extends JComponent {
     protected int size;
-    protected File file;
     protected int posX, posY;
     protected BufferedImage image;
 

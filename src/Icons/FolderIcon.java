@@ -7,10 +7,9 @@ import java.io.IOException;
 public class FolderIcon extends Icon{
     public FolderIcon(int x, int y, int size) {
         super(x, y);
-        file = new File("Icons/folder.png");
         this.size = size;
         try{
-            image = ImageIO.read(file);
+            image = ImageIO.read(getClass().getResource("/resources/images/folder.png"));
         } catch (IOException e){
             e.printStackTrace();
         }

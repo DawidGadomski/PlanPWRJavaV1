@@ -139,11 +139,12 @@ public class MainWindow {
         Timestamp timestamp = new Timestamp(2020,0,1,7,30,0,0);
         String timeStamp = mainWindowSettings.getSdf().format(timestamp);
         g.setFont(mainWindowSettings.getTimesFont());
-        for(int index = 0; index < 55; index++){
+        for(int index = 1; index <= 55; index++){
             mainWindowSettings.drawCenteredString(g, timeStamp, new Rectangle((mainWindowSettings.getTimeTextOffset() + mainWindowSettings.getTimePosX() * index),
                     mainWindowSettings.getTimePosY(), mainWindowSettings.getTileWidth(), mainWindowSettings.getTimePosY()), mainWindowSettings.getTimesFont(), true);
             timestamp.setTime(timestamp.getTime() + TimeUnit.MINUTES.toMillis(15));
             timeStamp = mainWindowSettings.getSdf().format(timestamp);
+            System.out.println((mainWindowSettings.getTimeTextOffset() + mainWindowSettings.getTimePosX() * index));
         }
 
     }

@@ -7,10 +7,9 @@ import java.io.IOException;
 public class AddIcon extends Icon {
     public AddIcon(int x, int y, int size) {
         super(x, y);
-        file = new File("Icons/add.png");
         this.size = size;
         try{
-            image = ImageIO.read(file);
+            image = ImageIO.read(getClass().getResource("/resources/images/add.png"));
         } catch (IOException e){
             e.printStackTrace();
         }

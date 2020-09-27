@@ -18,6 +18,8 @@ public class SettingsSettings extends Settings{
     private BufferedImage colorsImage;
     private BufferedImage advancedImage;
     private BufferedImage aboutImage;
+
+    private int colorButtonsSize;
     
 //  Konstruktor
     public SettingsSettings(){
@@ -26,10 +28,12 @@ public class SettingsSettings extends Settings{
         advancedIcon = new File("Icons/maintenance.png");
         aboutIcon = new File("Icons/info.png");
 
+        colorButtonsSize = windowWidth / 2 /20;
+
         try{
-            colorsImage = ImageIO.read(colorsIcon);
-            advancedImage = ImageIO.read(advancedIcon);
-            aboutImage = ImageIO.read(aboutIcon);
+            colorsImage = ImageIO.read(getClass().getResource("/resources/images/paint.png"));
+            advancedImage = ImageIO.read(getClass().getResource("/resources/images/maintenance.png"));
+            aboutImage = ImageIO.read(getClass().getResource("/resources/images/info.png"));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -47,5 +51,9 @@ public class SettingsSettings extends Settings{
 
     public BufferedImage getAboutImage() {
         return aboutImage;
+    }
+
+    public int getColorButtonsSize() {
+        return colorButtonsSize;
     }
 }

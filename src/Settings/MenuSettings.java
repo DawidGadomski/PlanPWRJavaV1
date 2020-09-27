@@ -11,16 +11,6 @@ import java.io.IOException;
  */
 public class MenuSettings extends Settings {
 
-//  URLs
-    private String docIconURL;
-    private String editIconURL;
-    private String notesIconURL;
-    private String editAbsencesIconURL;
-    private String plusIconURL;
-    private String minusIconURL;
-    private String okIconURL;
-    private String linksIconURL;
-
 //  Icons
     private BufferedImage editAbsencesIcon;
     private BufferedImage noteIcon;
@@ -92,35 +82,16 @@ public class MenuSettings extends Settings {
      */
     public MenuSettings(){
 
-//  URLs
-        File iDoc = new File("Icons/folder.png");
-        File iEdit = new File("Icons/edit.png");
-        File iNotes = new File("Icons/document.png");
-        File iEditAbsences = new File("Icons/edit.png");
-        File iPlus = new File("Icons/add.png");
-        File iMinus = new File("Icons/minus.png");
-        File iOk = new File("Icons/tick.png");
-        File iLinks = new File("Icons/www.png");
-
-        docIconURL = iDoc.getAbsolutePath();
-        editIconURL = iEdit.getAbsolutePath();
-        notesIconURL = iNotes.getAbsolutePath();
-        editAbsencesIconURL = iEditAbsences.getAbsolutePath();
-        plusIconURL = iPlus.getAbsolutePath();
-        minusIconURL = iMinus.getAbsolutePath();
-        okIconURL = iOk.getAbsolutePath();
-        linksIconURL = iLinks.getAbsolutePath();
-
 //      Icons
         try{
-            noteIcon = ImageIO.read(iNotes);
-            editIcon = ImageIO.read(iEdit);
-            docIcon = ImageIO.read(iDoc);
-            editAbsencesIcon = ImageIO.read(iEditAbsences);
-            plusIcon = ImageIO.read(iPlus);
-            minusIcon = ImageIO.read(iMinus);
-            okIcon = ImageIO.read(iOk);
-            linksIcon = ImageIO.read(iLinks);
+            noteIcon = ImageIO.read(getClass().getResource("/resources/images/document.png"));
+            editIcon = ImageIO.read(getClass().getResource("/resources/images/edit.png"));
+            docIcon = ImageIO.read(getClass().getResource("/resources/images/folder.png"));
+            editAbsencesIcon = ImageIO.read(getClass().getResource("/resources/images/edit.png"));
+            plusIcon = ImageIO.read(getClass().getResource("/resources/images/add.png"));
+            minusIcon = ImageIO.read(getClass().getResource("/resources/images/minus.png"));
+            okIcon = ImageIO.read(getClass().getResource("/resources/images/tick.png"));
+            linksIcon = ImageIO.read(getClass().getResource("/resources/images/www.png"));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -183,34 +154,6 @@ public class MenuSettings extends Settings {
     }
 
 //  Getters
-
-    public String getDocIconURL() {
-        return docIconURL;
-    }
-
-    public String getEditIconURL() {
-        return editIconURL;
-    }
-
-    public String getNotesIconURL() {
-        return notesIconURL;
-    }
-
-    public String getPlusIconURL() {
-        return plusIconURL;
-    }
-
-    public String getMinusIconURL() {
-        return minusIconURL;
-    }
-
-    public String getOkIconURL() {
-        return okIconURL;
-    }
-
-    public String getEditAbsencesIconURL() {
-        return editAbsencesIconURL;
-    }
 
     public BufferedImage getEditAbsencesIcon() {
         return editAbsencesIcon;

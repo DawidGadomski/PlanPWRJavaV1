@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
     private Subject subject;
 
     private JPanel buttonsPanel;
+    private JPanel linksPanel;
     private JButton backButton;
     private JButton addButton;
 
@@ -44,7 +46,7 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
         dWindow.setLayout(new BorderLayout());
         dWindow.setUndecorated(true);
 
-        dWindow.setSize(linksSettings.getLinksWidth(), linksSettings.getLinksHeight());
+        dWindow.setSize(linksSettings.getSmallWindowWidth(), linksSettings.getSmallWindowHeight());
         dWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dWindow.setLocationRelativeTo(frame);
         dWindow.setBackground(linksSettings.getFirstColor());
@@ -56,45 +58,51 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
         initLinkList();
         initIconPanel();
 
-        dWindow.add(lLinks, BorderLayout.PAGE_START);
-        dWindow.add(listScroller, BorderLayout.CENTER);
+        linksPanel.add(lLinks);
+        linksPanel.add(listScroller);
+
+        dWindow.add(linksPanel, BorderLayout.CENTER);
         dWindow.add(buttonsPanel, BorderLayout.PAGE_END);
 
         dWindow.setVisible(true);
     }
 
     public void initIcons(){
-        backIcon = linksSettings.getBackIcon().getScaledInstance(linksSettings.getBigIconSize(), linksSettings.getBigIconSize(), Image.SCALE_DEFAULT);
-        addIcon = linksSettings.getAddIcon().getScaledInstance(linksSettings.getBigIconSize(), linksSettings.getBigIconSize(), Image.SCALE_DEFAULT);
+        backIcon = linksSettings.getBackIcon().getScaledInstance(linksSettings.getSmallIconSize(), linksSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        addIcon = linksSettings.getAddIcon().getScaledInstance(linksSettings.getSmallIconSize(), linksSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
     }
 
     public void initPanels(){
         buttonsPanel = new JPanel();
         buttonsPanel.setBackground(linksSettings.getFirstColor());
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
+        buttonsPanel.setBorder(new EmptyBorder(10,10,0,10));
+
+        linksPanel = new JPanel();
+        linksPanel.setBackground(linksSettings.getFirstColor());
+        linksPanel.setLayout(new BoxLayout(linksPanel, BoxLayout.Y_AXIS));
+        linksPanel.setBorder(new EmptyBorder(10,10,10,10));
     }
 
     public void initLabels(){
         lLinks = new JLabel("Links");
         lLinks.setFont(linksSettings.getBigTextFont());
-        lLinks.setForeground(Color.WHITE);
-        lLinks.setBackground(linksSettings.getFirstColor());
+        lLinks.setForeground(linksSettings.getTextColor());
         lLinks.setHorizontalAlignment(SwingConstants.CENTER);
-
     }
 
     public void initButtons(){
         addButton = new JButton(new ImageIcon(addIcon));
-        addButton.setMinimumSize(new Dimension(linksSettings.getBigIconSize(), linksSettings.getBigIconSize()));
-        addButton.setPreferredSize(new Dimension(linksSettings.getBigIconSize(), linksSettings.getBigIconSize()));
-        addButton.setMaximumSize(new Dimension(Short.MAX_VALUE, linksSettings.getBigIconSize()));
+        addButton.setMinimumSize(new Dimension(linksSettings.getSmallIconSize(), linksSettings.getSmallIconSize()));
+        addButton.setPreferredSize(new Dimension(linksSettings.getSmallIconSize(), linksSettings.getSmallIconSize()));
+        addButton.setMaximumSize(new Dimension(Short.MAX_VALUE, linksSettings.getSmallIconSize()));
         addButton.setContentAreaFilled(false);
         addButton.addActionListener(this);
 
         backButton = new JButton(new ImageIcon(backIcon));
-        backButton.setMinimumSize(new Dimension(linksSettings.getBigIconSize(), linksSettings.getBigIconSize()));
-        backButton.setPreferredSize(new Dimension(linksSettings.getBigIconSize(), linksSettings.getBigIconSize()));
-        backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, linksSettings.getBigIconSize()));
+        backButton.setMinimumSize(new Dimension(linksSettings.getSmallIconSize(), linksSettings.getSmallIconSize()));
+        backButton.setPreferredSize(new Dimension(linksSettings.getSmallIconSize(), linksSettings.getSmallIconSize()));
+        backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, linksSettings.getSmallIconSize()));
         backButton.setContentAreaFilled(false);
         backButton.addActionListener(this);
 
@@ -108,7 +116,7 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
 
         linkList = new JList<String>(listModel);
         linkList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        linkList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        linkList.setLayoutOrientation(JList.VERTICAL_WRAP);
         linkList.setVisibleRowCount(-1);
         linkList.setBackground(linksSettings.getSecondColor());
         linkList.setPreferredSize(new Dimension(linksSettings.getWindowWidth(), linksSettings.getWindowHeight()));
@@ -147,14 +155,24 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(e.getButton() == 1){
+            LinkCard lc = this.subject.getLinksList().get(linkList.getSelectedIndex());
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                try {
+                    Desktop.getDesktop().browse(lc.getLinkURI());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        }
         if(e.getButton() == 3){
             LinkCard lc = this.subject.getLinksList().get(linkList.getSelectedIndex());
             addLink = new LinkInputForm(this, lc);
             if(addLink.getLink() != null){
                 listModel.addElement(addLink.getLink().getLinkName());
+                listModel.remove(linkList.getSelectedIndex());
+                subject.getLinksList().add(addLink.getLink());
             }
-            listModel.remove(linkList.getSelectedIndex());
-            subject.getLinksList().add(addLink.getLink());
         }
     }
 
