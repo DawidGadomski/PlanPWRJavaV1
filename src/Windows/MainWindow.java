@@ -144,7 +144,6 @@ public class MainWindow {
                     mainWindowSettings.getTimePosY(), mainWindowSettings.getTileWidth(), mainWindowSettings.getTimePosY()), mainWindowSettings.getTimesFont(), true);
             timestamp.setTime(timestamp.getTime() + TimeUnit.MINUTES.toMillis(15));
             timeStamp = mainWindowSettings.getSdf().format(timestamp);
-            System.out.println((mainWindowSettings.getTimeTextOffset() + mainWindowSettings.getTimePosX() * index));
         }
 
     }

@@ -214,11 +214,31 @@ public class Settings {
         for(int y = 0; y < backIcon.getHeight(); y++)
             for(int x = 0; x < backIcon.getWidth(); x++)
             {
-//                Color imageColor = new Color(backIcon.getRGB(x, y));
-                //mix imageColor and desired color
-                backIcon.setRGB(x, y, secondColor.getRGB());
+                if(backIcon.getRGB(x, y) == Color.BLACK.getRGB()){
+                    backIcon.setRGB(x, y, secondColor.getRGB());
+                }
             }
-
+        for(int y = 0; y < addIcon.getHeight(); y++)
+            for(int x = 0; x < addIcon.getWidth(); x++)
+            {
+                if(addIcon.getRGB(x, y) == Color.BLACK.getRGB()){
+                    addIcon.setRGB(x, y, secondColor.getRGB());
+                }
+            }
+        for(int y = 0; y < clearIcon.getHeight(); y++)
+            for(int x = 0; x < clearIcon.getWidth(); x++)
+            {
+                if(clearIcon.getRGB(x, y) == Color.BLACK.getRGB()){
+                    clearIcon.setRGB(x, y, secondColor.getRGB());
+                }
+            }
+        for(int y = 0; y < saveIcon.getHeight(); y++)
+            for(int x = 0; x < saveIcon.getWidth(); x++)
+            {
+                if(saveIcon.getRGB(x, y) == Color.BLACK.getRGB()){
+                    saveIcon.setRGB(x, y, secondColor.getRGB());
+                }
+            }
     }
 
     /***
@@ -373,6 +393,31 @@ public class Settings {
         g.setStroke(defaultThickness);
         g.setColor(Color.WHITE);
     }
+
+    public void notifications() throws AWTException {
+        //Obtain only one instance of the SystemTray object
+        SystemTray tray = SystemTray.getSystemTray();
+
+        //If the icon is a file
+//        Image image = Toolkit.getDefaultToolkit().createImage("icon.png");
+        //Alternative (if the icon is on the classpath):
+        Image image = Toolkit.getDefaultToolkit().createImage(getClass().getResource("add.png"));
+
+        TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
+        //Let the system resize the image if needed
+        trayIcon.setImageAutoSize(true);
+        //Set tooltip text for the tray icon
+        trayIcon.setToolTip("System tray icon demo");
+        tray.add(trayIcon);
+
+        for(Subject subject : subjects){
+            for(String s : subject.getTestList())
+            trayIcon.displayMessage(s, "notification demo", TrayIcon.MessageType.INFO);
+        }
+
+
+    }
+
 //  Getters and Setters
 
     public String getAuthorName(){return AUTHOR_NAME;}
