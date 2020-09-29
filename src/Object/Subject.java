@@ -31,7 +31,7 @@ public class Subject {
     private ArrayList<Note> noteArrayList;
     private int absences;
     private int allAbsences;
-    private ArrayList<String> testList;
+    private ArrayList<TestCard> testList;
     private ArrayList<LinkCard> linksList;
 
     /***
@@ -44,7 +44,7 @@ public class Subject {
 //      Init
         settings = new Settings();
         this.noteArrayList = new ArrayList<Note>();
-        this.testList = new ArrayList<String>();
+        this.testList = new ArrayList<TestCard>();
         this.linksList = new ArrayList<LinkCard>();
         this.width = settings.getTileWidth();
         this.height =settings.getTileHeight()*2;
@@ -79,7 +79,7 @@ public class Subject {
 //      Init
         settings = new Settings();
         noteArrayList = new ArrayList<Note>();
-        this.testList = new ArrayList<String>();
+        this.testList = new ArrayList<TestCard>();
         this.linksList = new ArrayList<LinkCard>();
         this.width = settings.getTileWidth();
         this.height = settings.getTileHeight()*2;
@@ -145,7 +145,7 @@ public class Subject {
         return this.type;
     }
 
-    public ArrayList<String> getTestList() {
+    public ArrayList<TestCard> getTestList() {
         return testList;
     }
 
@@ -153,7 +153,7 @@ public class Subject {
         return this.linksList;
     }
 
-    public void setTestList(ArrayList<String> testList) {
+    public void setTestList(ArrayList<TestCard> testList) {
         this.testList = testList;
     }
 

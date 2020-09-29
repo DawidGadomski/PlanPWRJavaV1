@@ -48,6 +48,17 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         if (reply == JOptionPane.YES_OPTION){
             try {
                 settings.loadData();
+                if (SystemTray.isSupported()) {
+                    try{
+                        settings.notifications();
+                    } catch (AWTException e){
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    System.err.println("System tray not supported!");
+                }
+
             } catch (IOException  e) {e.printStackTrace();}
         }
 

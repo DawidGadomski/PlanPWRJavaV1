@@ -18,7 +18,7 @@ public class DataOfSubject {
     private ArrayList<DataOfNote> notes;
     private int absences;
     private int allAbsences;
-    private ArrayList<String> testList;
+    private ArrayList<TestCard> testList;
 
     /***
      * Konstruktor
@@ -35,7 +35,7 @@ public class DataOfSubject {
      */
     public DataOfSubject(int posX, int posY, String name, String term, int time, String prof,
                          String room, int type, String week, ArrayList<DataOfNote> noteArrayList,
-                         int absences, int allAbsences, ArrayList<String> testList) {
+                         int absences, int allAbsences, ArrayList<TestCard> testList) {
         this.posX = posX;
         this.posY = posY;
         this.name = name;
@@ -56,7 +56,7 @@ public class DataOfSubject {
         this.notes = notesList;
     }
 
-    public ArrayList<String> getTestList() {
+    public ArrayList<TestCard> getTestList() {
         return testList;
     }
 
