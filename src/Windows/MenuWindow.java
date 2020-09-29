@@ -2,6 +2,7 @@ package Windows;
 
 import Settings.MenuSettings;
 import Object.Subject;
+import Object.TestCard;
 import InputForms.TestInputForm;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.ArrayList;
 
 public class MenuWindow extends JDialog implements ActionListener, MouseListener {
@@ -296,8 +298,8 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 
     private void initDiffComponents(){
         listModel = new DefaultListModel<String>();
-        for(String test: subject.getTestList()){
-            listModel.addElement(test);
+        for(TestCard test: subject.getTestList()){
+            listModel.addElement(test.getTestName() + " - " + test.getTestDate().toString());
         }
 
         testList = new JList<String>(listModel); //data has type Object[]
@@ -509,8 +511,8 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         }
         else if(e.getSource() == addTestButton){
             addTest = new TestInputForm(this);
-            listModel.addElement(addTest.getOutput());
-            subject.getTestList().add(addTest.getOutput());
+            listModel.addElement(addTest.getOutput().get(0) + " - " + addTest.getOutput().get(1));
+            subject.getTestList().add(new TestCard(addTest.getOutput().get(0), addTest.getOutput().get(1)));
         }
         else if(e.getSource() == editAbsencesButton){
             editAbsencesButton.setVisible(false);
@@ -539,12 +541,13 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getButton() == 3){
-            addTest = new TestInputForm(this, listModel.get(testList.getSelectedIndex()));
+            TestCard testCard = subject.getTestList().get(testList.getSelectedIndex());
+            addTest = new TestInputForm(this, testCard);
             if(addTest.getOutput() != null){
-                listModel.addElement(addTest.getOutput());
+                listModel.addElement(addTest.getOutput().get(0) + " - " + addTest.getOutput().get(1));
+                listModel.remove(testList.getSelectedIndex());
+                subject.getTestList().add(new TestCard(addTest.getOutput().get(0), addTest.getOutput().get(1)));
             }
-            listModel.remove(testList.getSelectedIndex());
-            subject.getTestList().add(addTest.getOutput());
         }
     }
 

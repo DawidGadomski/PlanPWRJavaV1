@@ -1,11 +1,12 @@
 package InputForms;
 
-import com.sun.jdi.JDIPermission;
+import Object.TestCard;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class TestInputForm extends JDialog implements ActionListener {
     private JTextField tfName;
@@ -15,8 +16,7 @@ public class TestInputForm extends JDialog implements ActionListener {
     private JButton bCancel;
     private JButton bAccept;
     private JPanel pPanel;
-    private String output;
-    private String[] data;
+    private ArrayList<String> output;
 
     public TestInputForm(JDialog frame){
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
@@ -27,14 +27,16 @@ public class TestInputForm extends JDialog implements ActionListener {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(frame);
         setResizable(false);
+
+        output = new ArrayList<String>();
+
         setVisible(true);
     }
 
-    public TestInputForm(JDialog frame, String data){
+    public TestInputForm(JDialog frame, TestCard tc){
         super(frame, ModalityType.APPLICATION_MODAL);
-        this.data = data.split(" - ");
-        tfName.setText(this.data[0]);
-        tfDate.setText(this.data[1]);
+        tfName.setText(tc.getTestName());
+        tfDate.setText(tc.getTestDate());
 
         setContentPane(pPanel);
         bCancel.addActionListener(this);
@@ -42,6 +44,9 @@ public class TestInputForm extends JDialog implements ActionListener {
 
         bAccept.setText("OK");
         bCancel.setText("Usuń");
+
+        output = new ArrayList<String>();
+
         pack();
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(frame);
@@ -49,18 +54,15 @@ public class TestInputForm extends JDialog implements ActionListener {
         setVisible(true);
     }
 
-    public String getOutput() {
+    public ArrayList<String> getOutput(){
         return output;
-    }
-
-    public void setOutput(String output) {
-        this.output = output;
     }
 
     //  Buttons
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == bAccept){
-            setOutput(tfName.getText() + " - " + tfDate.getText());
+            output.add(tfName.getText());
+            output.add(tfDate.getText());
             setVisible(false);
         }
         else if(e.getSource() == bCancel){

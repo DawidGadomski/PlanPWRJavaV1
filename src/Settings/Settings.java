@@ -13,6 +13,7 @@ import Object.Subject;
 import Object.DataOfNote;
 import Object.DataOfSubject;
 import Object.Note;
+import Object.TestCard;
 import InputForms.NoteInputForm;
 import InputForms.InputForm;
 
@@ -411,8 +412,8 @@ public class Settings {
         tray.add(trayIcon);
 
         for(Subject subject : subjects){
-            for(String s : subject.getTestList())
-            trayIcon.displayMessage(s, "notification demo", TrayIcon.MessageType.INFO);
+            for(TestCard tc : subject.getTestList())
+            trayIcon.displayMessage(tc.getTestName(), tc.getTestDate(), TrayIcon.MessageType.INFO);
         }
 
 
