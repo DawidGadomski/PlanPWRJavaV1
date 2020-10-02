@@ -1,5 +1,7 @@
 package Icons;
 
+import Settings.Settings;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,6 +12,7 @@ import java.io.File;
  * Pozostałe ikony dziedziczą po tym obiekcie
  */
 public class Icon extends JComponent {
+    protected Settings settings;
     protected int size;
     protected int posX, posY;
     protected BufferedImage image;
@@ -22,6 +25,7 @@ public class Icon extends JComponent {
     public Icon(int x, int y){
         this.posX = x;
         this.posY = y;
+        this.settings = new Settings();
     }
 
 //  Setters and Getters
@@ -72,5 +76,15 @@ public class Icon extends JComponent {
             }
         }
         return false;
+    }
+
+    public void setIconColor(){
+        for(int y = 0; y < image.getHeight(); y++)
+            for(int x = 0; x < image.getWidth(); x++)
+            {
+                if(image.getRGB(x, y) == Color.BLACK.getRGB()){
+                    image.setRGB(x, y, settings.getSecondColor().getRGB());
+                }
+            }
     }
 }

@@ -13,5 +13,6 @@ public class SaveIcon extends Icon {
         } catch (IOException e){
             e.printStackTrace();
         }
+        setIconColor();
     }
 }

@@ -13,5 +13,6 @@ public class BackIcon extends Icon{
         } catch (IOException e){
             e.printStackTrace();
         }
+        setIconColor();
     }
 }

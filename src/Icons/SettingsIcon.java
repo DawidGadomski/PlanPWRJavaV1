@@ -13,6 +13,6 @@ public class SettingsIcon extends Icon{
         } catch (IOException e){
             e.printStackTrace();
         }
-
+        setIconColor();
     }
 }

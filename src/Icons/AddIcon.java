@@ -13,5 +13,6 @@ public class AddIcon extends Icon {
         } catch (IOException e){
             e.printStackTrace();
         }
+        setIconColor();
     }
 }

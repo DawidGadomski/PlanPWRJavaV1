@@ -212,34 +212,10 @@ public class Settings {
         } catch (IOException e){
             e.printStackTrace();
         }
-        for(int y = 0; y < backIcon.getHeight(); y++)
-            for(int x = 0; x < backIcon.getWidth(); x++)
-            {
-                if(backIcon.getRGB(x, y) == Color.BLACK.getRGB()){
-                    backIcon.setRGB(x, y, secondColor.getRGB());
-                }
-            }
-        for(int y = 0; y < addIcon.getHeight(); y++)
-            for(int x = 0; x < addIcon.getWidth(); x++)
-            {
-                if(addIcon.getRGB(x, y) == Color.BLACK.getRGB()){
-                    addIcon.setRGB(x, y, secondColor.getRGB());
-                }
-            }
-        for(int y = 0; y < clearIcon.getHeight(); y++)
-            for(int x = 0; x < clearIcon.getWidth(); x++)
-            {
-                if(clearIcon.getRGB(x, y) == Color.BLACK.getRGB()){
-                    clearIcon.setRGB(x, y, secondColor.getRGB());
-                }
-            }
-        for(int y = 0; y < saveIcon.getHeight(); y++)
-            for(int x = 0; x < saveIcon.getWidth(); x++)
-            {
-                if(saveIcon.getRGB(x, y) == Color.BLACK.getRGB()){
-                    saveIcon.setRGB(x, y, secondColor.getRGB());
-                }
-            }
+        setIconColor(backIcon);
+        setIconColor(addIcon);
+        setIconColor(clearIcon);
+        setIconColor(saveIcon);
     }
 
     /***
@@ -382,6 +358,16 @@ public class Settings {
             g.setTransform(textTransform);
         }
         g.drawString(text, x, y);
+    }
+
+    public void setIconColor(BufferedImage icon){
+        for(int y = 0; y < icon.getHeight(); y++)
+            for(int x = 0; x < icon.getWidth(); x++)
+            {
+                if(icon.getRGB(x, y) == Color.BLACK.getRGB()){
+                    icon.setRGB(x, y, secondColor.getRGB());
+                }
+            }
     }
 
     /***
