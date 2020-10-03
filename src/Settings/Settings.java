@@ -92,6 +92,10 @@ public class Settings {
     private Color thirdColor;
     private Color fourthColor;
     private Color transparency;
+    private Color lectureColor;
+    private Color labColor;
+    private Color projectColor;
+    private Color seminaryColor;
 
     /***
      * Ustawienia potrzebne w głównej klasie ustawień
@@ -198,6 +202,12 @@ public class Settings {
 
         gridBackgroundColor = new Color(40, 40, 40);
         transparency  = new Color(0f,0f,0f,.5f);
+
+        lectureColor = new Color(255, 0, 0);
+        projectColor = new Color(0, 127, 127);
+        labColor = new Color(0, 0, 255);
+        seminaryColor = new Color(0, 255, 0);
+
         
 //      Icons size
         bigIconSize = 64;
@@ -487,6 +497,38 @@ public class Settings {
 
     public Color getFourthColor() {
         return fourthColor;
+    }
+
+    public Color getLectureColor() {
+        return lectureColor;
+    }
+
+    public void setLectureColor(Color lectureColor) {
+        this.lectureColor = lectureColor;
+    }
+
+    public Color getLabColor() {
+        return labColor;
+    }
+
+    public void setLabColor(Color labColor) {
+        this.labColor = labColor;
+    }
+
+    public Color getProjectColor() {
+        return projectColor;
+    }
+
+    public void setProjectColor(Color projectColor) {
+        this.projectColor = projectColor;
+    }
+
+    public Color getSeminaryColor() {
+        return seminaryColor;
+    }
+
+    public void setSeminaryColor(Color seminaryColor) {
+        this.seminaryColor = seminaryColor;
     }
 
     public void setFirstColor(Color firstColor) {

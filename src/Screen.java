@@ -83,6 +83,8 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         mainWindow.drawMainWindow(g2d, mousePosX, mousePosY, settings.getSubjects());
         settings.setDefaultDrawing(g2d);
 
+        ;
+
 ////      Draw Menu Window
 //        if (menuFlag) {
 //        settings.drawShadow(g2d);

@@ -57,6 +57,14 @@ public class SettingsWindow extends JDialog implements ActionListener {
     private JLabel lGridColorInfo;
     private JLabel lTextColor;
     private JLabel lTextColorInfo;
+    private JLabel lLectureColor;
+    private JLabel lLectureColorInfo;
+    private JLabel lSeminaryColor;
+    private JLabel lSeminaryColorInfo;
+    private JLabel lProjectColor;
+    private JLabel lProjectColorInfo;
+    private JLabel lLabColor;
+    private JLabel lLabColorInfo;
 
 //  Advanced Panel
     private JLabel lAdvanced;
@@ -79,6 +87,10 @@ public class SettingsWindow extends JDialog implements ActionListener {
     private JButton bFourthColor;
     private JButton bGridColor;
     private JButton bTextColor;
+    private JButton bLectureColor;
+    private JButton bSeminaryColor;
+    private JButton bProjectColor;
+    private JButton bLabColor;
 
 
     public SettingsWindow(JFrame frame){
@@ -436,6 +448,56 @@ public class SettingsWindow extends JDialog implements ActionListener {
         lTextColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lTextColorInfo.setForeground(settings.getDarkTextColor());
 
+        lTextColor = new JLabel("Text Color");
+        lTextColor.setFont(settings.getMediumTextFont());
+        lTextColor.setHorizontalAlignment(SwingConstants.LEFT);
+        lTextColor.setForeground(settings.getTextColor());
+
+        lTextColorInfo = new JLabel("Color of text in app");
+        lTextColorInfo.setFont(settings.getSmallTextFont());
+        lTextColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
+        lTextColorInfo.setForeground(settings.getDarkTextColor());
+
+        lLectureColor = new JLabel("Lecture Color");
+        lLectureColor.setFont(settings.getMediumTextFont());
+        lLectureColor.setHorizontalAlignment(SwingConstants.LEFT);
+        lLectureColor.setForeground(settings.getTextColor());
+
+        lLectureColorInfo = new JLabel("Color of lecture in grid");
+        lLectureColorInfo.setFont(settings.getSmallTextFont());
+        lLectureColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
+        lLectureColorInfo.setForeground(settings.getDarkTextColor());
+
+        lSeminaryColor = new JLabel("Seminary Color");
+        lSeminaryColor.setFont(settings.getMediumTextFont());
+        lSeminaryColor.setHorizontalAlignment(SwingConstants.LEFT);
+        lSeminaryColor.setForeground(settings.getTextColor());
+
+        lSeminaryColorInfo = new JLabel("Color of seminary in app");
+        lSeminaryColorInfo.setFont(settings.getSmallTextFont());
+        lSeminaryColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
+        lSeminaryColorInfo.setForeground(settings.getDarkTextColor());
+
+        lProjectColor = new JLabel("Project Color");
+        lProjectColor.setFont(settings.getMediumTextFont());
+        lProjectColor.setHorizontalAlignment(SwingConstants.LEFT);
+        lProjectColor.setForeground(settings.getTextColor());
+
+        lProjectColorInfo = new JLabel("Color of project in app");
+        lProjectColorInfo.setFont(settings.getSmallTextFont());
+        lProjectColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
+        lProjectColorInfo.setForeground(settings.getDarkTextColor());
+
+        lLabColor = new JLabel("Lab Color");
+        lLabColor.setFont(settings.getMediumTextFont());
+        lLabColor.setHorizontalAlignment(SwingConstants.LEFT);
+        lLabColor.setForeground(settings.getTextColor());
+
+        lLabColorInfo = new JLabel("Color of lab in app");
+        lLabColorInfo.setFont(settings.getSmallTextFont());
+        lLabColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
+        lLabColorInfo.setForeground(settings.getDarkTextColor());
+
         bMainColor = new JButton();
         bMainColor.setBackground(settings.getFirstColor());
         bMainColor.setOpaque(true);
@@ -496,120 +558,197 @@ public class SettingsWindow extends JDialog implements ActionListener {
         bTextColor.setBorder(new LineBorder(Color.BLACK));
         bTextColor.addActionListener(this);
 
+        bLectureColor = new JButton();
+        bLectureColor.setBackground(settings.getLectureColor());
+        bLectureColor.setContentAreaFilled(false);
+        bLectureColor.setOpaque(true);
+        bLectureColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
+        bLectureColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
+        bLectureColor.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getColorButtonsSize()));
+        bLectureColor.setBorder(new LineBorder(Color.BLACK));
+        bLectureColor.addActionListener(this);
+
+        bProjectColor = new JButton();
+        bProjectColor.setBackground(settings.getProjectColor());
+        bProjectColor.setContentAreaFilled(false);
+        bProjectColor.setOpaque(true);
+        bProjectColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
+        bProjectColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
+        bProjectColor.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getColorButtonsSize()));
+        bProjectColor.setBorder(new LineBorder(Color.BLACK));
+        bProjectColor.addActionListener(this);
+
+        bSeminaryColor = new JButton();
+        bSeminaryColor.setBackground(settings.getSeminaryColor());
+        bSeminaryColor.setContentAreaFilled(false);
+        bSeminaryColor.setOpaque(true);
+        bSeminaryColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
+        bSeminaryColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
+        bSeminaryColor.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getColorButtonsSize()));
+        bSeminaryColor.setBorder(new LineBorder(Color.BLACK));
+        bSeminaryColor.addActionListener(this);
+
+        bLabColor = new JButton();
+        bLabColor.setBackground(settings.getLabColor());
+        bLabColor.setContentAreaFilled(false);
+        bLabColor.setOpaque(true);
+        bLabColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
+        bLabColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
+        bLabColor.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getColorButtonsSize()));
+        bLabColor.setBorder(new LineBorder(Color.BLACK));
+        bLabColor.addActionListener(this);
+
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weightx = 1;
-        constraints.gridwidth = 3;
+        constraints.gridwidth = 1;
         constraints.gridx = 0;
         constraints.gridy = 0;
         colorsPanel.add(lMainColor, constraints);
 
         constraints.fill = GridBagConstraints.LINE_END;
-        constraints.gridx = 3;
+        constraints.gridx = 1;
         constraints.gridy = 0;
         colorsPanel.add(bMainColor, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
-        constraints.gridx = 1;
+        constraints.gridx = 0;
         constraints.gridy = 1;
         colorsPanel.add(lMainColorInfo, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
+        constraints.gridx = 2;
+        constraints.gridy = 0;
+        colorsPanel.add(lLectureColor, constraints);
+
+        constraints.fill = GridBagConstraints.LINE_END;
+        constraints.gridx = 3;
+        constraints.gridy = 0;
+        colorsPanel.add(bLectureColor, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        colorsPanel.add(lLectureColorInfo, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
         constraints.gridy = 2;
         colorsPanel.add(lSecondColor, constraints);
 
         constraints.fill = GridBagConstraints.LINE_END;
-        constraints.gridx = 3;
+        constraints.gridx = 1;
         constraints.gridy = 2;
         colorsPanel.add(bSecondColor, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
-        constraints.gridx = 1;
+        constraints.gridx = 0;
         constraints.gridy = 3;
         colorsPanel.add(lSecondColorInfo, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
+        constraints.gridx = 2;
+        constraints.gridy = 2;
+        colorsPanel.add(lLabColor, constraints);
+
+        constraints.fill = GridBagConstraints.LINE_END;
+        constraints.gridx = 3;
+        constraints.gridy = 2;
+        colorsPanel.add(bLabColor, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridx = 2;
+        constraints.gridy = 3;
+        colorsPanel.add(lLabColorInfo, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
         constraints.gridy = 4;
         colorsPanel.add(lThirdColor, constraints);
 
         constraints.fill = GridBagConstraints.LINE_END;
-        constraints.gridx = 3;
+        constraints.gridx = 1;
         constraints.gridy = 4;
         colorsPanel.add(bThirdColor, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
-        constraints.gridx = 1;
+        constraints.gridx = 0;
         constraints.gridy = 5;
         colorsPanel.add(lThirdColorInfo, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
+        constraints.gridx = 2;
+        constraints.gridy = 4;
+        colorsPanel.add(lSeminaryColor, constraints);
+
+        constraints.fill = GridBagConstraints.LINE_END;
+        constraints.gridx = 3;
+        constraints.gridy = 4;
+        colorsPanel.add(bSeminaryColor, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridx = 2;
+        constraints.gridy = 5;
+        colorsPanel.add(lSeminaryColorInfo, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
         constraints.gridy = 6;
         colorsPanel.add(lFourthColor, constraints);
 
         constraints.fill = GridBagConstraints.LINE_END;
-        constraints.gridx = 3;
+        constraints.gridx = 1;
         constraints.gridy = 6;
         colorsPanel.add(bFourthColor, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
-        constraints.gridx = 1;
+        constraints.gridx = 0;
         constraints.gridy = 7;
         colorsPanel.add(lFourthColorInfo, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
+        constraints.gridx = 2;
+        constraints.gridy = 6;
+        colorsPanel.add(lProjectColor, constraints);
+
+        constraints.fill = GridBagConstraints.LINE_END;
+        constraints.gridx = 3;
+        constraints.gridy = 6;
+        colorsPanel.add(bProjectColor, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridx = 2;
+        constraints.gridy = 7;
+        colorsPanel.add(lProjectColorInfo, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
         constraints.gridy = 8;
         colorsPanel.add(lGridColor, constraints);
 
         constraints.fill = GridBagConstraints.LINE_END;
-        constraints.gridx = 3;
+        constraints.gridx = 1;
         constraints.gridy = 8;
         colorsPanel.add(bGridColor, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
-        constraints.gridx = 1;
+        constraints.gridx = 0;
         constraints.gridy = 9;
         colorsPanel.add(lGridColorInfo, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
         constraints.gridx = 0;
         constraints.gridy = 10;
         colorsPanel.add(lTextColor, constraints);
 
         constraints.fill = GridBagConstraints.LINE_END;
-        constraints.gridx = 3;
+        constraints.gridx = 1;
         constraints.gridy = 10;
         colorsPanel.add(bTextColor, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
-        constraints.gridx = 1;
+        constraints.gridx = 0;
         constraints.gridy = 11;
         colorsPanel.add(lTextColorInfo, constraints);
-
 
         colorPanel.add(lColors);
         colorPanel.add(colorsPanel);
@@ -636,29 +775,35 @@ public class SettingsWindow extends JDialog implements ActionListener {
             dWindow.setVisible(false);
         }
         else if (e.getSource() == bMainColor){
-            ColorPickerWindow colorPickerWindow = new ColorPickerWindow(frame, settings.getFirstColor());
-            settings.setFirstColor(colorPickerWindow.getNewColor());
-            System.out.println(settings.getFirstColor());
+            settings.setFirstColor(JColorChooser.showDialog(null, "Pick Color", settings.getFirstColor()));
         }
         else if (e.getSource() == bSecondColor){
-            ColorPickerWindow colorPickerWindow = new ColorPickerWindow(frame, settings.getSecondColor());
-            settings.setSecondColor(colorPickerWindow.getNewColor());
+            settings.setSecondColor(JColorChooser.showDialog(null, "Pick Color", settings.getSecondColor()));
         }
         else if (e.getSource() == bThirdColor){
-            ColorPickerWindow colorPickerWindow = new ColorPickerWindow(frame, settings.getThirdColor());
-            settings.setThirdColor(colorPickerWindow.getNewColor());
+            settings.setThirdColor(JColorChooser.showDialog(null, "Pick Color", settings.getThirdColor()));
         }
         else if (e.getSource() == bFourthColor){
-            ColorPickerWindow colorPickerWindow = new ColorPickerWindow(frame, settings.getFourthColor());
-            settings.setFourthColor(colorPickerWindow.getNewColor());
+            settings.setFourthColor(JColorChooser.showDialog(null, "Pick Color", settings.getFourthColor()));
         }
         else if (e.getSource() == bGridColor){
-            ColorPickerWindow colorPickerWindow = new ColorPickerWindow(frame, settings.getGridBackgroundColor());
-            settings.setGridBackgroundColor(colorPickerWindow.getNewColor());
+             settings.setGridBackgroundColor(JColorChooser.showDialog(null, "Pick Color", settings.getGridBackgroundColor()));
         }
         else if (e.getSource() == bTextColor){
-            ColorPickerWindow colorPickerWindow = new ColorPickerWindow(frame, settings.getTextColor());
-            settings.setTextColor(colorPickerWindow.getNewColor());
+            settings.setTextColor(JColorChooser.showDialog(null, "Pick Color", settings.getTextColor()));
+        }
+        else if (e.getSource() == bLectureColor){
+            settings.setLectureColor(JColorChooser.showDialog(null, "Pick Color", settings.getLectureColor()));
+        }
+        else if (e.getSource() == bSeminaryColor){
+            settings.setSeminaryColor(JColorChooser.showDialog(null, "Pick Color", settings.getSeminaryColor()));
+        }
+        else if (e.getSource() == bProjectColor){
+            settings.setProjectColor(JColorChooser.showDialog(null, "Pick Color", settings.getProjectColor()));
+        }
+        else if (e.getSource() == bLabColor){
+            settings.setLabColor(JColorChooser.showDialog(null, "Pick Color", settings.getLabColor()));
         }
     }
+
 }
