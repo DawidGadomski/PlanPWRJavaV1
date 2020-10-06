@@ -33,10 +33,10 @@ public class Notes {
         this.subject = s;
 
 //      Icons
-        noteBackIcon = new BackIcon(notesSettings.getNoteIconPosX(), notesSettings.getNoteBackIconPosY(), notesSettings.getNoteIconsSize());
-        noteAddIcon = new AddIcon(notesSettings.getNoteIconPosX(), notesSettings.getNoteAddIconPosY(), notesSettings.getNoteIconsSize());
-        noteSaveIcon = new SaveIcon(notesSettings.getNoteIconPosX(), notesSettings.getNoteSaveIconPosY(), notesSettings.getNoteIconsSize());
-        noteClearIcon = new ClearIcon(notesSettings.getNoteIconPosX(), notesSettings.getNoteClearIconPosY(), notesSettings.getNoteIconsSize());
+        noteBackIcon = new BackIcon(notesSettings.getNoteIconPosX(), notesSettings.getNoteBackIconPosY(), notesSettings.getNoteIconsSize(), Color.BLACK);
+        noteAddIcon = new AddIcon(notesSettings.getNoteIconPosX(), notesSettings.getNoteAddIconPosY(), notesSettings.getNoteIconsSize(), Color.BLACK);
+        noteSaveIcon = new SaveIcon(notesSettings.getNoteIconPosX(), notesSettings.getNoteSaveIconPosY(), notesSettings.getNoteIconsSize(), Color.BLACK);
+        noteClearIcon = new ClearIcon(notesSettings.getNoteIconPosX(), notesSettings.getNoteClearIconPosY(), notesSettings.getNoteIconsSize(), Color.BLACK);
         noteClearIcon.setVisableFlag(true);
 
 //      Shadow effect in background

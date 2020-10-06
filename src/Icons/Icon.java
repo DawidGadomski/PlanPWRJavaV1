@@ -25,7 +25,6 @@ public class Icon extends JComponent {
     public Icon(int x, int y){
         this.posX = x;
         this.posY = y;
-        this.settings = new Settings();
     }
 
 //  Setters and Getters
@@ -78,12 +77,12 @@ public class Icon extends JComponent {
         return false;
     }
 
-    public void setIconColor(){
+    public void setIconColor(Color color){
         for(int y = 0; y < image.getHeight(); y++)
             for(int x = 0; x < image.getWidth(); x++)
             {
                 if(image.getRGB(x, y) == Color.BLACK.getRGB()){
-                    image.setRGB(x, y, settings.getSecondColor().getRGB());
+                    image.setRGB(x, y, color.getRGB());
                 }
             }
     }

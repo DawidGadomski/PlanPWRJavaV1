@@ -1,11 +1,12 @@
 package Icons;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
 public class AddIcon extends Icon {
-    public AddIcon(int x, int y, int size) {
+    public AddIcon(int x, int y, int size, Color color) {
         super(x, y);
         this.size = size;
         try{
@@ -13,6 +14,6 @@ public class AddIcon extends Icon {
         } catch (IOException e){
             e.printStackTrace();
         }
-        setIconColor();
+        setIconColor(color);
     }
 }

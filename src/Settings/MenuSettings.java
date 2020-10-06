@@ -96,15 +96,6 @@ public class MenuSettings extends Settings {
             e.printStackTrace();
         }
 
-        setIconColor(noteIcon);
-        setIconColor(editIcon);
-        setIconColor(docIcon);
-        setIconColor(editAbsencesIcon);
-        setIconColor(plusIcon);
-        setIconColor(minusIcon);
-        setIconColor(okIcon);
-        setIconColor(linksIcon);
-
 //      Menu window settings
         menuWindowPosX = 300;
         menuWindowPosY = 150;

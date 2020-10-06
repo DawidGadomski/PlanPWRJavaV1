@@ -83,19 +83,8 @@ public class Settings {
     private int bigTextSize;
     private int smallTextSize;
 
-    // Colors
-    private Color firstColor;
-    private Color secondColor;
-    private Color textColor;
-    private Color darkTextColor;
-    private Color gridBackgroundColor;
-    private Color thirdColor;
-    private Color fourthColor;
+//  Colors
     private Color transparency;
-    private Color lectureColor;
-    private Color labColor;
-    private Color projectColor;
-    private Color seminaryColor;
 
     /***
      * Ustawienia potrzebne w głównej klasie ustawień
@@ -111,6 +100,8 @@ public class Settings {
     private JFileChooser fileChooser;
     private FileNameExtensionFilter fileNameFilter;
     private FileWriter fileWriter;
+
+
 
 //  Data
     private ArrayList<Subject> subjects;
@@ -193,22 +184,8 @@ public class Settings {
         smallTextFont = new Font("Arial", Font.PLAIN, smallTextSize);
 
 //      Colors
-        textColor = new Color(255,255,255);
-        darkTextColor = new Color(116, 94, 94);
-        firstColor = new Color(127, 127, 127);  // main color of background
-        secondColor = new Color(150,150,150);   // second color of background
-        thirdColor = new Color(155, 155, 155); // lines color
-        fourthColor = new Color(200, 200, 200); // work surface color
-
-        gridBackgroundColor = new Color(40, 40, 40);
         transparency  = new Color(0f,0f,0f,.5f);
 
-        lectureColor = new Color(255, 0, 0);
-        projectColor = new Color(0, 127, 127);
-        labColor = new Color(0, 0, 255);
-        seminaryColor = new Color(0, 255, 0);
-
-        
 //      Icons size
         bigIconSize = 64;
         smallIconSize = 20;
@@ -222,10 +199,6 @@ public class Settings {
         } catch (IOException e){
             e.printStackTrace();
         }
-        setIconColor(backIcon);
-        setIconColor(addIcon);
-        setIconColor(clearIcon);
-        setIconColor(saveIcon);
     }
 
     /***
@@ -370,12 +343,12 @@ public class Settings {
         g.drawString(text, x, y);
     }
 
-    public void setIconColor(BufferedImage icon){
+    public void setIconColor(BufferedImage icon, Color color){
         for(int y = 0; y < icon.getHeight(); y++)
             for(int x = 0; x < icon.getWidth(); x++)
             {
                 if(icon.getRGB(x, y) == Color.BLACK.getRGB()){
-                    icon.setRGB(x, y, secondColor.getRGB());
+                    icon.setRGB(x, y, color.getRGB());
                 }
             }
     }
@@ -483,82 +456,6 @@ public class Settings {
         return tileHeight;
     }
 
-    public Color getDarkTextColor() {
-        return darkTextColor;
-    }
-
-    public Color getGridBackgroundColor() {
-        return gridBackgroundColor;
-    }
-
-    public Color getThirdColor() {
-        return thirdColor;
-    }
-
-    public Color getFourthColor() {
-        return fourthColor;
-    }
-
-    public Color getLectureColor() {
-        return lectureColor;
-    }
-
-    public void setLectureColor(Color lectureColor) {
-        this.lectureColor = lectureColor;
-    }
-
-    public Color getLabColor() {
-        return labColor;
-    }
-
-    public void setLabColor(Color labColor) {
-        this.labColor = labColor;
-    }
-
-    public Color getProjectColor() {
-        return projectColor;
-    }
-
-    public void setProjectColor(Color projectColor) {
-        this.projectColor = projectColor;
-    }
-
-    public Color getSeminaryColor() {
-        return seminaryColor;
-    }
-
-    public void setSeminaryColor(Color seminaryColor) {
-        this.seminaryColor = seminaryColor;
-    }
-
-    public void setFirstColor(Color firstColor) {
-        this.firstColor = firstColor;
-    }
-
-    public void setSecondColor(Color secondColor) {
-        this.secondColor = secondColor;
-    }
-
-    public void setTextColor(Color textColor) {
-        this.textColor = textColor;
-    }
-
-    public void setDarkTextColor(Color darkTextColor) {
-        this.darkTextColor = darkTextColor;
-    }
-
-    public void setGridBackgroundColor(Color gridBackgroundColor) {
-        this.gridBackgroundColor = gridBackgroundColor;
-    }
-
-    public void setThirdColor(Color thirdColor) {
-        this.thirdColor = thirdColor;
-    }
-
-    public void setFourthColor(Color fourthColor) {
-        this.fourthColor = fourthColor;
-    }
-
     public ArrayList<Subject> getSubjects() {
         return subjects;
     }
@@ -649,17 +546,5 @@ public class Settings {
 
     public int getSmallTextSize() {
         return smallTextSize;
-    }
-
-    public Color getFirstColor() {
-        return firstColor;
-    }
-
-    public Color getSecondColor() {
-        return secondColor;
-    }
-
-    public Color getTextColor() {
-        return textColor;
     }
 }

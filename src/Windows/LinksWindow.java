@@ -1,5 +1,6 @@
 package Windows;
 
+import Settings.AppProperties;
 import Settings.LinksSettings;
 import Object.Subject;
 import Object.LinkCard;
@@ -19,6 +20,7 @@ import java.util.Map;
 public class LinksWindow extends JDialog implements ActionListener, MouseListener {
     private JDialog dWindow;
     private LinksSettings linksSettings;
+    private AppProperties appProperties;
     private Subject subject;
 
     private JPanel buttonsPanel;
@@ -36,11 +38,12 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
     private LinkInputForm addLink;
 
 
-    public LinksWindow(JDialog frame, Subject subject) {
+    public LinksWindow(JDialog frame, Subject subject, AppProperties appProperties) {
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
         this.subject = subject;
 
         linksSettings = new LinksSettings();
+        this.appProperties = appProperties;
 
         dWindow = new JDialog();
         dWindow.setLayout(new BorderLayout());
@@ -49,7 +52,7 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
         dWindow.setSize(linksSettings.getSmallWindowWidth(), linksSettings.getSmallWindowHeight());
         dWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dWindow.setLocationRelativeTo(frame);
-        dWindow.setBackground(linksSettings.getFirstColor());
+        dWindow.setBackground(appProperties.getFirstColor());
 
         initIcons();
         initPanels();
@@ -74,12 +77,12 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
 
     public void initPanels(){
         buttonsPanel = new JPanel();
-        buttonsPanel.setBackground(linksSettings.getFirstColor());
+        buttonsPanel.setBackground(appProperties.getFirstColor());
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
         buttonsPanel.setBorder(new EmptyBorder(10,10,0,10));
 
         linksPanel = new JPanel();
-        linksPanel.setBackground(linksSettings.getFirstColor());
+        linksPanel.setBackground(appProperties.getFirstColor());
         linksPanel.setLayout(new BoxLayout(linksPanel, BoxLayout.Y_AXIS));
         linksPanel.setBorder(new EmptyBorder(10,10,10,10));
     }
@@ -87,7 +90,7 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
     public void initLabels(){
         lLinks = new JLabel("Links");
         lLinks.setFont(linksSettings.getBigTextFont());
-        lLinks.setForeground(linksSettings.getTextColor());
+        lLinks.setForeground(appProperties.getTextColor());
         lLinks.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
@@ -118,7 +121,7 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
         linkList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         linkList.setLayoutOrientation(JList.VERTICAL_WRAP);
         linkList.setVisibleRowCount(-1);
-        linkList.setBackground(linksSettings.getSecondColor());
+        linkList.setBackground(appProperties.getSecondColor());
         linkList.setPreferredSize(new Dimension(linksSettings.getWindowWidth(), linksSettings.getWindowHeight()));
         linkList.setFont(linksSettings.getBigTextFont());
         linkList.setForeground(Color.WHITE);

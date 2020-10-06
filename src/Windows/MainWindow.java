@@ -6,6 +6,7 @@ import Icons.SaveIcon;
 import Icons.SettingsIcon;
 import Object.Subject;
 import Settings.MainWindowSettings;
+import Settings.AppProperties;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,8 @@ public class MainWindow {
     private SettingsIcon settingsIcon;
     private ClearIcon clearIcon;
 
+    private AppProperties appProperties;
+
     private JButton addSubject;
     private JButton savePlan;
     private JButton settings;
@@ -41,14 +44,15 @@ public class MainWindow {
      * Inicializacja ustawien oraz ikon
      * @param g - Graphics2d dostarczony z JComponentu
      */
-    public MainWindow(Graphics2D g){
+    public MainWindow(Graphics2D g, AppProperties appProperties){
 //      Init
         mainWindowSettings = new MainWindowSettings();
+        this.appProperties = appProperties;
 
         // Icons
-        addIcon = new AddIcon(mainWindowSettings.getAddIconPosX(), mainWindowSettings.getAddIconPosY(), mainWindowSettings.getIconsWidth());
-        saveIcon = new SaveIcon(mainWindowSettings.getSaveIconPosX(), mainWindowSettings.getSaveIconPosY(), mainWindowSettings.getIconsWidth());
-        settingsIcon = new SettingsIcon(mainWindowSettings.getSettingsIconPosX(), mainWindowSettings.getSettingsIconPosY(), mainWindowSettings.getIconsWidth());
+        addIcon = new AddIcon(mainWindowSettings.getAddIconPosX(), mainWindowSettings.getAddIconPosY(), mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
+        saveIcon = new SaveIcon(mainWindowSettings.getSaveIconPosX(), mainWindowSettings.getSaveIconPosY(), mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
+        settingsIcon = new SettingsIcon(mainWindowSettings.getSettingsIconPosX(), mainWindowSettings.getSettingsIconPosY(), mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
 
 //        addIcon = mainWindowSettings.getAddIcon().getScaledInstance(mainWindowSettings.getTileWidth(), mainWindowSettings.getTileHeight(), Image.SCALE_DEFAULT);
 //        saveIcon = mainWindowSettings.getSaveIcon().getScaledInstance(mainWindowSettings.getTileWidth(), mainWindowSettings.getTileHeight(), Image.SCALE_DEFAULT);
@@ -67,7 +71,7 @@ public class MainWindow {
 //        savePlan.setContentAreaFilled(false);
 //        savePlan.addActionListener(this);
 
-        clearIcon = new ClearIcon(mainWindowSettings.getClearIconPosX(), mainWindowSettings.getClearIconPosY(), mainWindowSettings.getClearIconSize());
+        clearIcon = new ClearIcon(mainWindowSettings.getClearIconPosX(), mainWindowSettings.getClearIconPosY(), mainWindowSettings.getClearIconSize(), appProperties.getSecondColor());
     }
 
 //  Getters and Setters
@@ -92,11 +96,11 @@ public class MainWindow {
      */
     private void drawBackground(Graphics2D g){
 //      Background
-        g.setColor(mainWindowSettings.getGridBackgroundColor());
+        g.setColor(appProperties.getGridBackgroundColor());
         g.fillRect(0,0,mainWindowSettings.getWindowWidth(),mainWindowSettings.getWindowHeight());
 
 //      Grid
-        g.setColor(mainWindowSettings.getThirdColor());
+        g.setColor(appProperties.getThirdColor());
         for(int x=mainWindowSettings.getWorkSurfacePosX(); x <= mainWindowSettings.getWindowWidth(); x+=mainWindowSettings.getTileWidth()){
             g.drawLine(x, 0, x, (mainWindowSettings.getWindowHeight() - mainWindowSettings.getWorkspaceHeight()));
         }
@@ -105,7 +109,7 @@ public class MainWindow {
         }
 
 //      Workspace
-        g.setColor(mainWindowSettings.getFourthColor());
+        g.setColor(appProperties.getFourthColor());
         g.fillRect(mainWindowSettings.getWorkspacePosX(), mainWindowSettings.getWorkspacePosY(), mainWindowSettings.getWorkspaceWidth(), mainWindowSettings.getWorkspaceHeight());
 
 //      Grid line

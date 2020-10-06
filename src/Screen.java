@@ -3,6 +3,7 @@ import Windows.MainWindow;
 import Windows.MenuWindow;
 import Object.Subject;
 import Windows.SettingsWindow;
+import Settings.AppProperties;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +24,7 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
     private double mousePosX;
     private double mousePosY;
     private Settings settings;
+    private AppProperties appProperties;
 
 //  Flags
     private boolean mainWindowFlag;
@@ -35,8 +37,13 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
 
     public Screen(JFrame frame) {
 //      Settings.Settings
+        try {
+            this.appProperties = new AppProperties();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.settings = new Settings();
-        this.mainWindow = new MainWindow(g2d);
+        this.mainWindow = new MainWindow(g2d, appProperties);
         this.frame = frame;
 
 //      Action Listeners for mouse
@@ -110,7 +117,7 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                     if (s.isOver(getMousePosition().getX(), getMousePosition().getY())) {
                         s.setClickedFlag(false);
                         mainWindow.getClearIcon().setVisableFlag(false);
-                        menu = new MenuWindow(frame, s, settings.getSubjects());
+                        menu = new MenuWindow(frame, appProperties, s, settings.getSubjects());
                         break;
                     }
                 }
@@ -128,7 +135,7 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                     break;
                 case 3:
 //                  Settings
-                    settingsWindow = new SettingsWindow(frame);
+                    settingsWindow = new SettingsWindow(frame, appProperties);
                     break;
             }
             repaint();

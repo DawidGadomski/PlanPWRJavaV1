@@ -1,13 +1,14 @@
 package Icons;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
 public class ClearIcon extends Icon {
     private boolean visableFlag;
 
-    public ClearIcon(int x, int y, int size) {
+    public ClearIcon(int x, int y, int size, Color color) {
         super(x, y);
         this.size = size;
         try{
@@ -15,7 +16,7 @@ public class ClearIcon extends Icon {
         } catch (IOException e){
             e.printStackTrace();
         }
-        setIconColor();
+        setIconColor(color);
         this.visableFlag = false;
     }
 

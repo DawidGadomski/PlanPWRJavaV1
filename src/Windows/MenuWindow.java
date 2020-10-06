@@ -1,5 +1,6 @@
 package Windows;
 
+import Settings.AppProperties;
 import Settings.MenuSettings;
 import Object.Subject;
 import Object.TestCard;
@@ -21,6 +22,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     private LinksWindow linksWindow;
     private TestInputForm addTest;
     private ArrayList<Subject> subjects;
+    private AppProperties appProperties;
     private int allAbsences;
     private int absences;
 
@@ -80,12 +82,13 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 //  Flags
     private boolean editAbsencesFlag;
 
-    public MenuWindow(JFrame frame, Subject subject, ArrayList<Subject> subjects){
+    public MenuWindow(JFrame frame, AppProperties appProperties, Subject subject, ArrayList<Subject> subjects){
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
 
         this.frame = frame;
         this.subject = subject;
         this.subjects = subjects;
+        this.appProperties = appProperties;
 
         menuSettings = new MenuSettings();
         allAbsences = subject.getAllAbsences();
@@ -127,6 +130,14 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     }
 
     private void initIcons(){
+        menuSettings.setIconColor(menuSettings.getNoteIcon(), appProperties.getSecondColor());
+        menuSettings.setIconColor(menuSettings.getDocIcon(), appProperties.getSecondColor());
+        menuSettings.setIconColor(menuSettings.getEditAbsencesIcon(), appProperties.getSecondColor());
+        menuSettings.setIconColor(menuSettings.getPlusIcon(), appProperties.getSecondColor());
+        menuSettings.setIconColor(menuSettings.getMinusIcon(), appProperties.getSecondColor());
+        menuSettings.setIconColor(menuSettings.getOkIcon(), appProperties.getSecondColor());
+        menuSettings.setIconColor(menuSettings.getLinksIcon(), appProperties.getSecondColor());
+
         backIcon = menuSettings.getBackIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
         deleteIcon = menuSettings.getClearIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
         docIcon = menuSettings.getDocIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
@@ -143,20 +154,20 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 
     private void initPanels(){
         iconPanel = new JPanel();
-        iconPanel.setBackground(menuSettings.getFirstColor());
+        iconPanel.setBackground(appProperties.getFirstColor());
         iconPanel.setLayout(new BoxLayout(iconPanel, BoxLayout.X_AXIS));
 
         textPanel = new JPanel();
-        textPanel.setBackground(menuSettings.getFirstColor());
+        textPanel.setBackground(appProperties.getFirstColor());
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.PAGE_AXIS));
 
         advancePanel = new JPanel();
-        advancePanel.setBackground(menuSettings.getFirstColor());
+        advancePanel.setBackground(appProperties.getFirstColor());
         advancePanel.setLayout(new GridBagLayout());
         constraints = new GridBagConstraints();
 
         absencesPanel = new JPanel();
-        absencesPanel.setBackground(menuSettings.getSecondColor());
+        absencesPanel.setBackground(appProperties.getSecondColor());
         absencesPanel.setLayout(new BoxLayout(absencesPanel, BoxLayout.LINE_AXIS));
         absencesPanel.setSize(new Dimension(menuSettings.getAbsencesInfoWidth(), menuSettings.getAbsencesInfoHeight()));
 
@@ -165,45 +176,45 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     private void initLabels(){
         lTextName = new JLabel("Nazwa: ");
         lTextName.setFont(menuSettings.getMediumTextFont());
-        lTextName.setForeground(menuSettings.getTextColor());
+        lTextName.setForeground(appProperties.getTextColor());
 
         lName = new JLabel(subject.getName());
         lName.setFont(menuSettings.getMediumTextFont());
-        lName.setForeground(menuSettings.getTextColor());
-        lName.setBackground(menuSettings.getSecondColor());
+        lName.setForeground(appProperties.getTextColor());
+        lName.setBackground(appProperties.getSecondColor());
 
         lTextTerm = new JLabel("Termin: ");
         lTextTerm.setFont(menuSettings.getMediumTextFont());
-        lTextTerm.setForeground(menuSettings.getTextColor());
+        lTextTerm.setForeground(appProperties.getTextColor());
 
         lTerm = new JLabel(subject.getTerm());
         lTerm.setFont(menuSettings.getMediumTextFont());
-        lTerm.setForeground(menuSettings.getTextColor());
+        lTerm.setForeground(appProperties.getTextColor());
 
         lTextRoom = new JLabel("Sala: ");
         lTextRoom.setFont(menuSettings.getMediumTextFont());
-        lTextRoom.setForeground(menuSettings.getTextColor());
+        lTextRoom.setForeground(appProperties.getTextColor());
 
         lRoom = new JLabel(subject.getRoom());
         lRoom.setFont(menuSettings.getMediumTextFont());
-        lRoom.setForeground(menuSettings.getTextColor());
+        lRoom.setForeground(appProperties.getTextColor());
 
         lTextProf = new JLabel("Prowadzący: ");
         lTextProf.setFont(menuSettings.getMediumTextFont());
-        lTextProf.setForeground(menuSettings.getTextColor());
+        lTextProf.setForeground(appProperties.getTextColor());
 
         lProf = new JLabel(subject.getProf());
         lProf.setFont(menuSettings.getMediumTextFont());
-        lProf.setForeground(menuSettings.getTextColor());
+        lProf.setForeground(appProperties.getTextColor());
 
         lTests = new JLabel("Kolokwia");
         lTests.setFont(menuSettings.getMediumTextFont());
-        lTests.setForeground(menuSettings.getTextColor());
+        lTests.setForeground(appProperties.getTextColor());
         lTests.setHorizontalAlignment(SwingConstants.RIGHT);
 
         lAbsences = new JLabel("Nieobecności");
         lAbsences.setFont(menuSettings.getMediumTextFont());
-        lAbsences.setForeground(menuSettings.getTextColor());
+        lAbsences.setForeground(appProperties.getTextColor());
         lAbsences.setHorizontalAlignment(SwingConstants.RIGHT);
     }
 
@@ -306,7 +317,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         testList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         testList.setLayoutOrientation(JList.VERTICAL_WRAP);
         testList.setVisibleRowCount(-1);
-        testList.setBackground(menuSettings.getSecondColor());
+        testList.setBackground(appProperties.getSecondColor());
         testList.setPreferredSize(new Dimension(menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight()));
         testList.setFont(menuSettings.getMediumTextFont());
         testList.setForeground(Color.WHITE);
@@ -316,7 +327,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         listScroller.setPreferredSize(new Dimension(menuSettings.getTestInfoWidth(), menuSettings.getTestInfoHeight()));
 
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(menuSettings.getThirdColor());
+        sLine.setBackground(appProperties.getThirdColor());
     }
 
     private void initTextPanel(){
@@ -350,25 +361,25 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         iconPanel.add(docButton);
         iconPanel.add(Box.createHorizontalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(menuSettings.getThirdColor());
+        sLine.setBackground(appProperties.getThirdColor());
         iconPanel.add(sLine);
 
         iconPanel.add(editButton);
         iconPanel.add(Box.createHorizontalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(menuSettings.getThirdColor());
+        sLine.setBackground(appProperties.getThirdColor());
         iconPanel.add(sLine);
 
         iconPanel.add(linksButton);
         iconPanel.add(Box.createHorizontalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(menuSettings.getThirdColor());
+        sLine.setBackground(appProperties.getThirdColor());
         iconPanel.add(sLine);
 
         iconPanel.add(noteButton);
         iconPanel.add(Box.createHorizontalGlue());
         sLine = new JSeparator(SwingConstants.VERTICAL);
-        sLine.setBackground(menuSettings.getThirdColor());
+        sLine.setBackground(appProperties.getThirdColor());
         iconPanel.add(sLine);
 
         iconPanel.add(deleteButton);
@@ -507,7 +518,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
             dWindow.setVisible(false);
         }
         else if(e.getSource() == linksButton){
-            linksWindow = new LinksWindow(this, this.subject);
+            linksWindow = new LinksWindow(this, this.subject, appProperties);
         }
         else if(e.getSource() == addTestButton){
             addTest = new TestInputForm(this);
