@@ -133,9 +133,16 @@ public class SettingsWindow extends JDialog implements ActionListener {
     }
 
     public void initButtonsPanel(){
+
+        settings.setIconColor(settings.getBackIcon(), appProperties.getSecondColor());
+        settings.setIconColor(settings.getColorsImage(), appProperties.getSecondColor());
+        settings.setIconColor(settings.getAboutImage(), appProperties.getSecondColor());
+        settings.setIconColor(settings.getAdvancedImage(), appProperties.getSecondColor());
+
         buttonsPanel = new JPanel();
         buttonsPanel.setBackground(appProperties.getFirstColor());
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
+        buttonsPanel.setBorder(new EmptyBorder(10,10,10,0));
 
         backIcon = settings.getBackIcon().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(), Image.SCALE_DEFAULT);
         colorsIcon = settings.getColorsImage().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(), Image.SCALE_DEFAULT);
@@ -146,43 +153,43 @@ public class SettingsWindow extends JDialog implements ActionListener {
         backButton.setMinimumSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
         backButton.setPreferredSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
         backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getBigIconSize()));
-//        backButton.setContentAreaFilled(false);
+        backButton.setContentAreaFilled(false);
         backButton.addActionListener(this);
 
         colorsPanelButton = new JButton(new ImageIcon(colorsIcon));
         colorsPanelButton.setMinimumSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
         colorsPanelButton.setPreferredSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
         colorsPanelButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getBigIconSize()));
-//        colorsPanelButton.setContentAreaFilled(false);
+        colorsPanelButton.setContentAreaFilled(false);
         colorsPanelButton.addActionListener(this);
 
         advancedPanelButton = new JButton(new ImageIcon(advancedIcon));
         advancedPanelButton.setMinimumSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
         advancedPanelButton.setPreferredSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
         advancedPanelButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getBigIconSize()));
-//        advancedPanelButton.setContentAreaFilled(false);
+        advancedPanelButton.setContentAreaFilled(false);
         advancedPanelButton.addActionListener(this);
 
         authorPanelButton = new JButton(new ImageIcon(aboutIcon));
         authorPanelButton.setMinimumSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
         authorPanelButton.setPreferredSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
         authorPanelButton.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getBigIconSize()));
-//        authorPanelButton.setContentAreaFilled(false);
+        authorPanelButton.setContentAreaFilled(false);
         authorPanelButton.addActionListener(this);
 
         buttonsPanel.add(backButton);
         buttonsPanel.add(Box.createVerticalGlue());
-        sLine = new JSeparator(SwingConstants.VERTICAL);
+        sLine = new JSeparator(SwingConstants.HORIZONTAL);
         sLine.setBackground(appProperties.getThirdColor());
         buttonsPanel.add(sLine);
         buttonsPanel.add(colorsPanelButton);
         buttonsPanel.add(Box.createVerticalGlue());
-        sLine = new JSeparator(SwingConstants.VERTICAL);
+        sLine = new JSeparator(SwingConstants.HORIZONTAL);
         sLine.setBackground(appProperties.getThirdColor());
         buttonsPanel.add(sLine);
         buttonsPanel.add(authorPanelButton);
         buttonsPanel.add(Box.createVerticalGlue());
-        sLine = new JSeparator(SwingConstants.VERTICAL);
+        sLine = new JSeparator(SwingConstants.HORIZONTAL);
         sLine.setBackground(appProperties.getThirdColor());
         buttonsPanel.add(sLine);
         buttonsPanel.add(advancedPanelButton);
@@ -340,47 +347,47 @@ public class SettingsWindow extends JDialog implements ActionListener {
 
         constraints.fill = GridBagConstraints.LINE_END;
         constraints.gridx = 1;
-        constraints.gridy = 2;
+        constraints.gridy = 1;
         advancedSettingsPanel.add(cbNotifications, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 3;
+        constraints.gridy = 2;
         advancedSettingsPanel.add(lNotificationsInfo, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 4;
+        constraints.gridy = 3;
         advancedSettingsPanel.add(lFullscreen, constraints);
 
         constraints.fill = GridBagConstraints.LINE_END;
         constraints.gridx = 1;
-        constraints.gridy = 4;
+        constraints.gridy = 3;
         advancedSettingsPanel.add(cbFullscreen, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 5;
+        constraints.gridy = 4;
         advancedSettingsPanel.add(lFullscreenInfo, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 6;
+        constraints.gridy = 5;
         advancedSettingsPanel.add(lRoute, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 7;
+        constraints.gridy = 6;
         advancedSettingsPanel.add(lRouteInfo, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 8;
+        constraints.gridy = 7;
         advancedSettingsPanel.add(lFilePath, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 1;
-        constraints.gridy = 8;
+        constraints.gridy = 7;
         advancedSettingsPanel.add(bChooseFilePath, constraints);
 
         advancePanel.add(lAdvanced);

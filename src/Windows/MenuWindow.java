@@ -131,11 +131,15 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 
     private void initIcons(){
         menuSettings.setIconColor(menuSettings.getNoteIcon(), appProperties.getSecondColor());
+        menuSettings.setIconColor(menuSettings.getClearIcon(), appProperties.getSecondColor());
+        menuSettings.setIconColor(menuSettings.getBackIcon(), appProperties.getSecondColor());
         menuSettings.setIconColor(menuSettings.getDocIcon(), appProperties.getSecondColor());
+        menuSettings.setIconColor(menuSettings.getEditIcon(), appProperties.getSecondColor());
         menuSettings.setIconColor(menuSettings.getEditAbsencesIcon(), appProperties.getSecondColor());
         menuSettings.setIconColor(menuSettings.getPlusIcon(), appProperties.getSecondColor());
         menuSettings.setIconColor(menuSettings.getMinusIcon(), appProperties.getSecondColor());
         menuSettings.setIconColor(menuSettings.getOkIcon(), appProperties.getSecondColor());
+        menuSettings.setIconColor(menuSettings.getAddIcon(), appProperties.getSecondColor());
         menuSettings.setIconColor(menuSettings.getLinksIcon(), appProperties.getSecondColor());
 
         backIcon = menuSettings.getBackIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
@@ -148,7 +152,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         plusIcon = menuSettings.getAddIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
         minusIcon = menuSettings.getMinusIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
         okIcon = menuSettings.getOkIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
-        linksIcon = menuSettings.getLinksIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        linksIcon = menuSettings.getLinksIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
 
     }
 
@@ -300,9 +304,9 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         okButton.addActionListener(this);
 
         linksButton = new JButton(new ImageIcon(linksIcon));
-        linksButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
-        linksButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
-        linksButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
+        linksButton.setMinimumSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        linksButton.setPreferredSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
+        linksButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getBigIconSize()));
         linksButton.setContentAreaFilled(false);
         linksButton.addActionListener(this);
     }

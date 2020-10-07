@@ -165,6 +165,18 @@ public class AppProperties {
 
     public void setFolderPath(String folderPath) {
         this.folderPath = folderPath;
+        try{
+            inputStream = new FileInputStream(propFileName);
+            prop.load(inputStream);
+            inputStream.close();
+
+            outputStream = new FileOutputStream(propFileName);
+            prop.setProperty("folderPath", this.folderPath);
+            prop.store(outputStream, null);
+            outputStream.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     private void saveColorProperties(String propName, Color color){
