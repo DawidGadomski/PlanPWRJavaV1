@@ -10,22 +10,24 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class SettingsWindow extends JDialog implements ActionListener {
     private JDialog dWindow;
     private JFrame frame;
     private SettingsSettings settings;
     private AppProperties appProperties;
+    private JFileChooser fileChooser;
     private JPanel pCard;
     private JPanel buttonsPanel;
     private JPanel aboutPanel;
     private JPanel advancePanel;
-//    private ColorPicker colorPicker;
     private GridBagConstraints constraints;
 
     private Image aboutIcon;
     private Image backIcon;
     private Image colorsIcon;
+    private Image saveIcon;
     private Image advancedIcon;
 
     private JButton advancedPanelButton;
@@ -81,7 +83,9 @@ public class SettingsWindow extends JDialog implements ActionListener {
     private JLabel lFullscreenInfo;
     private JCheckBox cbFullscreen;
     private JCheckBox cbNotifications;
-    private JFileChooser fileChooser;
+    private JButton bChooseFilePath;
+    private JLabel lFilePath;
+
 
     private JButton bMainColor;
     private JButton bSecondColor;
@@ -304,71 +308,80 @@ public class SettingsWindow extends JDialog implements ActionListener {
 
         cbNotifications = new JCheckBox();
 
-        fileChooser = new JFileChooser();
+        lFilePath = new JLabel(appProperties.getFolderPath());
+        lFilePath.setFont(settings.getSmallTextFont());
+        lFilePath.setHorizontalAlignment(SwingConstants.LEFT);
+        lFilePath.setForeground(appProperties.getTextColor());
+        lFilePath.setBackground(appProperties.getSecondColor());
+
+        saveIcon = settings.getAdvancedImage().getScaledInstance(settings.getSmallIconSize(), settings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        bChooseFilePath = new JButton(new ImageIcon(saveIcon));
+        bChooseFilePath.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
+        bChooseFilePath.setPreferredSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
+        bChooseFilePath.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getSmallIconSize()));
+        bChooseFilePath.addActionListener(this);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weightx = 1;
-        constraints.gridwidth = 3;
+        constraints.gridwidth = 1;
         constraints.gridx = 0;
         constraints.gridy = 0;
         advancedSettingsPanel.add(lLanguage, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.gridx = 3;
+        constraints.gridx = 1;
         constraints.gridy = 0;
         advancedSettingsPanel.add(comboLanguages, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
         constraints.gridx = 0;
-        constraints.gridy = 2;
+        constraints.gridy = 1;
         advancedSettingsPanel.add(lNotifications, constraints);
 
         constraints.fill = GridBagConstraints.LINE_END;
-        constraints.gridx = 3;
+        constraints.gridx = 1;
         constraints.gridy = 2;
         advancedSettingsPanel.add(cbNotifications, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
-        constraints.gridx = 1;
+        constraints.gridx = 0;
         constraints.gridy = 3;
         advancedSettingsPanel.add(lNotificationsInfo, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
         constraints.gridx = 0;
         constraints.gridy = 4;
         advancedSettingsPanel.add(lFullscreen, constraints);
 
         constraints.fill = GridBagConstraints.LINE_END;
-        constraints.gridx = 3;
+        constraints.gridx = 1;
         constraints.gridy = 4;
         advancedSettingsPanel.add(cbFullscreen, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
-        constraints.gridx = 1;
+        constraints.gridx = 0;
         constraints.gridy = 5;
         advancedSettingsPanel.add(lFullscreenInfo, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
         constraints.gridx = 0;
         constraints.gridy = 6;
         advancedSettingsPanel.add(lRoute, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weightx = 1;
-        constraints.gridwidth = 3;
-        constraints.gridx = 1;
+        constraints.gridx = 0;
         constraints.gridy = 7;
         advancedSettingsPanel.add(lRouteInfo, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridx = 0;
+        constraints.gridy = 8;
+        advancedSettingsPanel.add(lFilePath, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridx = 1;
+        constraints.gridy = 8;
+        advancedSettingsPanel.add(bChooseFilePath, constraints);
 
         advancePanel.add(lAdvanced);
         advancePanel.add(advancedSettingsPanel);
@@ -451,16 +464,6 @@ public class SettingsWindow extends JDialog implements ActionListener {
         lTextColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lTextColorInfo.setForeground(appProperties.getDarkTextColor());
 
-        lTextColor = new JLabel("Text Color");
-        lTextColor.setFont(settings.getMediumTextFont());
-        lTextColor.setHorizontalAlignment(SwingConstants.LEFT);
-        lTextColor.setForeground(appProperties.getTextColor());
-
-        lTextColorInfo = new JLabel("Color of text in app");
-        lTextColorInfo.setFont(settings.getSmallTextFont());
-        lTextColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
-        lTextColorInfo.setForeground(appProperties.getDarkTextColor());
-
         lLectureColor = new JLabel("Lecture Color");
         lLectureColor.setFont(settings.getMediumTextFont());
         lLectureColor.setHorizontalAlignment(SwingConstants.LEFT);
@@ -503,8 +506,8 @@ public class SettingsWindow extends JDialog implements ActionListener {
 
         bMainColor = new JButton();
         bMainColor.setBackground(appProperties.getFirstColor());
-        bMainColor.setOpaque(true);
         bMainColor.setContentAreaFilled(false);
+        bMainColor.setOpaque(true);
         bMainColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bMainColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
         bMainColor.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
@@ -513,8 +516,8 @@ public class SettingsWindow extends JDialog implements ActionListener {
 
         bSecondColor = new JButton();
         bSecondColor.setBackground(appProperties.getSecondColor());
-        bSecondColor.setOpaque(true);
         bSecondColor.setContentAreaFilled(false);
+        bSecondColor.setOpaque(true);
         bSecondColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bSecondColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
         bSecondColor.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
@@ -523,8 +526,8 @@ public class SettingsWindow extends JDialog implements ActionListener {
 
         bThirdColor = new JButton();
         bThirdColor.setBackground(appProperties.getThirdColor());
-        bThirdColor.setOpaque(true);
         bThirdColor.setContentAreaFilled(false);
+        bThirdColor.setOpaque(true);
         bThirdColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bThirdColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
         bThirdColor.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
@@ -557,7 +560,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         bTextColor.setOpaque(true);
         bTextColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bTextColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
-        bTextColor.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getColorButtonsSize()));
+        bTextColor.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
         bTextColor.setBorder(new LineBorder(Color.BLACK));
         bTextColor.addActionListener(this);
 
@@ -567,7 +570,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         bLectureColor.setOpaque(true);
         bLectureColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bLectureColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
-        bLectureColor.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getColorButtonsSize()));
+        bLectureColor.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
         bLectureColor.setBorder(new LineBorder(Color.BLACK));
         bLectureColor.addActionListener(this);
 
@@ -577,7 +580,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         bProjectColor.setOpaque(true);
         bProjectColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bProjectColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
-        bProjectColor.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getColorButtonsSize()));
+        bProjectColor.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
         bProjectColor.setBorder(new LineBorder(Color.BLACK));
         bProjectColor.addActionListener(this);
 
@@ -587,7 +590,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         bSeminaryColor.setOpaque(true);
         bSeminaryColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bSeminaryColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
-        bSeminaryColor.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getColorButtonsSize()));
+        bSeminaryColor.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
         bSeminaryColor.setBorder(new LineBorder(Color.BLACK));
         bSeminaryColor.addActionListener(this);
 
@@ -597,7 +600,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         bLabColor.setOpaque(true);
         bLabColor.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bLabColor.setPreferredSize(new Dimension(settings.getColorButtonsSize(), settings.getColorButtonsSize()));
-        bLabColor.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getColorButtonsSize()));
+        bLabColor.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
         bLabColor.setBorder(new LineBorder(Color.BLACK));
         bLabColor.addActionListener(this);
 
@@ -779,12 +782,21 @@ public class SettingsWindow extends JDialog implements ActionListener {
         }
         else if (e.getSource() == bMainColor){
             appProperties.setFirstColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getFirstColor()));
+            bMainColor.setBackground(appProperties.getFirstColor());
+            dWindow.setBackground(appProperties.getFirstColor());
+            colorPanel.setBackground(appProperties.getFirstColor());
+            dWindow.repaint();
         }
         else if (e.getSource() == bSecondColor){
             appProperties.setSecondColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getSecondColor()));
+            bSecondColor.setBackground(appProperties.getSecondColor());
+            colorsPanel.setBackground(appProperties.getSecondColor());
+            dWindow.repaint();
         }
         else if (e.getSource() == bThirdColor){
             appProperties.setThirdColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getThirdColor()));
+            bThirdColor.setBackground(appProperties.getThirdColor());
+            dWindow.repaint();
         }
         else if (e.getSource() == bFourthColor){
             appProperties.setFourthColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getFourthColor()));
@@ -797,15 +809,37 @@ public class SettingsWindow extends JDialog implements ActionListener {
         }
         else if (e.getSource() == bLectureColor){
             appProperties.setLectureColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getLectureColor()));
+            bLectureColor.revalidate();
         }
         else if (e.getSource() == bSeminaryColor){
             appProperties.setSeminaryColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getSeminaryColor()));
+            bSeminaryColor.revalidate();
         }
         else if (e.getSource() == bProjectColor){
             appProperties.setProjectColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getProjectColor()));
+            bProjectColor.revalidate();
         }
         else if (e.getSource() == bLabColor){
             appProperties.setLabColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getLabColor()));
+            bLabColor.revalidate();
+        }
+        else if (e.getSource() == bChooseFilePath){
+            fileChooser = new JFileChooser();
+            fileChooser.setCurrentDirectory(new File(appProperties.getFolderPath()));
+            fileChooser.setDialogTitle("Choose file path");
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            //
+            // disable the "All files" option.
+            //
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            //
+            if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                appProperties.setFolderPath(fileChooser.getCurrentDirectory().getAbsolutePath());
+
+            }
+            else {
+                System.out.println("No Selection ");
+            }
         }
     }
 

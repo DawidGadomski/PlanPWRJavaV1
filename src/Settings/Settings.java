@@ -25,7 +25,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * Główne ustawienia
  */
 public class Settings {
-    private String path;
     private static final String AUTHOR_NAME = "Dawid Gadomski";
     private static final String VERSION = "1.0";
     private static final String[] LANGUAGES = {"English", "Polski"};
@@ -101,8 +100,6 @@ public class Settings {
     private FileNameExtensionFilter fileNameFilter;
     private FileWriter fileWriter;
 
-
-
 //  Data
     private ArrayList<Subject> subjects;
     private ArrayList<DataOfSubject> subjectsList;
@@ -113,19 +110,6 @@ public class Settings {
      * Konstruktor ustawień
      */
     public Settings(){
-    /***
-     * Docelowo ustawienie scieżki dla ikon i folderów chciałbym zrobić w oknie ustawień w aplikacji
-     * Stąd na chwilę obecną po prostu ścieżki podane są tutaj oraz w klasach ikon
-     */
-        switch (System.getProperty("os.name")) {
-            case "Windows 10":
-                path = "D:\\PWR";
-                break;
-            case "Linux":
-                path = "home";
-                break;
-        }
-
 //      Display metrics
         screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
         windowWidth = screenDimension.width;
@@ -395,10 +379,6 @@ public class Settings {
     public String getVersion(){return VERSION;}
 
     public String[] getLanguages(){return LANGUAGES;}
-
-    public String getPath() {
-        return path;
-    }
 
     public void setDefaultTransform(AffineTransform defaultTransform) {
         this.defaultTransform = defaultTransform;

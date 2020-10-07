@@ -494,7 +494,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
             dWindow.setVisible(false);
         }
         else if(e.getSource() == docButton){
-            File file = new File(menuSettings.getPath() + "\\" + this.subject.getName());
+            File file = new File(appProperties.getFolderPath() + "\\" + this.subject.getName());
             if (!file.exists()) {
                 file.mkdir();
             }

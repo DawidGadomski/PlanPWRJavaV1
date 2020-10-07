@@ -1,16 +1,17 @@
 package Settings;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Date;
 import java.util.Properties;
 
 public class AppProperties {
-    InputStream inputStream;
+    private InputStream inputStream;
+    private OutputStream outputStream;
     private Properties prop;
     private String propFileName;
+
+    private String folderPath;
 
     // Colors
     private Color firstColor;
@@ -32,13 +33,11 @@ public class AppProperties {
              prop = new Properties();
              propFileName = "config.properties";
 
-            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+            inputStream = new FileInputStream(propFileName);
 
-            if (inputStream != null) {
-                prop.load(inputStream);
-            } else {
-                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-            }
+            prop.load(inputStream);
+
+            folderPath = prop.getProperty("folderPath");
 
             textColor = new Color(Integer.parseInt(prop.getProperty("textColor")));
             darkTextColor = new Color(Integer.parseInt(prop.getProperty("darkTextColor")));
@@ -56,6 +55,7 @@ public class AppProperties {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            assert inputStream != null;
             inputStream.close();
         }
     }
@@ -82,7 +82,7 @@ public class AppProperties {
 
     public void setLectureColor(Color lectureColor) {
         this.lectureColor = lectureColor;
-        prop.setProperty("lectureColor", Integer.toString(lectureColor.getRGB()));
+        saveColorProperties("lectureColor", this.lectureColor);
     }
 
     public Color getLabColor() {
@@ -91,7 +91,7 @@ public class AppProperties {
 
     public void setLabColor(Color labColor) {
         this.labColor = labColor;
-        prop.setProperty("labColor", Integer.toString(labColor.getRGB()));
+        saveColorProperties("labColor", this.labColor);
     }
 
     public Color getProjectColor() {
@@ -100,7 +100,7 @@ public class AppProperties {
 
     public void setProjectColor(Color projectColor) {
         this.projectColor = projectColor;
-        prop.setProperty("projectColor", Integer.toString(projectColor.getRGB()));
+        saveColorProperties("projectColor", this.projectColor);
     }
 
     public Color getSeminaryColor() {
@@ -109,42 +109,42 @@ public class AppProperties {
 
     public void setSeminaryColor(Color seminaryColor) {
         this.seminaryColor = seminaryColor;
-        prop.setProperty("seminaryColor", Integer.toString(seminaryColor.getRGB()));
+        saveColorProperties("seminaryColor", this.seminaryColor);
     }
 
     public void setFirstColor(Color firstColor) {
         this.firstColor = firstColor;
-        prop.setProperty("firstColor", Integer.toString(firstColor.getRGB()));
+        saveColorProperties("firstColor", this.firstColor);
     }
 
     public void setSecondColor(Color secondColor) {
         this.secondColor = secondColor;
-        prop.setProperty("secondColor", Integer.toString(secondColor.getRGB()));
+        saveColorProperties("secondColor", this.secondColor);
     }
 
     public void setTextColor(Color textColor) {
         this.textColor = textColor;
-        prop.setProperty("textColor", Integer.toString(textColor.getRGB()));
+        saveColorProperties("textColor", this.textColor);
     }
 
     public void setDarkTextColor(Color darkTextColor) {
         this.darkTextColor = darkTextColor;
-        prop.setProperty("darkTextColor", Integer.toString(darkTextColor.getRGB()));
+        saveColorProperties("darkTextColor", this.darkTextColor);
     }
 
     public void setGridBackgroundColor(Color gridBackgroundColor) {
         this.gridBackgroundColor = gridBackgroundColor;
-        prop.setProperty("gridBackgroundColor", Integer.toString(gridBackgroundColor.getRGB()));
+        saveColorProperties("gridBackgroundColor", this.gridBackgroundColor);
     }
 
     public void setThirdColor(Color thirdColor) {
         this.thirdColor = thirdColor;
-        prop.setProperty("thirdColor", Integer.toString(thirdColor.getRGB()));
+        saveColorProperties("thirdColor", this.thirdColor);
     }
 
     public void setFourthColor(Color fourthColor) {
         this.fourthColor = fourthColor;
-        prop.setProperty("fourthColor", Integer.toString(fourthColor.getRGB()));
+        saveColorProperties("fourthColor", this.fourthColor);
     }
 
     public Color getFirstColor() {
@@ -157,5 +157,28 @@ public class AppProperties {
 
     public Color getTextColor() {
         return textColor;
+    }
+
+    public String getFolderPath() {
+        return folderPath;
+    }
+
+    public void setFolderPath(String folderPath) {
+        this.folderPath = folderPath;
+    }
+
+    private void saveColorProperties(String propName, Color color){
+        try{
+            inputStream = new FileInputStream(propFileName);
+            prop.load(inputStream);
+            inputStream.close();
+
+            outputStream = new FileOutputStream(propFileName);
+            prop.setProperty(propName, Integer.toString(color.getRGB()));
+            prop.store(outputStream, null);
+            outputStream.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
