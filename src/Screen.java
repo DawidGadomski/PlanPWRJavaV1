@@ -2,6 +2,7 @@ import Settings.Settings;
 import Windows.MainWindow;
 import Windows.MenuWindow;
 import Object.Subject;
+import Windows.NotesWindow;
 import Windows.SettingsWindow;
 import Settings.AppProperties;
 
@@ -28,12 +29,10 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
 
 //  Flags
     private boolean mainWindowFlag;
-//    private boolean menuFlag;
-//    private boolean notesFlag;
     private MainWindow mainWindow;
     private SettingsWindow settingsWindow;
     private MenuWindow menu;
-    private Notes notes;
+    private NotesWindow notes;
 
     public Screen(JFrame frame) {
 //      Settings.Settings
@@ -61,7 +60,6 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                     } catch (AWTException e){
                         e.printStackTrace();
                     }
-
                 } else {
                     System.err.println("System tray not supported!");
                 }
@@ -89,19 +87,6 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
 //      Draw Main Window
         mainWindow.drawMainWindow(g2d, mousePosX, mousePosY, settings.getSubjects());
         settings.setDefaultDrawing(g2d);
-
-        ;
-
-////      Draw Menu Window
-//        if (menuFlag) {
-//        settings.drawShadow(g2d);
-//        }
-
-//      Draw Notes Window
-//        if (notesFlag) {
-//        settings.drawShadow(g2d);
-//        notes.drawNoteWindow(g2d, mousePosX, mousePosY);
-//        }
     }
 
     @Override
@@ -154,19 +139,6 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                 }
             }
         }
-
-//      Pick up note
-//        if(notesFlag) {
-//            if (e.getButton() == 1) {
-//                for (Object.Note n : notes.getSubject().getNoteArrayList()) {
-//                    if (n.isOver(getMousePosition().getX(), getMousePosition().getY())) {
-//                        mainWindow.getClearIcon().setVisableFlag();
-//                        n.setClickedFlag();
-//                        break;
-//                    }
-//                }
-//            }
-//        }
     }
 
     @Override
@@ -187,27 +159,6 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                 }
             }
         }
-
-//      Put note down
-//        if(notesFlag) {
-//            if (e.getButton() == 1) {
-//                for (Object.Note n : notes.getSubject().getNoteArrayList()) {
-//                    if (n.isOver(getMousePosition().getX(), getMousePosition().getY())) {
-//                        mainWindow.getClearIcon().setVisableFlag();
-//                        n.setClickedFlag();
-//                    }
-//                }
-//            }
-//            if (e.getButton() == 1) {
-//                    if (mainWindow.getClearIcon().isOver(getMousePosition().getX(), getMousePosition().getY())) {
-//                        for (Object.Note n : notes.getSubject().getNoteArrayList()) {
-//                            if (n.getClickedFlag()){
-//                                settings.getNotes().remove(n);
-//                            }
-//                    }
-//                }
-//            }
-//        }
     }
 
     @Override
@@ -220,9 +171,7 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
 
     @Override
     public void mouseDragged(MouseEvent e) {
-//        if (!menuFlag) {
-            repaint();
-//        }
+        repaint();
     }
 
     @Override

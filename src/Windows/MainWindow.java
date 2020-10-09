@@ -54,23 +54,6 @@ public class MainWindow {
         saveIcon = new SaveIcon(mainWindowSettings.getSaveIconPosX(), mainWindowSettings.getSaveIconPosY(), mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
         settingsIcon = new SettingsIcon(mainWindowSettings.getSettingsIconPosX(), mainWindowSettings.getSettingsIconPosY(), mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
 
-//        addIcon = mainWindowSettings.getAddIcon().getScaledInstance(mainWindowSettings.getTileWidth(), mainWindowSettings.getTileHeight(), Image.SCALE_DEFAULT);
-//        saveIcon = mainWindowSettings.getSaveIcon().getScaledInstance(mainWindowSettings.getTileWidth(), mainWindowSettings.getTileHeight(), Image.SCALE_DEFAULT);
-//
-//        addSubject = new JButton(new ImageIcon(addIcon));
-//        addSubject.setMinimumSize(new Dimension(mainWindowSettings.getIconsWidth(), mainWindowSettings.getIconsHeight()));
-//        addSubject.setPreferredSize(new Dimension(mainWindowSettings.getIconsWidth(), mainWindowSettings.getIconsHeight()));
-//        addSubject.setMaximumSize(new Dimension(Short.MAX_VALUE, mainWindowSettings.getIconsHeight()));
-//        addSubject.setContentAreaFilled(false);
-//        addSubject.addActionListener(this);
-//
-//        savePlan = new JButton(new ImageIcon(saveIcon));
-//        savePlan.setMinimumSize(new Dimension(mainWindowSettings.getIconsWidth(), mainWindowSettings.getIconsHeight()));
-//        savePlan.setPreferredSize(new Dimension(mainWindowSettings.getIconsWidth(), mainWindowSettings.getIconsHeight()));
-//        savePlan.setMaximumSize(new Dimension(Short.MAX_VALUE, mainWindowSettings.getIconsHeight()));
-//        savePlan.setContentAreaFilled(false);
-//        savePlan.addActionListener(this);
-
         clearIcon = new ClearIcon(mainWindowSettings.getClearIconPosX(), mainWindowSettings.getClearIconPosY(), mainWindowSettings.getClearIconSize(), appProperties.getSecondColor());
     }
 
@@ -143,7 +126,7 @@ public class MainWindow {
         Timestamp timestamp = new Timestamp(2020,0,1,7,30,0,0);
         String timeStamp = mainWindowSettings.getSdf().format(timestamp);
         g.setFont(mainWindowSettings.getTimesFont());
-        for(int index = 1; index <= 55; index++){
+        for(int index = 0; index < 55; index++){
             mainWindowSettings.drawCenteredString(g, timeStamp, new Rectangle((mainWindowSettings.getTimeTextOffset() + mainWindowSettings.getTimePosX() * index),
                     mainWindowSettings.getTimePosY(), mainWindowSettings.getTileWidth(), mainWindowSettings.getTimePosY()), mainWindowSettings.getTimesFont(), true);
             timestamp.setTime(timestamp.getTime() + TimeUnit.MINUTES.toMillis(15));

@@ -101,8 +101,8 @@ public class Note {
         g.setColor(notesSettings.getNoteColor());
         g.fillRect(this.posX, this.posY, notesSettings.getNoteWidth(), notesSettings.getNoteHeight());
         g.setColor(Color.WHITE);
-        g.setFont(notesSettings.getNoteFont());
-        g.drawString(this.text, (this.posX + notesSettings.getNoteTextOffsetX()), (this.posY + notesSettings.getNoteTextOffsetY()));
+        g.setFont(notesSettings.getMediumTextFont());
+        g.drawString(this.text, this.posX, this.posY);
     }
 
     /***
@@ -115,20 +115,20 @@ public class Note {
             this.posX = (int) mousePosX - notesSettings.getNoteWidth() / 2;
             this.posY = (int) mousePosY - notesSettings.getNoteHeight() / 2;
             //Right
-            if ((this.posX + notesSettings.getNoteWidth()) > (notesSettings.getNoteLineStartX() - 1)){
-                this.posX = notesSettings.getNoteLineStartX() - notesSettings.getNoteWidth() - 1;
+            if ((this.posX + notesSettings.getNoteWidth()) > 1){
+                this.posX = notesSettings.getNoteWidth() - 1;
             }
             //Left
-            if (this.posX < notesSettings.getNoteWindowPosX() + 1){
-                this.posX = notesSettings.getNoteWindowPosX() + 1;
+            if (this.posX < 1){
+                this.posX = 1;
             }
             //Down
-            if (this.posY + notesSettings.getNoteHeight() > notesSettings.getNoteWindowPosY() + notesSettings.getNoteWindowHeight() - 1){
-                this.posY = notesSettings.getNoteWindowPosY() + notesSettings.getNoteWindowHeight() - notesSettings.getNoteHeight() - 1;
+            if (this.posY + notesSettings.getNoteHeight() >1){
+                this.posY = notesSettings.getNoteHeight() - 1;
             }
             //UP
-            if (this.posY < notesSettings.getNoteWindowPosY() + 1){
-                this.posY = notesSettings.getNoteWindowPosY() + 1;
+            if (this.posY < 1){
+                this.posY = 1;
             }
         }
     }

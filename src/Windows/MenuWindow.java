@@ -515,7 +515,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         }
         else if(e.getSource() == noteButton){
             dWindow.setVisible(false);
-            notes = new NotesWindow(this, this.subject);
+            notes = new NotesWindow(this, this.subject, appProperties);
         }
         else if(e.getSource() == deleteButton){
             this.subjects.remove(this.subject);

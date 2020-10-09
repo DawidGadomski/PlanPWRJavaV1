@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 public class SettingsWindow extends JDialog implements ActionListener {
     private JDialog dWindow;
@@ -105,10 +106,10 @@ public class SettingsWindow extends JDialog implements ActionListener {
         this.frame = frame;
         settings = new SettingsSettings();
         this.appProperties = appProperties;
+
         dWindow = new JDialog();
         dWindow.setLayout(new BorderLayout());
         dWindow.setUndecorated(true);
-
         dWindow.setSize(settings.getSmallWindowWidth(), settings.getSmallWindowHeight());
         dWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dWindow.setLocationRelativeTo(frame);
@@ -387,7 +388,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 1;
-        constraints.gridy = 7;
+        constraints.gridy = 6;
         advancedSettingsPanel.add(bChooseFilePath, constraints);
 
         advancePanel.add(lAdvanced);
@@ -841,12 +842,12 @@ public class SettingsWindow extends JDialog implements ActionListener {
             fileChooser.setAcceptAllFileFilterUsed(false);
             //
             if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                appProperties.setFolderPath(fileChooser.getCurrentDirectory().getAbsolutePath());
-
+                appProperties.setFolderPath(fileChooser.getSelectedFile().getAbsolutePath());
             }
             else {
                 System.out.println("No Selection ");
             }
+            lFilePath.setText(appProperties.getFolderPath());
         }
     }
 
