@@ -16,11 +16,13 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class LinksWindow extends JDialog implements ActionListener, MouseListener {
     private JDialog dWindow;
     private LinksSettings linksSettings;
     private AppProperties appProperties;
+    private ResourceBundle resourceBundle;
     private Subject subject;
 
     private JPanel buttonsPanel;
@@ -38,12 +40,13 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
     private LinkInputForm addLink;
 
 
-    public LinksWindow(JDialog frame, Subject subject, AppProperties appProperties) {
+    public LinksWindow(JDialog frame, Subject subject, AppProperties appProperties, ResourceBundle resourceBundle) {
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
         this.subject = subject;
 
         linksSettings = new LinksSettings();
         this.appProperties = appProperties;
+        this.resourceBundle = resourceBundle;
 
         dWindow = new JDialog();
         dWindow.setLayout(new BorderLayout());
@@ -71,8 +74,13 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
     }
 
     public void initIcons(){
-        backIcon = linksSettings.getBackIcon().getScaledInstance(linksSettings.getSmallIconSize(), linksSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
-        addIcon = linksSettings.getAddIcon().getScaledInstance(linksSettings.getSmallIconSize(), linksSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        linksSettings.setIconColor(linksSettings.getBackIcon(), appProperties.getSecondColor());
+        linksSettings.setIconColor(linksSettings.getAddIcon(), appProperties.getSecondColor());
+
+        backIcon = linksSettings.getBackIcon().getScaledInstance(linksSettings.getSmallIconSize(),
+                linksSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        addIcon = linksSettings.getAddIcon().getScaledInstance(linksSettings.getSmallIconSize(),
+                linksSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
     }
 
     public void initPanels(){
@@ -88,7 +96,7 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
     }
 
     public void initLabels(){
-        lLinks = new JLabel("Links");
+        lLinks = new JLabel(resourceBundle.getString("links"));
         lLinks.setFont(linksSettings.getBigTextFont());
         lLinks.setForeground(appProperties.getTextColor());
         lLinks.setHorizontalAlignment(SwingConstants.CENTER);

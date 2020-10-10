@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.*;
+import java.util.ResourceBundle;
 
 /***
  * Klasa odpowiadająca za rysowanie oraz kursor
@@ -26,13 +27,12 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
     private double mousePosY;
     private Settings settings;
     private AppProperties appProperties;
+    private ResourceBundle resourceBundle;
 
 //  Flags
-    private boolean mainWindowFlag;
     private MainWindow mainWindow;
     private SettingsWindow settingsWindow;
     private MenuWindow menu;
-    private NotesWindow notes;
 
     public Screen(JFrame frame) {
 //      Settings.Settings
@@ -41,8 +41,9 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.resourceBundle = ResourceBundle.getBundle("resources.strings.lang");
         this.settings = new Settings();
-        this.mainWindow = new MainWindow(g2d, appProperties);
+        this.mainWindow = new MainWindow(g2d, appProperties, resourceBundle);
         this.frame = frame;
 
 //      Action Listeners for mouse
@@ -50,7 +51,7 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         addMouseMotionListener(this);
 
 //      Load Data / Ask if u want to create new plan
-        int reply = JOptionPane.showConfirmDialog(null, "Wybór planu", "PLAN PWR", JOptionPane.YES_NO_OPTION);
+        int reply = JOptionPane.showConfirmDialog(null, resourceBundle.getString("choosePlan"), resourceBundle.getString("title"), JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION){
             try {
                 settings.loadData();
@@ -66,10 +67,6 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
 
             } catch (IOException  e) {e.printStackTrace();}
         }
-
-//      Flags
-//        mainWindowFlag = true;
-//        menuFlag = false;
     }
 
 // JComponent Functions
@@ -102,7 +99,7 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                     if (s.isOver(getMousePosition().getX(), getMousePosition().getY())) {
                         s.setClickedFlag(false);
                         mainWindow.getClearIcon().setVisableFlag(false);
-                        menu = new MenuWindow(frame, appProperties, s, settings.getSubjects());
+                        menu = new MenuWindow(frame, appProperties,resourceBundle, s, settings.getSubjects());
                         break;
                     }
                 }
@@ -120,7 +117,7 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                     break;
                 case 3:
 //                  Settings
-                    settingsWindow = new SettingsWindow(frame, appProperties);
+                    settingsWindow = new SettingsWindow(frame, appProperties, resourceBundle);
                     break;
             }
             repaint();

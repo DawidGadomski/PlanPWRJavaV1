@@ -12,12 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class SettingsWindow extends JDialog implements ActionListener {
     private JDialog dWindow;
     private JFrame frame;
     private SettingsSettings settings;
     private AppProperties appProperties;
+    private ResourceBundle resourceBundle;
     private JFileChooser fileChooser;
     private JPanel pCard;
     private JPanel buttonsPanel;
@@ -100,12 +102,13 @@ public class SettingsWindow extends JDialog implements ActionListener {
     private JButton bLabColor;
 
 
-    public SettingsWindow(JFrame frame, AppProperties appProperties){
+    public SettingsWindow(JFrame frame, AppProperties appProperties, ResourceBundle resourceBundle){
         super(frame, ModalityType.APPLICATION_MODAL);
 
         this.frame = frame;
         settings = new SettingsSettings();
         this.appProperties = appProperties;
+        this.resourceBundle = resourceBundle;
 
         dWindow = new JDialog();
         dWindow.setLayout(new BorderLayout());
@@ -145,10 +148,14 @@ public class SettingsWindow extends JDialog implements ActionListener {
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
         buttonsPanel.setBorder(new EmptyBorder(10,10,10,0));
 
-        backIcon = settings.getBackIcon().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(), Image.SCALE_DEFAULT);
-        colorsIcon = settings.getColorsImage().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(), Image.SCALE_DEFAULT);
-        aboutIcon = settings.getAboutImage().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(), Image.SCALE_DEFAULT);
-        advancedIcon = settings.getAdvancedImage().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(), Image.SCALE_DEFAULT);
+        backIcon = settings.getBackIcon().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(),
+                Image.SCALE_DEFAULT);
+        colorsIcon = settings.getColorsImage().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(),
+                Image.SCALE_DEFAULT);
+        aboutIcon = settings.getAboutImage().getScaledInstance(settings.getBigIconSize(), settings.getBigIconSize(),
+                Image.SCALE_DEFAULT);
+        advancedIcon = settings.getAdvancedImage().getScaledInstance(settings.getBigIconSize(),
+                settings.getBigIconSize(), Image.SCALE_DEFAULT);
 
         backButton = new JButton(new ImageIcon(backIcon));
         backButton.setMinimumSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
@@ -203,7 +210,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         aboutPanel.setBackground(appProperties.getFirstColor());
         aboutPanel.setLayout(new BoxLayout(aboutPanel, BoxLayout.Y_AXIS));
 
-        lAbout = new JLabel("ABOUT");
+        lAbout = new JLabel(resourceBundle.getString("about"));
         lAbout.setHorizontalAlignment(SwingConstants.CENTER);
         lAbout.setForeground(appProperties.getTextColor());
         lAbout.setFont(settings.getBigTextFont());
@@ -212,7 +219,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         authorInfoPanel.setBackground(appProperties.getSecondColor());
         authorInfoPanel.setLayout(new GridBagLayout());
 
-        lAuthorInfo = new JLabel("Author: ");
+        lAuthorInfo = new JLabel(resourceBundle.getString("author"));
         lAuthorInfo.setFont(settings.getMediumTextFont());
         lAuthorInfo.setForeground(appProperties.getTextColor());
 
@@ -220,7 +227,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         lAuthor.setFont(settings.getSmallTextFont());
         lAuthor.setForeground(appProperties.getTextColor());
 
-        lVersionInfo = new JLabel("Version: ");
+        lVersionInfo = new JLabel(resourceBundle.getString("version"));
         lVersionInfo.setFont(settings.getMediumTextFont());
         lVersionInfo.setForeground(appProperties.getTextColor());
 
@@ -267,7 +274,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         advancePanel.setLayout(new BoxLayout(advancePanel, BoxLayout.Y_AXIS));
 //        advancePanel.setVisible(false);
 
-        lAdvanced = new JLabel("ADVANCED");
+        lAdvanced = new JLabel(resourceBundle.getString("advanced"));
         lAdvanced.setForeground(appProperties.getTextColor());
         lAdvanced.setHorizontalAlignment(SwingConstants.CENTER);
         lAdvanced.setFont(settings.getBigTextFont());
@@ -276,38 +283,38 @@ public class SettingsWindow extends JDialog implements ActionListener {
         advancedSettingsPanel.setBackground(appProperties.getSecondColor());
         advancedSettingsPanel.setLayout(new GridBagLayout());
 
-        lLanguage = new JLabel("Language: ");
+        lLanguage = new JLabel(resourceBundle.getString("language"));
         lLanguage.setFont(settings.getMediumTextFont());
         lLanguage.setForeground(appProperties.getTextColor());
 
         comboLanguages = new JComboBox(settings.getLanguages());
 
-        lNotifications = new JLabel("Notifications");
+        lNotifications = new JLabel(resourceBundle.getString("notifications"));
         lNotifications.setFont(settings.getMediumTextFont());
         lNotifications.setHorizontalAlignment(SwingConstants.LEFT);
         lNotifications.setForeground(appProperties.getTextColor());
 
-        lNotificationsInfo = new JLabel("On/Off Notifications");
+        lNotificationsInfo = new JLabel(resourceBundle.getString("notificationsInfo"));
         lNotificationsInfo.setFont(settings.getSmallTextFont());
         lNotificationsInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lNotificationsInfo.setForeground(appProperties.getDarkTextColor());
 
-        lRoute = new JLabel("Documents route");
+        lRoute = new JLabel(resourceBundle.getString("documentsFolder"));
         lRoute.setFont(settings.getMediumTextFont());
         lRoute.setHorizontalAlignment(SwingConstants.LEFT);
         lRoute.setForeground(appProperties.getTextColor());
 
-        lRouteInfo = new JLabel("Where do you want to store subject's documents");
+        lRouteInfo = new JLabel(resourceBundle.getString("documentsFolderInfo"));
         lRouteInfo.setFont(settings.getSmallTextFont());
         lRouteInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lRouteInfo.setForeground(appProperties.getDarkTextColor());
 
-        lFullscreen = new JLabel("Fullscreen");
+        lFullscreen = new JLabel(resourceBundle.getString("fullscreen"));
         lFullscreen.setFont(settings.getMediumTextFont());
         lFullscreen.setHorizontalAlignment(SwingConstants.LEFT);
         lFullscreen.setForeground(appProperties.getTextColor());
 
-        lFullscreenInfo = new JLabel("On/Off Fullscreen");
+        lFullscreenInfo = new JLabel(resourceBundle.getString("fullscreenInfo"));
         lFullscreenInfo.setFont(settings.getSmallTextFont());
         lFullscreenInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lFullscreenInfo.setForeground(appProperties.getDarkTextColor());
@@ -322,7 +329,8 @@ public class SettingsWindow extends JDialog implements ActionListener {
         lFilePath.setForeground(appProperties.getTextColor());
         lFilePath.setBackground(appProperties.getSecondColor());
 
-        saveIcon = settings.getAdvancedImage().getScaledInstance(settings.getSmallIconSize(), settings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        saveIcon = settings.getAdvancedImage().getScaledInstance(settings.getSmallIconSize(),
+                settings.getSmallIconSize(), Image.SCALE_DEFAULT);
         bChooseFilePath = new JButton(new ImageIcon(saveIcon));
         bChooseFilePath.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bChooseFilePath.setPreferredSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
@@ -402,7 +410,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         colorPanel.setLayout(new BoxLayout(colorPanel, BoxLayout.Y_AXIS));
 //        colorPanel.setVisible(false);
 
-        lColors = new JLabel("COLORS");
+        lColors = new JLabel(resourceBundle.getString("colors"));
         lColors.setFont(settings.getBigTextFont());
         lColors.setHorizontalAlignment(SwingConstants.CENTER);
         lColors.setForeground(appProperties.getTextColor());
@@ -412,102 +420,102 @@ public class SettingsWindow extends JDialog implements ActionListener {
         colorsPanel.setBackground(appProperties.getSecondColor());
         colorsPanel.setLayout(new GridBagLayout());
 
-        lMainColor = new JLabel("Main Color");
+        lMainColor = new JLabel(resourceBundle.getString("mainColor"));
         lMainColor.setFont(settings.getMediumTextFont());
         lMainColor.setHorizontalAlignment(SwingConstants.LEFT);
         lMainColor.setForeground(appProperties.getTextColor());
 
-        lMainColorInfo = new JLabel("Main color of app");
+        lMainColorInfo = new JLabel(resourceBundle.getString("mainColorInfo"));
         lMainColorInfo.setFont(settings.getSmallTextFont());
         lMainColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lMainColorInfo.setForeground(appProperties.getDarkTextColor());
 
-        lSecondColor = new JLabel("Second Color");
+        lSecondColor = new JLabel(resourceBundle.getString("secondColor"));
         lSecondColor.setFont(settings.getMediumTextFont());
         lSecondColor.setHorizontalAlignment(SwingConstants.LEFT);
         lSecondColor.setForeground(appProperties.getTextColor());
 
-        lSecondColorInfo = new JLabel("Highlight color");
+        lSecondColorInfo = new JLabel(resourceBundle.getString("secondColorInfo"));
         lSecondColorInfo.setFont(settings.getSmallTextFont());
         lSecondColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lSecondColorInfo.setForeground(appProperties.getDarkTextColor());
 
-        lThirdColor = new JLabel("Third Color");
+        lThirdColor = new JLabel(resourceBundle.getString("thirdColor"));
         lThirdColor.setFont(settings.getMediumTextFont());
         lThirdColor.setHorizontalAlignment(SwingConstants.LEFT);
         lThirdColor.setForeground(appProperties.getTextColor());
 
-        lThirdColorInfo = new JLabel("Lines color");
+        lThirdColorInfo = new JLabel(resourceBundle.getString("thirdColorInfo"));
         lThirdColorInfo.setFont(settings.getSmallTextFont());
         lThirdColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lThirdColorInfo.setForeground(appProperties.getDarkTextColor());
 
-        lFourthColor = new JLabel("Fourth Color");
+        lFourthColor = new JLabel(resourceBundle.getString("fourthColor"));
         lFourthColor.setFont(settings.getMediumTextFont());
         lFourthColor.setHorizontalAlignment(SwingConstants.LEFT);
         lFourthColor.setForeground(appProperties.getTextColor());
 
-        lFourthColorInfo = new JLabel("Color of the workspace");
+        lFourthColorInfo = new JLabel(resourceBundle.getString("fourthColorInfo"));
         lFourthColorInfo.setFont(settings.getSmallTextFont());
         lFourthColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lFourthColorInfo.setForeground(appProperties.getDarkTextColor());
 
-        lGridColor = new JLabel("Grid Color");
+        lGridColor = new JLabel(resourceBundle.getString("gridColor"));
         lGridColor.setFont(settings.getMediumTextFont());
         lGridColor.setHorizontalAlignment(SwingConstants.LEFT);
         lGridColor.setForeground(appProperties.getTextColor());
 
-        lGridColorInfo = new JLabel("Color of the grid");
+        lGridColorInfo = new JLabel(resourceBundle.getString("gridColorInfo"));
         lGridColorInfo.setFont(settings.getSmallTextFont());
         lGridColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lGridColorInfo.setForeground(appProperties.getDarkTextColor());
 
-        lTextColor = new JLabel("Text Color");
+        lTextColor = new JLabel(resourceBundle.getString("textColor"));
         lTextColor.setFont(settings.getMediumTextFont());
         lTextColor.setHorizontalAlignment(SwingConstants.LEFT);
         lTextColor.setForeground(appProperties.getTextColor());
 
-        lTextColorInfo = new JLabel("Color of text in app");
+        lTextColorInfo = new JLabel(resourceBundle.getString("textColorInfo"));
         lTextColorInfo.setFont(settings.getSmallTextFont());
         lTextColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lTextColorInfo.setForeground(appProperties.getDarkTextColor());
 
-        lLectureColor = new JLabel("Lecture Color");
+        lLectureColor = new JLabel(resourceBundle.getString("lectureColor"));
         lLectureColor.setFont(settings.getMediumTextFont());
         lLectureColor.setHorizontalAlignment(SwingConstants.LEFT);
         lLectureColor.setForeground(appProperties.getTextColor());
 
-        lLectureColorInfo = new JLabel("Color of lecture in grid");
+        lLectureColorInfo = new JLabel(resourceBundle.getString("lectureColorInfo"));
         lLectureColorInfo.setFont(settings.getSmallTextFont());
         lLectureColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lLectureColorInfo.setForeground(appProperties.getDarkTextColor());
 
-        lSeminaryColor = new JLabel("Seminary Color");
+        lSeminaryColor = new JLabel(resourceBundle.getString("seminaryColor"));
         lSeminaryColor.setFont(settings.getMediumTextFont());
         lSeminaryColor.setHorizontalAlignment(SwingConstants.LEFT);
         lSeminaryColor.setForeground(appProperties.getTextColor());
 
-        lSeminaryColorInfo = new JLabel("Color of seminary in app");
+        lSeminaryColorInfo = new JLabel(resourceBundle.getString("seminaryColorInfo"));
         lSeminaryColorInfo.setFont(settings.getSmallTextFont());
         lSeminaryColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lSeminaryColorInfo.setForeground(appProperties.getDarkTextColor());
 
-        lProjectColor = new JLabel("Project Color");
+        lProjectColor = new JLabel(resourceBundle.getString("projectColor"));
         lProjectColor.setFont(settings.getMediumTextFont());
         lProjectColor.setHorizontalAlignment(SwingConstants.LEFT);
         lProjectColor.setForeground(appProperties.getTextColor());
 
-        lProjectColorInfo = new JLabel("Color of project in app");
+        lProjectColorInfo = new JLabel(resourceBundle.getString("projectColorInfo"));
         lProjectColorInfo.setFont(settings.getSmallTextFont());
         lProjectColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lProjectColorInfo.setForeground(appProperties.getDarkTextColor());
 
-        lLabColor = new JLabel("Lab Color");
+        lLabColor = new JLabel(resourceBundle.getString("labColor"));
         lLabColor.setFont(settings.getMediumTextFont());
         lLabColor.setHorizontalAlignment(SwingConstants.LEFT);
         lLabColor.setForeground(appProperties.getTextColor());
 
-        lLabColorInfo = new JLabel("Color of lab in app");
+        lLabColorInfo = new JLabel(resourceBundle.getString("labColorInfo"));
         lLabColorInfo.setFont(settings.getSmallTextFont());
         lLabColorInfo.setHorizontalAlignment(SwingConstants.LEFT);
         lLabColorInfo.setForeground(appProperties.getDarkTextColor());
@@ -789,52 +797,59 @@ public class SettingsWindow extends JDialog implements ActionListener {
             dWindow.setVisible(false);
         }
         else if (e.getSource() == bMainColor){
-            appProperties.setFirstColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getFirstColor()));
+            appProperties.setFirstColor(JColorChooser.showDialog(null, resourceBundle.getString("pickColor"), appProperties.getFirstColor()));
             bMainColor.setBackground(appProperties.getFirstColor());
             dWindow.setBackground(appProperties.getFirstColor());
             colorPanel.setBackground(appProperties.getFirstColor());
             dWindow.repaint();
         }
         else if (e.getSource() == bSecondColor){
-            appProperties.setSecondColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getSecondColor()));
+            appProperties.setSecondColor(JColorChooser.showDialog(null, resourceBundle.getString("pickColor"), appProperties.getSecondColor()));
             bSecondColor.setBackground(appProperties.getSecondColor());
             colorsPanel.setBackground(appProperties.getSecondColor());
             dWindow.repaint();
         }
         else if (e.getSource() == bThirdColor){
-            appProperties.setThirdColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getThirdColor()));
+            appProperties.setThirdColor(JColorChooser.showDialog(null, resourceBundle.getString("pickColor"), appProperties.getThirdColor()));
             bThirdColor.setBackground(appProperties.getThirdColor());
             dWindow.repaint();
         }
         else if (e.getSource() == bFourthColor){
-            appProperties.setFourthColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getFourthColor()));
+            appProperties.setFourthColor(JColorChooser.showDialog(null,
+                    resourceBundle.getString("pickColor"), appProperties.getFourthColor()));
         }
         else if (e.getSource() == bGridColor){
-            appProperties.setGridBackgroundColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getGridBackgroundColor()));
+            appProperties.setGridBackgroundColor(JColorChooser.showDialog(null,
+                    resourceBundle.getString("pickColor"), appProperties.getGridBackgroundColor()));
         }
         else if (e.getSource() == bTextColor){
-            appProperties.setTextColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getTextColor()));
+            appProperties.setTextColor(JColorChooser.showDialog(null,
+                    resourceBundle.getString("pickColor"), appProperties.getTextColor()));
         }
         else if (e.getSource() == bLectureColor){
-            appProperties.setLectureColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getLectureColor()));
+            appProperties.setLectureColor(JColorChooser.showDialog(null,
+                    resourceBundle.getString("pickColor"), appProperties.getLectureColor()));
             bLectureColor.revalidate();
         }
         else if (e.getSource() == bSeminaryColor){
-            appProperties.setSeminaryColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getSeminaryColor()));
+            appProperties.setSeminaryColor(JColorChooser.showDialog(null,
+                    resourceBundle.getString("pickColor"), appProperties.getSeminaryColor()));
             bSeminaryColor.revalidate();
         }
         else if (e.getSource() == bProjectColor){
-            appProperties.setProjectColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getProjectColor()));
+            appProperties.setProjectColor(JColorChooser.showDialog(null,
+                    resourceBundle.getString("pickColor"), appProperties.getProjectColor()));
             bProjectColor.revalidate();
         }
         else if (e.getSource() == bLabColor){
-            appProperties.setLabColor(JColorChooser.showDialog(null, "Pick Color", appProperties.getLabColor()));
+            appProperties.setLabColor(JColorChooser.showDialog(null,
+                    resourceBundle.getString("pickColor"), appProperties.getLabColor()));
             bLabColor.revalidate();
         }
         else if (e.getSource() == bChooseFilePath){
             fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File(appProperties.getFolderPath()));
-            fileChooser.setDialogTitle("Choose file path");
+            fileChooser.setDialogTitle(resourceBundle.getString("chooseFilePath"));
             fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             //
             // disable the "All files" option.
@@ -845,7 +860,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
                 appProperties.setFolderPath(fileChooser.getSelectedFile().getAbsolutePath());
             }
             else {
-                System.out.println("No Selection ");
+                System.out.println(resourceBundle.getString("noSelection"));
             }
             lFilePath.setText(appProperties.getFolderPath());
         }

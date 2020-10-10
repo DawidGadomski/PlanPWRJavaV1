@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 /***
@@ -27,10 +28,7 @@ public class MainWindow {
     private ClearIcon clearIcon;
 
     private AppProperties appProperties;
-
-    private JButton addSubject;
-    private JButton savePlan;
-    private JButton settings;
+    private ResourceBundle resourceBundle;
 
 //  Default drawing settings
     private AffineTransform defaultTransform;
@@ -44,17 +42,22 @@ public class MainWindow {
      * Inicializacja ustawien oraz ikon
      * @param g - Graphics2d dostarczony z JComponentu
      */
-    public MainWindow(Graphics2D g, AppProperties appProperties){
+    public MainWindow(Graphics2D g, AppProperties appProperties, ResourceBundle resourceBundle){
 //      Init
         mainWindowSettings = new MainWindowSettings();
         this.appProperties = appProperties;
+        this.resourceBundle = resourceBundle;
 
         // Icons
-        addIcon = new AddIcon(mainWindowSettings.getAddIconPosX(), mainWindowSettings.getAddIconPosY(), mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
-        saveIcon = new SaveIcon(mainWindowSettings.getSaveIconPosX(), mainWindowSettings.getSaveIconPosY(), mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
-        settingsIcon = new SettingsIcon(mainWindowSettings.getSettingsIconPosX(), mainWindowSettings.getSettingsIconPosY(), mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
-
-        clearIcon = new ClearIcon(mainWindowSettings.getClearIconPosX(), mainWindowSettings.getClearIconPosY(), mainWindowSettings.getClearIconSize(), appProperties.getSecondColor());
+        addIcon = new AddIcon(mainWindowSettings.getAddIconPosX(), mainWindowSettings.getAddIconPosY(),
+                mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
+        saveIcon = new SaveIcon(mainWindowSettings.getSaveIconPosX(), mainWindowSettings.getSaveIconPosY(),
+                mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
+        settingsIcon = new SettingsIcon(mainWindowSettings.getSettingsIconPosX(),
+                mainWindowSettings.getSettingsIconPosY(), mainWindowSettings.getIconsWidth(),
+                appProperties.getSecondColor());
+        clearIcon = new ClearIcon(mainWindowSettings.getClearIconPosX(), mainWindowSettings.getClearIconPosY(),
+                mainWindowSettings.getClearIconSize(), appProperties.getSecondColor());
     }
 
 //  Getters and Setters
@@ -84,29 +87,36 @@ public class MainWindow {
 
 //      Grid
         g.setColor(appProperties.getThirdColor());
-        for(int x=mainWindowSettings.getWorkSurfacePosX(); x <= mainWindowSettings.getWindowWidth(); x+=mainWindowSettings.getTileWidth()){
+        for(int x=mainWindowSettings.getWorkSurfacePosX(); x <= mainWindowSettings.getWindowWidth();
+            x+=mainWindowSettings.getTileWidth()){
             g.drawLine(x, 0, x, (mainWindowSettings.getWindowHeight() - mainWindowSettings.getWorkspaceHeight()));
         }
-        for(int y=mainWindowSettings.getWorkSurfacePosY(); y <= (mainWindowSettings.getWindowHeight()-mainWindowSettings.getWorkspaceHeight()); y+=mainWindowSettings.getTileHeight()*2){
+        for(int y=mainWindowSettings.getWorkSurfacePosY();
+            y <= (mainWindowSettings.getWindowHeight()-mainWindowSettings.getWorkspaceHeight());
+            y+=mainWindowSettings.getTileHeight()*2){
             g.drawLine(0, y, mainWindowSettings.getWindowWidth(), y);
         }
 
 //      Workspace
         g.setColor(appProperties.getFourthColor());
-        g.fillRect(mainWindowSettings.getWorkspacePosX(), mainWindowSettings.getWorkspacePosY(), mainWindowSettings.getWorkspaceWidth(), mainWindowSettings.getWorkspaceHeight());
+        g.fillRect(mainWindowSettings.getWorkspacePosX(), mainWindowSettings.getWorkspacePosY(),
+                mainWindowSettings.getWorkspaceWidth(), mainWindowSettings.getWorkspaceHeight());
 
 //      Grid line
         g.setColor(Color.WHITE);
         g.setStroke(mainWindowSettings.getLineThickness5());
-        g.drawLine(mainWindowSettings.getWorkspacePosX(), mainWindowSettings.getWorkspacePosY(), mainWindowSettings.getWorkspaceWidth(), mainWindowSettings.getWorkspacePosY());
+        g.drawLine(mainWindowSettings.getWorkspacePosX(), mainWindowSettings.getWorkspacePosY(),
+                mainWindowSettings.getWorkspaceWidth(), mainWindowSettings.getWorkspacePosY());
 
 //      Object.Note line
-        g.drawLine(mainWindowSettings.getWorkSurfacePosX(), mainWindowSettings.getWorkspacePosY(), mainWindowSettings.getWorkSurfacePosX(), mainWindowSettings.getWindowHeight());
+        g.drawLine(mainWindowSettings.getWorkSurfacePosX(), mainWindowSettings.getWorkspacePosY(),
+                mainWindowSettings.getWorkSurfacePosX(), mainWindowSettings.getWindowHeight());
 
 //      Object.Note text
         g.setFont(mainWindowSettings.getWorkspaceFont());
-        mainWindowSettings.drawCenteredString(g, "Workspace",
-                new Rectangle(mainWindowSettings.getWorkspaceTextPosX(), mainWindowSettings.getWorkspaceTextPosY(), 100, 200), mainWindowSettings.getWorkspaceFont(), true);
+        mainWindowSettings.drawCenteredString(g, resourceBundle.getString("workspace"),
+                new Rectangle(mainWindowSettings.getWorkspaceTextPosX(), mainWindowSettings.getWorkspaceTextPosY(),
+                        100, 200), mainWindowSettings.getWorkspaceFont(), true);
     }
 
     /***
@@ -118,8 +128,10 @@ public class MainWindow {
         g.setFont(mainWindowSettings.getDaysFont());
         for(int index = 0; index<mainWindowSettings.getDays().length; index++){
             mainWindowSettings.drawCenteredString(g, mainWindowSettings.getDays()[index],
-                    new Rectangle(mainWindowSettings.getDaysPosX(), (mainWindowSettings.getDaysPosY() + mainWindowSettings.getDaysOffsetY() * index),
-                            mainWindowSettings.getDaysOffsetX(), mainWindowSettings.getDaysOffsetY()), mainWindowSettings.getDaysFont(), false);
+                    new Rectangle(mainWindowSettings.getDaysPosX(), (mainWindowSettings.getDaysPosY() +
+                            mainWindowSettings.getDaysOffsetY() * index),
+                            mainWindowSettings.getDaysOffsetX(), mainWindowSettings.getDaysOffsetY()),
+                    mainWindowSettings.getDaysFont(), false);
         }
 
 //      Draw time on grid
@@ -127,12 +139,13 @@ public class MainWindow {
         String timeStamp = mainWindowSettings.getSdf().format(timestamp);
         g.setFont(mainWindowSettings.getTimesFont());
         for(int index = 0; index < 55; index++){
-            mainWindowSettings.drawCenteredString(g, timeStamp, new Rectangle((mainWindowSettings.getTimeTextOffset() + mainWindowSettings.getTimePosX() * index),
-                    mainWindowSettings.getTimePosY(), mainWindowSettings.getTileWidth(), mainWindowSettings.getTimePosY()), mainWindowSettings.getTimesFont(), true);
+            mainWindowSettings.drawCenteredString(g, timeStamp, new Rectangle((mainWindowSettings.getTimeTextOffset() +
+                    mainWindowSettings.getTimePosX() * index),
+                    mainWindowSettings.getTimePosY(), mainWindowSettings.getTileWidth(),
+                    mainWindowSettings.getTimePosY()), mainWindowSettings.getTimesFont(), true);
             timestamp.setTime(timestamp.getTime() + TimeUnit.MINUTES.toMillis(15));
             timeStamp = mainWindowSettings.getSdf().format(timestamp);
         }
-
     }
 
     /***

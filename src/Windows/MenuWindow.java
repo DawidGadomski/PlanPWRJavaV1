@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class MenuWindow extends JDialog implements ActionListener, MouseListener {
     private Subject subject;
@@ -23,6 +24,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     private TestInputForm addTest;
     private ArrayList<Subject> subjects;
     private AppProperties appProperties;
+    private ResourceBundle resourceBundle;
     private int allAbsences;
     private int absences;
 
@@ -82,13 +84,15 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 //  Flags
     private boolean editAbsencesFlag;
 
-    public MenuWindow(JFrame frame, AppProperties appProperties, Subject subject, ArrayList<Subject> subjects){
+    public MenuWindow(JFrame frame, AppProperties appProperties, ResourceBundle resourceBundle,
+                      Subject subject, ArrayList<Subject> subjects){
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
 
         this.frame = frame;
         this.subject = subject;
         this.subjects = subjects;
         this.appProperties = appProperties;
+        this.resourceBundle = resourceBundle;
 
         menuSettings = new MenuSettings();
         allAbsences = subject.getAllAbsences();
@@ -97,10 +101,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         dWindow = new JDialog();
         dWindow.setLayout(new BorderLayout());
         dWindow.setUndecorated(true);
-
-
         dWindow.setSize(menuSettings.getMenuWindowWidth(), menuSettings.getMenuWindowHeightY());
-
         dWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dWindow.setLocationRelativeTo(frame);
 
@@ -142,18 +143,28 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         menuSettings.setIconColor(menuSettings.getAddIcon(), appProperties.getSecondColor());
         menuSettings.setIconColor(menuSettings.getLinksIcon(), appProperties.getSecondColor());
 
-        backIcon = menuSettings.getBackIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
-        deleteIcon = menuSettings.getClearIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
-        docIcon = menuSettings.getDocIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
-        noteIcon = menuSettings.getNoteIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
-        editIcon = menuSettings.getEditIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
-        addTestIcon = menuSettings.getAddIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
-        editAbsencesIcon = menuSettings.getEditAbsencesIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
-        plusIcon = menuSettings.getAddIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
-        minusIcon = menuSettings.getMinusIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
-        okIcon = menuSettings.getOkIcon().getScaledInstance(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
-        linksIcon = menuSettings.getLinksIcon().getScaledInstance(menuSettings.getBigIconSize(), menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
-
+        backIcon = menuSettings.getBackIcon().getScaledInstance(menuSettings.getBigIconSize(),
+                menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
+        deleteIcon = menuSettings.getClearIcon().getScaledInstance(menuSettings.getBigIconSize(),
+                menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
+        docIcon = menuSettings.getDocIcon().getScaledInstance(menuSettings.getBigIconSize(),
+                menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
+        noteIcon = menuSettings.getNoteIcon().getScaledInstance(menuSettings.getBigIconSize(),
+                menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
+        editIcon = menuSettings.getEditIcon().getScaledInstance(menuSettings.getBigIconSize(),
+                menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
+        addTestIcon = menuSettings.getAddIcon().getScaledInstance(menuSettings.getSmallIconSize(),
+                menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        editAbsencesIcon = menuSettings.getEditAbsencesIcon().getScaledInstance(menuSettings.getSmallIconSize(),
+                menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        plusIcon = menuSettings.getAddIcon().getScaledInstance(menuSettings.getSmallIconSize(),
+                menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        minusIcon = menuSettings.getMinusIcon().getScaledInstance(menuSettings.getSmallIconSize(),
+                menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        okIcon = menuSettings.getOkIcon().getScaledInstance(menuSettings.getSmallIconSize(),
+                menuSettings.getSmallIconSize(), Image.SCALE_DEFAULT);
+        linksIcon = menuSettings.getLinksIcon().getScaledInstance(menuSettings.getBigIconSize(),
+                menuSettings.getBigIconSize(), Image.SCALE_DEFAULT);
     }
 
     private void initPanels(){
@@ -174,11 +185,10 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         absencesPanel.setBackground(appProperties.getSecondColor());
         absencesPanel.setLayout(new BoxLayout(absencesPanel, BoxLayout.LINE_AXIS));
         absencesPanel.setSize(new Dimension(menuSettings.getAbsencesInfoWidth(), menuSettings.getAbsencesInfoHeight()));
-
     }
 
     private void initLabels(){
-        lTextName = new JLabel("Nazwa: ");
+        lTextName = new JLabel(resourceBundle.getString("name"));
         lTextName.setFont(menuSettings.getMediumTextFont());
         lTextName.setForeground(appProperties.getTextColor());
 
@@ -187,7 +197,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         lName.setForeground(appProperties.getTextColor());
         lName.setBackground(appProperties.getSecondColor());
 
-        lTextTerm = new JLabel("Termin: ");
+        lTextTerm = new JLabel(resourceBundle.getString("term"));
         lTextTerm.setFont(menuSettings.getMediumTextFont());
         lTextTerm.setForeground(appProperties.getTextColor());
 
@@ -195,7 +205,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         lTerm.setFont(menuSettings.getMediumTextFont());
         lTerm.setForeground(appProperties.getTextColor());
 
-        lTextRoom = new JLabel("Sala: ");
+        lTextRoom = new JLabel(resourceBundle.getString("room"));
         lTextRoom.setFont(menuSettings.getMediumTextFont());
         lTextRoom.setForeground(appProperties.getTextColor());
 
@@ -203,7 +213,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         lRoom.setFont(menuSettings.getMediumTextFont());
         lRoom.setForeground(appProperties.getTextColor());
 
-        lTextProf = new JLabel("Prowadzący: ");
+        lTextProf = new JLabel(resourceBundle.getString("lecturer"));
         lTextProf.setFont(menuSettings.getMediumTextFont());
         lTextProf.setForeground(appProperties.getTextColor());
 
@@ -211,12 +221,12 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         lProf.setFont(menuSettings.getMediumTextFont());
         lProf.setForeground(appProperties.getTextColor());
 
-        lTests = new JLabel("Kolokwia");
+        lTests = new JLabel(resourceBundle.getString("tests"));
         lTests.setFont(menuSettings.getMediumTextFont());
         lTests.setForeground(appProperties.getTextColor());
         lTests.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        lAbsences = new JLabel("Nieobecności");
+        lAbsences = new JLabel(resourceBundle.getString("absences"));
         lAbsences.setFont(menuSettings.getMediumTextFont());
         lAbsences.setForeground(appProperties.getTextColor());
         lAbsences.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -227,7 +237,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         addTestButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
         addTestButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
         addTestButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
-//        addTestButton.setBorder(BorderFactory.createEmptyBorder());
         addTestButton.setContentAreaFilled(false);
         addTestButton.addActionListener(this);
 
@@ -235,7 +244,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         editAbsencesButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
         editAbsencesButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
         editAbsencesButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
-//        addTestButton.setBorder(BorderFactory.createEmptyBorder());
         editAbsencesButton.setContentAreaFilled(false);
         editAbsencesButton.addActionListener(this);
 
@@ -243,7 +251,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         backButton.setMinimumSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
         backButton.setPreferredSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
         backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getBigIconSize()));
-//        backButton.setBorder(BorderFactory.createEmptyBorder());
         backButton.setContentAreaFilled(false);
         backButton.addActionListener(this);
 
@@ -251,7 +258,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         docButton.setMinimumSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
         docButton.setPreferredSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
         docButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getBigIconSize()));
-//        docButton.setBorder(BorderFactory.createEmptyBorder());
         docButton.setContentAreaFilled(false);
         docButton.addActionListener(this);
 
@@ -259,7 +265,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         editButton.setMinimumSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
         editButton.setPreferredSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
         editButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getBigIconSize()));
-//        editButton.setBorder(BorderFactory.createEmptyBorder());
         editButton.setContentAreaFilled(false);
         editButton.addActionListener(this);
 
@@ -267,7 +272,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         noteButton.setMinimumSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
         noteButton.setPreferredSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
         noteButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getBigIconSize()));
-//        noteButton.setBorder(BorderFactory.createEmptyBorder());
         noteButton.setContentAreaFilled(false);
         noteButton.addActionListener(this);
 
@@ -275,7 +279,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         deleteButton.setMinimumSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
         deleteButton.setPreferredSize(new Dimension(menuSettings.getBigIconSize(), menuSettings.getBigIconSize()));
         deleteButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getBigIconSize()));
-//        deleteButton.setBorder(BorderFactory.createEmptyBorder());
         deleteButton.setContentAreaFilled(false);
         deleteButton.addActionListener(this);
 
@@ -283,7 +286,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         plusButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
         plusButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
         plusButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
-//        plusButton.setBorder(BorderFactory.createEmptyBorder());
         plusButton.setContentAreaFilled(false);
         plusButton.addActionListener(this);
 
@@ -291,7 +293,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         minusButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
         minusButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
         minusButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
-//        minusButton.setBorder(BorderFactory.createEmptyBorder());
         minusButton.setContentAreaFilled(false);
         minusButton.addActionListener(this);
 
@@ -299,7 +300,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         okButton.setMinimumSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
         okButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
         okButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
-//        okButton.setBorder(BorderFactory.createEmptyBorder());
         okButton.setContentAreaFilled(false);
         okButton.addActionListener(this);
 
@@ -403,14 +403,11 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
             absenceButton.setPreferredSize(new Dimension(menuSettings.getSmallIconSize(), menuSettings.getSmallIconSize()));
             absenceButton.setMaximumSize(new Dimension(Short.MAX_VALUE, menuSettings.getSmallIconSize()));
             absenceButton.setBorder(BorderFactory.createEmptyBorder());
-//            absenceButton.setContentAreaFilled(false);
             absenceButton.setBackground(Color.GREEN);
             if (count > 0){
                 absenceButton.setBackground(Color.RED);
                 count -=1;
             }
-
-
 
             absenceButton.addActionListener(new ActionListener() {
                 @Override
@@ -419,7 +416,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
                         absenceButton.setBackground(Color.RED);
                         absences +=1;
                         subject.setAbsences(absences);
-
                     }
                     else{
                         absenceButton.setBackground(Color.GREEN);
@@ -515,14 +511,14 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         }
         else if(e.getSource() == noteButton){
             dWindow.setVisible(false);
-            notes = new NotesWindow(this, this.subject, appProperties);
+            notes = new NotesWindow(this, this.subject, appProperties, resourceBundle);
         }
         else if(e.getSource() == deleteButton){
             this.subjects.remove(this.subject);
             dWindow.setVisible(false);
         }
         else if(e.getSource() == linksButton){
-            linksWindow = new LinksWindow(this, this.subject, appProperties);
+            linksWindow = new LinksWindow(this, this.subject, appProperties, resourceBundle);
         }
         else if(e.getSource() == addTestButton){
             addTest = new TestInputForm(this);
