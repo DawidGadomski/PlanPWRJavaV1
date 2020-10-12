@@ -30,7 +30,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 
 //  JComponents
     private JFrame frame;
-    private JDialog dWindow;
     private JPanel iconPanel;
     private JPanel textPanel;
     private JPanel advancePanel;
@@ -86,7 +85,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 
     public MenuWindow(JFrame frame, AppProperties appProperties, ResourceBundle resourceBundle,
                       Subject subject, ArrayList<Subject> subjects){
-        super(frame, Dialog.ModalityType.APPLICATION_MODAL);
+        super(frame, ModalityType.APPLICATION_MODAL);
 
         this.frame = frame;
         this.subject = subject;
@@ -98,12 +97,14 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         allAbsences = subject.getAllAbsences();
         absences = subject.getAbsences();
 
-        dWindow = new JDialog();
-        dWindow.setLayout(new BorderLayout());
-        dWindow.setUndecorated(true);
-        dWindow.setSize(menuSettings.getMenuWindowWidth(), menuSettings.getMenuWindowHeightY());
-        dWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dWindow.setLocationRelativeTo(frame);
+
+
+//        dWindow = new JDialog();
+        setLayout(new BorderLayout());
+//        dWindow.setUndecorated(true);
+        setSize(menuSettings.getMenuWindowWidth(), menuSettings.getMenuWindowHeightY());
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(frame);
 
         initIcons();
 
@@ -123,11 +124,11 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
 
         initAdvancePanel();
 
-        dWindow.add(advancePanel, BorderLayout.LINE_END);
-        dWindow.add(textPanel, BorderLayout.CENTER);
-        dWindow.add(iconPanel, BorderLayout.PAGE_END);
+        add(advancePanel, BorderLayout.LINE_END);
+        add(textPanel, BorderLayout.CENTER);
+        add(iconPanel, BorderLayout.PAGE_END);
 
-        dWindow.setVisible(true);
+        setVisible(true);
     }
 
     private void initIcons(){
@@ -491,7 +492,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == backButton){
-            dWindow.setVisible(false);
+            setVisible(false);
         }
         else if(e.getSource() == docButton){
             File file = new File(appProperties.getFolderPath() + "\\" + this.subject.getName());
@@ -507,15 +508,15 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         else if(e.getSource() == editButton){
             this.subjects.add(menuSettings.editSubject(this.frame, this.subject.convertSubjectToData()));
             this.subjects.remove(this.subject);
-            dWindow.setVisible(false);
+            setVisible(false);
         }
         else if(e.getSource() == noteButton){
-            dWindow.setVisible(false);
+            setVisible(false);
             notes = new NotesWindow(this, this.subject, appProperties, resourceBundle);
         }
         else if(e.getSource() == deleteButton){
             this.subjects.remove(this.subject);
-            dWindow.setVisible(false);
+            setVisible(false);
         }
         else if(e.getSource() == linksButton){
             linksWindow = new LinksWindow(this, this.subject, appProperties, resourceBundle);

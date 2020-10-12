@@ -15,7 +15,6 @@ import java.util.ResourceBundle;
 
 public class NotesWindow extends JDialog implements ActionListener {
     private JDialog frame;
-    private JDialog dWindow;
     private Subject subject;
     private NotesSettings notesSettings;
     private AppProperties appProperties;
@@ -45,13 +44,12 @@ public class NotesWindow extends JDialog implements ActionListener {
         this.resourceBundle = resourceBundle;
         notesSettings = new NotesSettings();
 
-        dWindow = new JDialog();
-        dWindow.setLayout(new BorderLayout());
-        dWindow.setUndecorated(true);
-        dWindow.setLocationRelativeTo(frame);
-        dWindow.setSize(notesSettings.getSmallWindowWidth(), notesSettings.getSmallWindowHeight());
-        dWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dWindow.setBackground(this.appProperties.getFirstColor());
+        setLayout(new BorderLayout());
+        setUndecorated(true);
+        setSize(notesSettings.getSmallWindowWidth(), notesSettings.getSmallWindowHeight());
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(frame);
+        setBackground(this.appProperties.getFirstColor());
 
         lNotes = new JLabel(resourceBundle.getString("notes"));
         lNotes.setHorizontalAlignment(SwingConstants.CENTER);
@@ -60,19 +58,20 @@ public class NotesWindow extends JDialog implements ActionListener {
 
         notesPanel = new JPanel();
         notesPanel.setBackground(appProperties.getSecondColor());
-        noteBoard = new NoteBoard(this.frame, appProperties);
+        noteBoard = new NoteBoard(this.frame, appProperties, subject);
         notesPanel.add(lNotes);
         notesPanel.add(noteBoard);
+        notesPanel.setBorder(new EmptyBorder(10,10,10,0));
 
         sLine = new JSeparator(SwingConstants.VERTICAL);
         sLine.setBackground(appProperties.getThirdColor());
 
         initButtonsPanel();
 
-        dWindow.add(notesPanel, BorderLayout.CENTER);
-        dWindow.add(buttonsPanel, BorderLayout.LINE_END);
+        add(notesPanel, BorderLayout.CENTER);
+        add(buttonsPanel, BorderLayout.LINE_END);
 
-        dWindow.setVisible(true);
+        setVisible(true);
     }
 
     public void initButtonsPanel(){
@@ -92,7 +91,7 @@ public class NotesWindow extends JDialog implements ActionListener {
         buttonsPanel.setBackground(appProperties.getFirstColor());
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
 
-        buttonsPanel.setBorder(new EmptyBorder(10, 0, 10, 10));
+        buttonsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         backButton = new JButton(new ImageIcon(backIcon));
         backButton.setMinimumSize(new Dimension(notesSettings.getBigIconSize(), notesSettings.getBigIconSize()));
@@ -133,13 +132,14 @@ public class NotesWindow extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == addButton){
             notesSettings.createNote(this, this.subject);
+            noteBoard.repaint();
         }
         else if(e.getSource() == saveButton){
 //            notesSettings.saveNotes();
 //            notes.getSubject().setNoteArrayList(settings.getNotesList());
         }
         else if(e.getSource() == backButton){
-            dWindow.setVisible(false);
+            setVisible(false);
         }
 
     }

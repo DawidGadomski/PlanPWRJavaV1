@@ -180,7 +180,7 @@ public class MainWindow {
         drawTimeOnGrid(g);
         setDefaultDrawing(g);
 
-        //      Draw subjects
+    //      Draw subjects
         for (Subject s : subjects) {
             s.drawSubject(g);
             if (s.isOver(mousePosX, mousePosY)) {

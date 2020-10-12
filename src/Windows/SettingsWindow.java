@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class SettingsWindow extends JDialog implements ActionListener {
-    private JDialog dWindow;
     private JFrame frame;
     private SettingsSettings settings;
     private AppProperties appProperties;
@@ -110,13 +109,12 @@ public class SettingsWindow extends JDialog implements ActionListener {
         this.appProperties = appProperties;
         this.resourceBundle = resourceBundle;
 
-        dWindow = new JDialog();
-        dWindow.setLayout(new BorderLayout());
-        dWindow.setUndecorated(true);
-        dWindow.setSize(settings.getSmallWindowWidth(), settings.getSmallWindowHeight());
-        dWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dWindow.setLocationRelativeTo(frame);
-        dWindow.setBackground(this.appProperties.getFirstColor());
+        setLayout(new BorderLayout());
+        setUndecorated(true);
+        setSize(settings.getSmallWindowWidth(), settings.getSmallWindowHeight());
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(frame);
+        setBackground(this.appProperties.getFirstColor());
 
         pCard = new JPanel();
         pCard.setLayout(new CardLayout());
@@ -128,12 +126,12 @@ public class SettingsWindow extends JDialog implements ActionListener {
         initColorsPanel();
         initAboutPanel();
 
-        dWindow.add(buttonsPanel, BorderLayout.LINE_START);
-        dWindow.add(pCard, BorderLayout.CENTER);
+        add(buttonsPanel, BorderLayout.LINE_START);
+        add(pCard, BorderLayout.CENTER);
         pCard.add(aboutPanel, "ABOUT");
         pCard.add(advancePanel, "ADVANCED");
         pCard.add(colorPanel, "COLORS");
-        dWindow.setVisible(true);
+        setVisible(true);
     }
 
     public void initButtonsPanel(){
@@ -794,25 +792,25 @@ public class SettingsWindow extends JDialog implements ActionListener {
             colorPanel.setVisible(false);
         }
         else if (e.getSource() == backButton){
-            dWindow.setVisible(false);
+            setVisible(false);
         }
         else if (e.getSource() == bMainColor){
             appProperties.setFirstColor(JColorChooser.showDialog(null, resourceBundle.getString("pickColor"), appProperties.getFirstColor()));
             bMainColor.setBackground(appProperties.getFirstColor());
-            dWindow.setBackground(appProperties.getFirstColor());
+            setBackground(appProperties.getFirstColor());
             colorPanel.setBackground(appProperties.getFirstColor());
-            dWindow.repaint();
+            repaint();
         }
         else if (e.getSource() == bSecondColor){
             appProperties.setSecondColor(JColorChooser.showDialog(null, resourceBundle.getString("pickColor"), appProperties.getSecondColor()));
             bSecondColor.setBackground(appProperties.getSecondColor());
             colorsPanel.setBackground(appProperties.getSecondColor());
-            dWindow.repaint();
+            repaint();
         }
         else if (e.getSource() == bThirdColor){
             appProperties.setThirdColor(JColorChooser.showDialog(null, resourceBundle.getString("pickColor"), appProperties.getThirdColor()));
             bThirdColor.setBackground(appProperties.getThirdColor());
-            dWindow.repaint();
+            repaint();
         }
         else if (e.getSource() == bFourthColor){
             appProperties.setFourthColor(JColorChooser.showDialog(null,

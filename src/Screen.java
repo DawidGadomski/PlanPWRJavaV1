@@ -81,6 +81,9 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         mousePosX = MouseInfo.getPointerInfo().getLocation().getX() - this.getLocationOnScreen().getX();
         mousePosY = MouseInfo.getPointerInfo().getLocation().getY() - this.getLocationOnScreen().getY();
 
+        System.out.println("X: " + mousePosX );
+        System.out.println("Y: " + mousePosY );
+
 //      Draw Main Window
         mainWindow.drawMainWindow(g2d, mousePosX, mousePosY, settings.getSubjects());
         settings.setDefaultDrawing(g2d);
@@ -99,7 +102,7 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                     if (s.isOver(getMousePosition().getX(), getMousePosition().getY())) {
                         s.setClickedFlag(false);
                         mainWindow.getClearIcon().setVisableFlag(false);
-                        menu = new MenuWindow(frame, appProperties,resourceBundle, s, settings.getSubjects());
+                        menu = new MenuWindow(this.frame, appProperties,resourceBundle, s, settings.getSubjects());
                         break;
                     }
                 }
@@ -117,7 +120,7 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                     break;
                 case 3:
 //                  Settings
-                    settingsWindow = new SettingsWindow(frame, appProperties, resourceBundle);
+                    settingsWindow = new SettingsWindow(this.frame, appProperties, resourceBundle);
                     break;
             }
             repaint();

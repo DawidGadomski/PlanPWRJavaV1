@@ -19,7 +19,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class LinksWindow extends JDialog implements ActionListener, MouseListener {
-    private JDialog dWindow;
     private LinksSettings linksSettings;
     private AppProperties appProperties;
     private ResourceBundle resourceBundle;
@@ -48,14 +47,13 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
         this.appProperties = appProperties;
         this.resourceBundle = resourceBundle;
 
-        dWindow = new JDialog();
-        dWindow.setLayout(new BorderLayout());
-        dWindow.setUndecorated(true);
+        setLayout(new BorderLayout());
+        setUndecorated(true);
 
-        dWindow.setSize(linksSettings.getSmallWindowWidth(), linksSettings.getSmallWindowHeight());
-        dWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dWindow.setLocationRelativeTo(frame);
-        dWindow.setBackground(appProperties.getFirstColor());
+        setSize(linksSettings.getSmallWindowWidth(), linksSettings.getSmallWindowHeight());
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(frame);
+        setBackground(appProperties.getFirstColor());
 
         initIcons();
         initPanels();
@@ -67,10 +65,10 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
         linksPanel.add(lLinks);
         linksPanel.add(listScroller);
 
-        dWindow.add(linksPanel, BorderLayout.CENTER);
-        dWindow.add(buttonsPanel, BorderLayout.PAGE_END);
+        add(linksPanel, BorderLayout.CENTER);
+        add(buttonsPanel, BorderLayout.PAGE_END);
 
-        dWindow.setVisible(true);
+        setVisible(true);
     }
 
     public void initIcons(){
@@ -155,7 +153,7 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == backButton){
-            dWindow.setVisible(false);
+            setVisible(false);
         }
         else if(e.getSource() == addButton){
             addLink = new LinkInputForm(this);
