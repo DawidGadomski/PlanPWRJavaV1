@@ -56,12 +56,16 @@ public class NotesWindow extends JDialog implements ActionListener {
         lNotes.setForeground(appProperties.getTextColor());
         lNotes.setFont(notesSettings.getBigTextFont());
 
+        noteBoard = new NoteBoard(this.frame, appProperties, subject);
+
         notesPanel = new JPanel();
         notesPanel.setBackground(appProperties.getSecondColor());
-        noteBoard = new NoteBoard(this.frame, appProperties, subject);
+        notesPanel.setBorder(new EmptyBorder(10,10,10,10));
+        notesPanel.setLayout(new BoxLayout(notesPanel, BoxLayout.Y_AXIS));
         notesPanel.add(lNotes);
         notesPanel.add(noteBoard);
-        notesPanel.setBorder(new EmptyBorder(10,10,10,0));
+
+//        noteBoard.setPreferredSize(new Dimension(notesPanel.getWidth(), notesPanel.getHeight()));
 
         sLine = new JSeparator(SwingConstants.VERTICAL);
         sLine.setBackground(appProperties.getThirdColor());

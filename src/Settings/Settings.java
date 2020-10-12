@@ -1,6 +1,8 @@
 package Settings;
 
 import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -194,6 +196,13 @@ public class Settings {
         g.fillRect(0, 0, windowWidth, windowHeight);
     }
 
+    public int getStringHight(Graphics2D g2, String str,
+                                      float x, float y)
+    {
+        FontRenderContext frc = g2.getFontRenderContext();
+        GlyphVector gv = g2.getFont().createGlyphVector(frc, str);
+        return gv.getPixelBounds(null, x, y).height;
+    }
     /***
      * Edycja istniejącego przedmiotu
      * Stworzenie obiktu InputForm - formularz zwracający dane przedmiotu potrzebne do jego stworzenia

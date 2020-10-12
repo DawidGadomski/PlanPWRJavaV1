@@ -97,12 +97,13 @@ public class Note {
      * Rysowanie notatki
      * @param g - Graphics2d dostarczony z JComponentu
      */
-    public void drawNote(Graphics g) {
+    public void drawNote(Graphics2D g) {
         g.setColor(notesSettings.getNoteColor());
         g.fillRect(this.posX, this.posY, notesSettings.getNoteWidth(), notesSettings.getNoteHeight());
         g.setColor(Color.WHITE);
         g.setFont(notesSettings.getMediumTextFont());
-        g.drawString(this.text, this.posX, this.posY);
+        notesSettings.getStringHight(g, this.text, this.posX, this.posY);
+        g.drawString(this.text, (this.posX + 5), (this.posY + notesSettings.getStringHight(g, this.text, this.posX, this.posY)));
     }
 
     /***
@@ -110,21 +111,21 @@ public class Note {
      * @param mousePosX - współrzędna X kursora
      * @param mousePosY - współrzędna Y kursora
      */
-    public void move(double mousePosX, double mousePosY){
+    public void move(double mousePosX, double mousePosY, int boardWidth, int boardHeight){
         if (this.clickedFlag){
             this.posX = (int) mousePosX - notesSettings.getNoteWidth() / 2;
             this.posY = (int) mousePosY - notesSettings.getNoteHeight() / 2;
             //Right
-            if ((this.posX + notesSettings.getNoteWidth()) > 1){
-                this.posX = notesSettings.getNoteWidth() - 1;
+            if ((this.posX + notesSettings.getNoteWidth()) > boardWidth){
+                this.posX =  boardWidth - notesSettings.getNoteWidth() - 1;
             }
             //Left
             if (this.posX < 1){
                 this.posX = 1;
             }
             //Down
-            if (this.posY + notesSettings.getNoteHeight() >1){
-                this.posY = notesSettings.getNoteHeight() - 1;
+            if (this.posY + notesSettings.getNoteHeight() > boardHeight){
+                this.posY = boardHeight - notesSettings.getNoteHeight() - 1;
             }
             //UP
             if (this.posY < 1){

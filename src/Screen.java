@@ -34,6 +34,8 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
     private SettingsWindow settingsWindow;
     private MenuWindow menu;
 
+    private boolean windowOff;
+
     public Screen(JFrame frame) {
 //      Settings.Settings
         try {
@@ -45,6 +47,8 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         this.settings = new Settings();
         this.mainWindow = new MainWindow(g2d, appProperties, resourceBundle);
         this.frame = frame;
+
+        windowOff = false;
 
 //      Action Listeners for mouse
         addMouseListener(this);
@@ -81,12 +85,15 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
         mousePosX = MouseInfo.getPointerInfo().getLocation().getX() - this.getLocationOnScreen().getX();
         mousePosY = MouseInfo.getPointerInfo().getLocation().getY() - this.getLocationOnScreen().getY();
 
-        System.out.println("X: " + mousePosX );
-        System.out.println("Y: " + mousePosY );
-
 //      Draw Main Window
         mainWindow.drawMainWindow(g2d, mousePosX, mousePosY, settings.getSubjects());
         settings.setDefaultDrawing(g2d);
+
+        if(windowOff){
+            settings.drawShadow(g2d);
+        }
+        windowOff = false;
+
     }
 
     @Override
@@ -102,6 +109,8 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                     if (s.isOver(getMousePosition().getX(), getMousePosition().getY())) {
                         s.setClickedFlag(false);
                         mainWindow.getClearIcon().setVisableFlag(false);
+                        windowOff = true;
+                        repaint();
                         menu = new MenuWindow(this.frame, appProperties,resourceBundle, s, settings.getSubjects());
                         break;
                     }
@@ -120,6 +129,8 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                     break;
                 case 3:
 //                  Settings
+                    windowOff = true;
+                    repaint();
                     settingsWindow = new SettingsWindow(this.frame, appProperties, resourceBundle);
                     break;
             }
