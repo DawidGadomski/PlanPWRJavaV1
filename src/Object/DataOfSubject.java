@@ -1,5 +1,6 @@
 package Object;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /***
@@ -18,6 +19,7 @@ public class DataOfSubject {
     private ArrayList<DataOfNote> notes;
     private int absences;
     private int allAbsences;
+    private Color subjectColor;
     private ArrayList<TestCard> testList;
 
     /***
@@ -34,7 +36,7 @@ public class DataOfSubject {
      * @param noteArrayList - lista notatek
      */
     public DataOfSubject(int posX, int posY, String name, String term, int time, String prof,
-                         String room, int type, String week, ArrayList<DataOfNote> noteArrayList,
+                         String room, int type, Color subjectColor, String week, ArrayList<DataOfNote> noteArrayList,
                          int absences, int allAbsences, ArrayList<TestCard> testList) {
         this.posX = posX;
         this.posY = posY;
@@ -44,6 +46,7 @@ public class DataOfSubject {
         this.prof = prof;
         this.room = room;
         this.type = type;
+        this.subjectColor = subjectColor;
         this.week = week;
         this.notes = noteArrayList;
         this.absences = absences;
@@ -103,6 +106,8 @@ public class DataOfSubject {
     public int getAbsences() {
         return absences;
     }
+
+    public Color getSubjectColor() {return subjectColor;}
 
     public int getAllAbsences() {
         return allAbsences;

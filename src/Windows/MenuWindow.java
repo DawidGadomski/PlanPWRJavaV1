@@ -506,7 +506,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
             }
         }
         else if(e.getSource() == editButton){
-            this.subjects.add(menuSettings.editSubject(this.frame, this.subject.convertSubjectToData()));
+            this.subjects.add(menuSettings.editSubject(this.frame, this.subject.convertSubjectToData(), appProperties));
             this.subjects.remove(this.subject);
             setVisible(false);
         }

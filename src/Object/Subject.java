@@ -40,7 +40,7 @@ public class Subject {
      * @param y - współrzędna Y w któym stworzy się obiekt
      * @param map - mapa dostarczona przez formularz tworzenia przedmiotu (InputForm) zawierająca dane do stworzenia przedmiotu
      */
-    public Subject(int x, int y, Map<String, Object> map){
+    public Subject(int x, int y, Map<String, Object> map, Color subjectColor){
 //      Init
         settings = new Settings();
         this.noteArrayList = new ArrayList<Note>();
@@ -48,7 +48,7 @@ public class Subject {
         this.linksList = new ArrayList<LinkCard>();
         this.width = settings.getTileWidth();
         this.height =settings.getTileHeight()*2;
-        this.color = new Color(255,0,255);
+        this.color = subjectColor;
 
 //      Data of Object.Subject
         this.posX = x;
@@ -64,7 +64,6 @@ public class Subject {
         this.allAbsences = 1;
 
 //      Update color and width (based on data of subject)
-        selectColor();
         setWidth();
         this.dataMap = map;
 
@@ -104,7 +103,6 @@ public class Subject {
         }
 
 //      Update color and width (based on data of subject)
-        selectColor();
         setWidth();
     }
 
@@ -204,21 +202,7 @@ public class Subject {
         }
 //      Return Data Of Object.Subject
         return new DataOfSubject(this.posX, this.posY, this.name, this.term, this.time, this.prof,
-                this.room, this.type, this.week, dataOfNoteArrayList, this.absences, this.allAbsences, this.testList);
-    }
-
-    /***
-     * Funkcja wyznaczająca kolor przedmiotu na podstawie typu
-     * Lab - czerwony
-     * Wykład - niebieski
-     */
-    public void selectColor() {
-        if (this.type == 1){
-            setColor(new Color(255,0,0));
-        }
-        else if (this.type == 2){
-            setColor(new Color(0,0,255));
-        }
+                this.room, this.type, this.color, this.week, dataOfNoteArrayList, this.absences, this.allAbsences, this.testList);
     }
 
     /***

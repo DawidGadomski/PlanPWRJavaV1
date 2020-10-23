@@ -108,6 +108,9 @@ public class Settings {
     private ArrayList<DataOfNote> notesList;
     protected ArrayList<Note> notes;
 
+//  TEMP
+    private Color subjectColor;
+
     /***
      * Konstruktor ustawień
      */
@@ -131,7 +134,7 @@ public class Settings {
         
 //      Date
         sdf =  new SimpleDateFormat("HH.mm");
-        days  = new String[]{"pn", "wt", "sr", "cz", "pt"};
+        days  = new String[]{"pn", "wt", "śr", "cz", "pt"};
 
 
 //      Needed Settings
@@ -210,10 +213,22 @@ public class Settings {
      * @param frame - JFrame która będzie rodzicem dla okna formularza
      * @param d - dane przedmiotu dla którego wywołana jest edycja zaweira dane potrzebne do wypełnienia formularza
      */
-    public Subject editSubject(JFrame frame, DataOfSubject d){
+    public Subject editSubject(JFrame frame, DataOfSubject d, AppProperties appProperties){
         InputForm f = new InputForm(frame, d);
 //        subjects.add(new Object.Subject(d.getPosX(), d.getPosY(), f.getDataMap()));
-        return new Subject(d.getPosX(), d.getPosY(), f.getDataMap());
+        if (f.getKind().equals("1")) {
+            subjectColor = appProperties.getLabColor();
+        }
+        if (f.getKind().equals("2")) {
+            subjectColor = appProperties.getLectureColor();
+        }
+        if (f.getKind().equals("3")){
+            subjectColor = appProperties.getProjectColor();
+        }
+        if (f.getKind().equals("4")){
+            subjectColor = appProperties.getSeminaryColor();
+        }
+        return new Subject(d.getPosX(), d.getPosY(), f.getDataMap(), subjectColor);
     }
 
     /***
@@ -222,11 +237,23 @@ public class Settings {
      * Na podstawie mapy danych z formularza stowrzenie przedmiotu i dodanie go do listy przedmiotów
      * @param frame - JFrame która będzie rodzicem dla okna formularza
      */
-    public void createSubject(JFrame frame){
+    public void createSubject(JFrame frame, AppProperties appProperties){
         InputForm f = new InputForm(frame);
 //      Check if dataMap has been created and returned
         if (f.getDataMap() != null) {
-            subjects.add(new Subject(workSurfacePosX, workSurfacePosY, f.getDataMap()));
+            if (f.getKind().equals("1")) {
+                subjectColor = appProperties.getLabColor();
+            }
+            if (f.getKind().equals("2")) {
+                subjectColor = appProperties.getLectureColor();
+            }
+            if (f.getKind().equals("3")){
+                subjectColor = appProperties.getProjectColor();
+            }
+            if (f.getKind().equals("4")){
+                subjectColor = appProperties.getSeminaryColor();
+            }
+            subjects.add(new Subject(workSurfacePosX, workSurfacePosY, f.getDataMap(), subjectColor));
         }
     }
 

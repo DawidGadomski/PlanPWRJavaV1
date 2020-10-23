@@ -121,7 +121,7 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
             switch (mainWindowAction) {
                 case 1:
 //                  Add Object.Subject
-                    settings.createSubject(this.frame);
+                    settings.createSubject(this.frame, appProperties);
                     break;
                 case 2:
 //                  Save plan

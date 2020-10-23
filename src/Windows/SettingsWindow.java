@@ -338,63 +338,63 @@ public class SettingsWindow extends JDialog implements ActionListener {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weightx = 1;
         constraints.gridwidth = 1;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        advancedSettingsPanel.add(lLanguage, constraints);
+//        constraints.gridx = 0;
+//        constraints.gridy = 0;
+//        advancedSettingsPanel.add(lLanguage, constraints);
+//
+//        constraints.fill = GridBagConstraints.HORIZONTAL;
+//        constraints.gridx = 1;
+//        constraints.gridy = 0;
+//        advancedSettingsPanel.add(comboLanguages, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.gridx = 1;
-        constraints.gridy = 0;
-        advancedSettingsPanel.add(comboLanguages, constraints);
-
-        constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 1;
+        constraints.gridy = 0;
         advancedSettingsPanel.add(lNotifications, constraints);
 
         constraints.fill = GridBagConstraints.LINE_END;
         constraints.gridx = 1;
-        constraints.gridy = 1;
+        constraints.gridy = 0;
         advancedSettingsPanel.add(cbNotifications, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 2;
+        constraints.gridy = 1;
         advancedSettingsPanel.add(lNotificationsInfo, constraints);
 
+//        constraints.fill = GridBagConstraints.HORIZONTAL;
+//        constraints.gridx = 0;
+//        constraints.gridy = 3;
+//        advancedSettingsPanel.add(lFullscreen, constraints);
+//
+//        constraints.fill = GridBagConstraints.LINE_END;
+//        constraints.gridx = 1;
+//        constraints.gridy = 3;
+//        advancedSettingsPanel.add(cbFullscreen, constraints);
+//
+//        constraints.fill = GridBagConstraints.HORIZONTAL;
+//        constraints.gridx = 0;
+//        constraints.gridy = 4;
+//        advancedSettingsPanel.add(lFullscreenInfo, constraints);
+
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 3;
-        advancedSettingsPanel.add(lFullscreen, constraints);
-
-        constraints.fill = GridBagConstraints.LINE_END;
-        constraints.gridx = 1;
-        constraints.gridy = 3;
-        advancedSettingsPanel.add(cbFullscreen, constraints);
-
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.gridx = 0;
-        constraints.gridy = 4;
-        advancedSettingsPanel.add(lFullscreenInfo, constraints);
-
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.gridx = 0;
-        constraints.gridy = 5;
+        constraints.gridy = 2;
         advancedSettingsPanel.add(lRoute, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 6;
+        constraints.gridy = 3;
         advancedSettingsPanel.add(lRouteInfo, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 7;
+        constraints.gridy = 4;
         advancedSettingsPanel.add(lFilePath, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 1;
-        constraints.gridy = 6;
+        constraints.gridy = 3;
         advancedSettingsPanel.add(bChooseFilePath, constraints);
 
         advancePanel.add(lAdvanced);

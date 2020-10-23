@@ -34,6 +34,8 @@ public class InputForm extends JDialog implements ActionListener{
     private JButton bAccept;
     private JButton bCancel;
     private JRadioButton rEvenWeek;
+    private JRadioButton rbPro;
+    private JRadioButton rbSem;
     private String name, term, time, prof, room, kind, week;
 
     private Map<String, Object> dataMap;
@@ -75,6 +77,12 @@ public class InputForm extends JDialog implements ActionListener{
         }
         if (d.getType() == 2) {
             rLect.setSelected(true);
+        }
+        if (d.getType() == 3){
+            rbPro.setSelected(true);
+        }
+        if (d.getType() == 4){
+            rbSem.setSelected(true);
         }
         if (d.getWeek().equals("week")) {
             rWeek.setSelected(true);
@@ -171,6 +179,12 @@ public class InputForm extends JDialog implements ActionListener{
         }
         if (rLect.isSelected()) {
             setKind("2");
+        }
+        if(rbPro.isSelected()){
+            setKind("3");
+        }
+        if(rbSem.isSelected()){
+            setKind("4");
         }
         if (rWeek.isSelected()) {
             setWeek("week");

@@ -125,11 +125,6 @@ public class NotesWindow extends JDialog implements ActionListener {
         buttonsPanel.add(sLine);
         buttonsPanel.add(addButton);
         buttonsPanel.add(Box.createVerticalGlue());
-        sLine = new JSeparator(SwingConstants.HORIZONTAL);
-        sLine.setBackground(appProperties.getThirdColor());
-        buttonsPanel.add(sLine);
-        buttonsPanel.add(saveButton);
-        buttonsPanel.add(Box.createVerticalGlue());
     }
 
     @Override

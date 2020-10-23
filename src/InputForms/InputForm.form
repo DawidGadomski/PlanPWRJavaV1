@@ -67,7 +67,7 @@
           </component>
           <component id="15033" class="javax.swing.JRadioButton" binding="rOddWeek">
             <constraints>
-              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -123,7 +123,7 @@
           </component>
           <component id="10694" class="javax.swing.JRadioButton" binding="rLab">
             <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -136,7 +136,7 @@
           </component>
           <component id="3b587" class="javax.swing.JRadioButton" binding="rWeek">
             <constraints>
-              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -151,7 +151,7 @@
           </component>
           <component id="ee70d" class="javax.swing.JButton" binding="bAccept">
             <constraints>
-              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -163,7 +163,7 @@
           </component>
           <component id="952ec" class="javax.swing.JRadioButton" binding="rEvenWeek">
             <constraints>
-              <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -175,7 +175,7 @@
           </component>
           <component id="8a40f" class="javax.swing.JButton" binding="bCancel">
             <constraints>
-              <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -207,9 +207,21 @@
               <background color="-8421505"/>
             </properties>
           </component>
+          <component id="68d9d" class="javax.swing.JRadioButton" binding="rbPro">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-6908266"/>
+              <font size="18"/>
+              <foreground color="-1"/>
+              <text value="Project"/>
+            </properties>
+          </component>
           <component id="ab767" class="javax.swing.JRadioButton" binding="rLect">
             <constraints>
-              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -220,6 +232,18 @@
               <text value="Wykład"/>
             </properties>
           </component>
+          <component id="d59e0" class="javax.swing.JRadioButton" binding="rbSem">
+            <constraints>
+              <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-6908266"/>
+              <font size="18"/>
+              <foreground color="-1"/>
+              <text value="Seminar"/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>
@@ -228,6 +252,8 @@
     <group name="buttonGroupType">
       <member id="10694"/>
       <member id="ab767"/>
+      <member id="d59e0"/>
+      <member id="68d9d"/>
     </group>
     <group name="buttonGroupWeek">
       <member id="3b587"/>
