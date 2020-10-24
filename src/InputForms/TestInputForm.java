@@ -15,18 +15,21 @@ public class TestInputForm extends JDialog implements ActionListener {
     private JTextField tfDate;
     private JButton bCancel;
     private JButton bAccept;
+    private JButton bDelete;
     private JPanel pPanel;
     private ArrayList<String> output;
 
     public TestInputForm(JDialog frame){
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
         setContentPane(pPanel);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(frame);
+        setUndecorated(true);
+        bDelete.setVisible(false);
         bCancel.addActionListener(this);
         bAccept.addActionListener(this);
         pack();
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(frame);
-        setResizable(false);
+
 
         output = new ArrayList<String>();
 
@@ -39,17 +42,17 @@ public class TestInputForm extends JDialog implements ActionListener {
         tfDate.setText(tc.getTestDate());
 
         setContentPane(pPanel);
-        bCancel.addActionListener(this);
+        bDelete.addActionListener(this);
         bAccept.addActionListener(this);
+        bCancel.setVisible(false);
 
         bAccept.setText("OK");
-        bCancel.setText("Usuń");
 
         output = new ArrayList<String>();
 
         pack();
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(frame);
+        setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
     }
@@ -61,11 +64,20 @@ public class TestInputForm extends JDialog implements ActionListener {
     //  Buttons
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == bAccept){
-            output.add(tfName.getText());
-            output.add(tfDate.getText());
+            if(tfName.getText().equals("") | tfDate.getText().equals("")){
+                JOptionPane.showMessageDialog(this, "Uzupełnij pole Nazwa oraz Data");
+            } else {
+                output.add(tfName.getText());
+                output.add(tfDate.getText());
+                setVisible(false);
+            }
+        }
+        else if(e.getSource() == bDelete){
+            output.add("DELETE");
             setVisible(false);
         }
         else if(e.getSource() == bCancel){
+            output = null;
             setVisible(false);
         }
     }

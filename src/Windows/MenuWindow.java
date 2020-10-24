@@ -105,6 +105,7 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         setSize(menuSettings.getMenuWindowWidth(), menuSettings.getMenuWindowHeightY());
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(frame);
+        setUndecorated(true);
 
         initIcons();
 
@@ -523,8 +524,10 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         }
         else if(e.getSource() == addTestButton){
             addTest = new TestInputForm(this);
-            listModel.addElement(addTest.getOutput().get(0) + " - " + addTest.getOutput().get(1));
-            subject.getTestList().add(new TestCard(addTest.getOutput().get(0), addTest.getOutput().get(1)));
+            if(addTest.getOutput() != null){
+                listModel.addElement(addTest.getOutput().get(0) + " - " + addTest.getOutput().get(1));
+                subject.getTestList().add(new TestCard(addTest.getOutput().get(0), addTest.getOutput().get(1)));
+            }
         }
         else if(e.getSource() == editAbsencesButton){
             editAbsencesButton.setVisible(false);
@@ -555,11 +558,12 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
         if(e.getButton() == 3){
             TestCard testCard = subject.getTestList().get(testList.getSelectedIndex());
             addTest = new TestInputForm(this, testCard);
-            if(addTest.getOutput() != null){
+            if(addTest.getOutput().size() == 2){
                 listModel.addElement(addTest.getOutput().get(0) + " - " + addTest.getOutput().get(1));
-                listModel.remove(testList.getSelectedIndex());
                 subject.getTestList().add(new TestCard(addTest.getOutput().get(0), addTest.getOutput().get(1)));
             }
+            listModel.remove(testList.getSelectedIndex());
+            subject.getTestList().remove(testCard);
         }
     }
 
@@ -582,4 +586,6 @@ public class MenuWindow extends JDialog implements ActionListener, MouseListener
     public void mouseExited(MouseEvent e) {
 
     }
+
+
 }
