@@ -133,10 +133,6 @@ public class NotesWindow extends JDialog implements ActionListener {
             notesSettings.createNote(this, this.subject);
             noteBoard.repaint();
         }
-        else if(e.getSource() == saveButton){
-//            notesSettings.saveNotes();
-//            notes.getSubject().setNoteArrayList(settings.getNotesList());
-        }
         else if(e.getSource() == backButton){
             setVisible(false);
         }

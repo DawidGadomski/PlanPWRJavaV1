@@ -258,18 +258,6 @@ public class Settings {
     }
 
     /***
-     * Edycja istniejącego notatki
-     * Stworzenie obiktu InputNoteForm - formularz zwracający dane notatki potrzebne do jej stworzenia
-     * Na podstawie mapy danych z formularza stowrzenie notatki i dodanie jej do listy notatek
-     * @param frame - JFrame która będzie rodzicem dla okna formularza
-     * @param d - dane przedmiotu dla którego wywołana jest edycja zaweira dane potrzebne do wypełnienia formularza
-     */
-    public Note editNote(JDialog frame, DataOfNote d){
-        NoteInputForm f = new NoteInputForm(frame, d);
-        return new Note(d.getPosX(), d.getPosY(), f.getDataMap());
-    }
-
-    /***
      * Stworzenie nowej notatki
      * Stworzenie obiktu InputNoteForm - formularz zwracający dane notatki potrzebne do jej stworzenia
      * Na podstawie mapy danych z formularza stowrzenie notatki i dodanie jej do listy notatek

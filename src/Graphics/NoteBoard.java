@@ -1,9 +1,11 @@
 package Graphics;
 
+import InputForms.NoteInputForm;
 import Settings.NotesSettings;
 import Settings.AppProperties;
 import Object.Note;
 import Object.Subject;
+import Windows.MenuWindow;
 import com.sun.jdi.JDIPermission;
 
 import javax.swing.*;
@@ -63,6 +65,20 @@ public class NoteBoard extends JComponent implements MouseListener, MouseMotionL
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if (e.getButton() == 3) {
+            for (Note note : subject.getNoteArrayList()) {
+                if (note.isOver(getMousePosition().getX(), getMousePosition().getY())) {
+                    note.setClickedFlag(false);
+                    NoteInputForm f = new NoteInputForm(frame, note);
+                    if(!f.getToDelete()){
+                        subject.getNoteArrayList().add(new Note(note.getDataMap().getPosX(),
+                                note.getDataMap().getPosY(), f.getDataMap()));
+                    }
+                    subject.getNoteArrayList().remove(note);
+                    break;
+                }
+            }
+        }
     }
 
     @Override

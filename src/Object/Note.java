@@ -61,6 +61,10 @@ public class Note {
         return this.clickedFlag;
     }
 
+    public String getText() {
+        return text;
+    }
+
     /***
      * Funkcja tworząca i zwracająca obiekt zawierający dane notatki potrzebne do jej odtworzenia po wczytaniu pliku json
      * @return - obiekt Object.DataOfNote

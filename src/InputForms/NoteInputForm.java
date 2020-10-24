@@ -1,6 +1,6 @@
 package InputForms;
 
-import Object.DataOfNote;
+import Object.Note;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,10 +17,14 @@ public class NoteInputForm extends JDialog implements ActionListener{
     private JButton bCancel;
     private JLabel lText;
     private JPanel pButtons;
+    private JButton bDelete;
 
     //  Data
     private String text;
     private Map<String, Object> dataMap;
+
+    // Flags
+    private boolean toDelete;
 
     /***
      * Konstruktor służący do stworzenia nowej notatki
@@ -29,10 +33,12 @@ public class NoteInputForm extends JDialog implements ActionListener{
     public NoteInputForm(JDialog frame) {
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
         setContentPane(pNotes);
+        setUndecorated(true);
+        bDelete.setVisible(false);
         bCancel.addActionListener(this);
         bAccept.addActionListener(this);
         pack();
-//        setUndecorated(true);
+
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(frame);
         setResizable(false);
@@ -42,18 +48,20 @@ public class NoteInputForm extends JDialog implements ActionListener{
     /***
      * Konstruktor do edycji istniejącej notatki
      * @param frame - parent frame
-     * @param dN - dane edytowanej notatki do uzupełnienia formularza
+     * @param note - notatka do edycji
      */
-    public NoteInputForm(JDialog frame, DataOfNote dN) {
+    public NoteInputForm(JDialog frame, Note note) {
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
 
-        System.out.println(dN.getText());
-        taNote.setText(dN.getText());
+        taNote.setText(note.getText());
 
         createDataOfNote();
 
+        toDelete = false;
         setContentPane(pNotes);
-        bCancel.addActionListener(this);
+        bCancel.setVisible(false);
+        bAccept.setText("OK");
+        bDelete.addActionListener(this);
         bAccept.addActionListener(this);
         pack();
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -75,6 +83,8 @@ public class NoteInputForm extends JDialog implements ActionListener{
         return this.dataMap;
     }
 
+    public boolean getToDelete() {return this.toDelete;}
+
     /***
      * Zebranie danych z text area i dodanie ich do mapy która będzie zwracana przez formularz
      */
@@ -91,6 +101,10 @@ public class NoteInputForm extends JDialog implements ActionListener{
             setVisible(false);
         }
         else if(e.getSource() == bCancel){
+            setVisible(false);
+        }
+        else if(e.getSource() == bDelete){
+            toDelete = true;
             setVisible(false);
         }
     }
