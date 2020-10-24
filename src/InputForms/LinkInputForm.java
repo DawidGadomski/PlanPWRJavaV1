@@ -14,6 +14,7 @@ public class LinkInputForm extends JDialog implements ActionListener {
     private JTextField tfLink;
     private JButton bAccept;
     private JButton bCancle;
+    private JButton bDelete;
     private JLabel lLinkName;
     private JLabel lLink;
 
@@ -22,6 +23,8 @@ public class LinkInputForm extends JDialog implements ActionListener {
     public LinkInputForm(JDialog frame) {
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
         setContentPane(pPanel);
+        setUndecorated(false);
+        bDelete.setVisible(false);
         bCancle.addActionListener(this);
         bAccept.addActionListener(this);
         pack();
@@ -34,9 +37,12 @@ public class LinkInputForm extends JDialog implements ActionListener {
     public LinkInputForm(JDialog frame, LinkCard lc) {
         super(frame, Dialog.ModalityType.APPLICATION_MODAL);
         setContentPane(pPanel);
+        setUndecorated(false);
         tfLinkName.setText(lc.getLinkName());
         tfLink.setText(lc.getLinkURI().toString());
-        bCancle.addActionListener(this);
+        bCancle.setVisible(false);
+        bAccept.setText("OK");
+        bDelete.addActionListener(this);
         bAccept.addActionListener(this);
         pack();
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -48,10 +54,17 @@ public class LinkInputForm extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == bAccept){
-            link = new LinkCard(tfLinkName.getText(), URI.create(tfLink.getText()));
-            setVisible(false);
+            if(tfLinkName.getText().equals("") | tfLink.getText().equals("")){
+                JOptionPane.showMessageDialog(this, "Uzupełnij pole Nazwa oraz Adres URL");
+            } else {
+                link = new LinkCard(tfLinkName.getText(), URI.create(tfLink.getText()));
+                setVisible(false);
+            }
         }
         else if(e.getSource() == bCancle){
+            setVisible(false);
+        }
+        else if(e.getSource() == bDelete){
             setVisible(false);
         }
 

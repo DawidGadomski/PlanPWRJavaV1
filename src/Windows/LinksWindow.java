@@ -157,31 +157,38 @@ public class LinksWindow extends JDialog implements ActionListener, MouseListene
         }
         else if(e.getSource() == addButton){
             addLink = new LinkInputForm(this);
-            listModel.addElement(addLink.getLink().getLinkName());
-            subject.getLinksList().add(addLink.getLink());
+            if(addLink.getLink() != null){
+                listModel.addElement(addLink.getLink().getLinkName());
+                subject.getLinksList().add(addLink.getLink());
+            }
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getButton() == 1){
-            LinkCard lc = this.subject.getLinksList().get(linkList.getSelectedIndex());
-            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                try {
-                    Desktop.getDesktop().browse(lc.getLinkURI());
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+            if(linkList.getSelectedIndex() == -1){
+                LinkCard lc = this.subject.getLinksList().get(linkList.getSelectedIndex());
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    try {
+                        Desktop.getDesktop().browse(lc.getLinkURI());
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
                 }
             }
+
         }
         if(e.getButton() == 3){
             LinkCard lc = this.subject.getLinksList().get(linkList.getSelectedIndex());
             addLink = new LinkInputForm(this, lc);
-            if(addLink.getLink() != null){
+            if(addLink.getLink() != null) {
                 listModel.addElement(addLink.getLink().getLinkName());
-                listModel.remove(linkList.getSelectedIndex());
                 subject.getLinksList().add(addLink.getLink());
             }
+            listModel.remove(linkList.getSelectedIndex());
+            subject.getLinksList().remove(lc);
+
         }
     }
 
