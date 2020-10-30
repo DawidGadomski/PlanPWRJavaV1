@@ -2,6 +2,12 @@ package Windows;
 
 import Settings.AppProperties;
 import Settings.SettingsSettings;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Version;
+import com.restfb.types.User;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 //import com.bric.colorpicker.ColorPicker;
 
 import javax.swing.*;
@@ -11,10 +17,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class SettingsWindow extends JDialog implements ActionListener {
+
     private JFrame frame;
     private SettingsSettings settings;
     private AppProperties appProperties;
@@ -31,6 +37,8 @@ public class SettingsWindow extends JDialog implements ActionListener {
     private Image colorsIcon;
     private Image saveIcon;
     private Image advancedIcon;
+    private Image tickIcon;
+    private Image crossIcon;
 
     private JButton advancedPanelButton;
     private JButton authorPanelButton;
@@ -73,6 +81,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
     private JLabel lLabColorInfo;
 
 //  Advanced Panel
+    private JButton bFBAuth;
     private JLabel lAdvanced;
     private JPanel advancedSettingsPanel;
     private JLabel lLanguage;
@@ -84,7 +93,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
     private JLabel lFullscreen;
     private JLabel lFullscreenInfo;
     private JCheckBox cbFullscreen;
-    private JCheckBox cbNotifications;
+    private JButton bNotifications;
     private JButton bChooseFilePath;
     private JLabel lFilePath;
 
@@ -266,11 +275,32 @@ public class SettingsWindow extends JDialog implements ActionListener {
     }
 
     public void initAdvancedPanel(){
+
+        settings.setIconColor(settings.getTickImage(), appProperties.getSecondColor());
+        settings.setIconColor(settings.getCrossImage(), appProperties.getSecondColor());
+
+        buttonsPanel = new JPanel();
+        buttonsPanel.setBackground(appProperties.getFirstColor());
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
+        buttonsPanel.setBorder(new EmptyBorder(10,10,10,0));
+
+        tickIcon = settings.getTickImage().getScaledInstance(settings.getSmallIconSize(), settings.getSmallIconSize(),
+                Image.SCALE_DEFAULT);
+        crossIcon = settings.getCrossImage().getScaledInstance(settings.getSmallIconSize(), settings.getSmallIconSize(),
+                Image.SCALE_DEFAULT);
+
         advancePanel = new JPanel();
         advancePanel.setBorder(new EmptyBorder(10,10,10,10));
         advancePanel.setBackground(appProperties.getFirstColor());
         advancePanel.setLayout(new BoxLayout(advancePanel, BoxLayout.Y_AXIS));
 //        advancePanel.setVisible(false);
+
+        bFBAuth = new JButton("Connect with FB");
+        bFBAuth.setMinimumSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
+        bFBAuth.setPreferredSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
+        bFBAuth.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getBigIconSize()));
+        bFBAuth.setContentAreaFilled(false);
+        bFBAuth.addActionListener(this);
 
         lAdvanced = new JLabel(resourceBundle.getString("advanced"));
         lAdvanced.setForeground(appProperties.getTextColor());
@@ -319,7 +349,15 @@ public class SettingsWindow extends JDialog implements ActionListener {
 
         cbFullscreen = new JCheckBox();
 
-        cbNotifications = new JCheckBox();
+        bNotifications = new JButton(new ImageIcon(tickIcon));
+        if(!appProperties.isNotifications()){
+            bNotifications.setIcon(new ImageIcon(crossIcon));
+        }
+        bNotifications.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
+        bNotifications.setPreferredSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
+        bNotifications.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getSmallIconSize()));
+        bNotifications.setContentAreaFilled(false);
+        bNotifications.addActionListener(this);
 
         lFilePath = new JLabel(appProperties.getFolderPath());
         lFilePath.setFont(settings.getSmallTextFont());
@@ -355,7 +393,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
         constraints.fill = GridBagConstraints.LINE_END;
         constraints.gridx = 1;
         constraints.gridy = 0;
-        advancedSettingsPanel.add(cbNotifications, constraints);
+        advancedSettingsPanel.add(bNotifications, constraints);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
@@ -396,6 +434,11 @@ public class SettingsWindow extends JDialog implements ActionListener {
         constraints.gridx = 1;
         constraints.gridy = 3;
         advancedSettingsPanel.add(bChooseFilePath, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridx = 0;
+        constraints.gridy = 5;
+        advancedSettingsPanel.add(bFBAuth, constraints);
 
         advancePanel.add(lAdvanced);
         advancePanel.add(advancedSettingsPanel);
@@ -774,6 +817,33 @@ public class SettingsWindow extends JDialog implements ActionListener {
         colorPanel.add(colorsPanel);
     }
 
+    private void authUser(){
+        String domain = "http://www.dawidgadomski.com/";
+        String appID = "794003957811227";
+        String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id="+appID+"&redirect_uri="+domain+"&scope=email";
+
+        System.setProperty("webdirver.chrome.driver", "chromedriver.exe");
+
+        WebDriver driver = new ChromeDriver();
+        driver.get(authUrl);
+        String accessToken;
+        while(true) {
+
+            if (!driver.getCurrentUrl().contains("facebook.com")) {
+                String url = driver.getCurrentUrl();
+                accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
+
+                driver.quit();
+
+                FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.LATEST);
+                User user = fbClient.fetchObject("me", User.class);
+
+                System.out.println(user.getName());
+
+            }
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == colorsPanelButton){
@@ -844,6 +914,10 @@ public class SettingsWindow extends JDialog implements ActionListener {
                     resourceBundle.getString("pickColor"), appProperties.getLabColor()));
             bLabColor.revalidate();
         }
+        else if(e.getSource() == bNotifications){
+            appProperties.setNotifications(!appProperties.isNotifications());
+        }
+
         else if (e.getSource() == bChooseFilePath){
             fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File(appProperties.getFolderPath()));
@@ -862,6 +936,10 @@ public class SettingsWindow extends JDialog implements ActionListener {
             }
             lFilePath.setText(appProperties.getFolderPath());
         }
-    }
 
+        else if(e.getSource() == bFBAuth){
+            authUser();
+        }
+    }
 }
+

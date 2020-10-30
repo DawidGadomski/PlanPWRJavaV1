@@ -14,10 +14,15 @@ public class SettingsSettings extends Settings{
     private File colorsIcon;
     private File advancedIcon;
     private File aboutIcon;
+    private File tickIcon;
+    private File crossIcon;
 
     private BufferedImage colorsImage;
     private BufferedImage advancedImage;
     private BufferedImage aboutImage;
+    private BufferedImage tickImage;
+    private BufferedImage crossImage;
+
 
     private int colorButtonsSize;
     
@@ -27,6 +32,8 @@ public class SettingsSettings extends Settings{
         colorsIcon = new File("Icons/paint.png");
         advancedIcon = new File("Icons/maintenance.png");
         aboutIcon = new File("Icons/info.png");
+        tickIcon = new File("Icons/tick.png");
+        crossIcon = new File("Icons/clear.png");
 
         colorButtonsSize = windowWidth / 2 /20;
 
@@ -34,6 +41,8 @@ public class SettingsSettings extends Settings{
             colorsImage = ImageIO.read(getClass().getResource("/resources/images/paint.png"));
             advancedImage = ImageIO.read(getClass().getResource("/resources/images/maintenance.png"));
             aboutImage = ImageIO.read(getClass().getResource("/resources/images/info.png"));
+            tickImage = ImageIO.read(getClass().getResource("/resources/images/tick.png"));
+            crossImage = ImageIO.read(getClass().getResource("/resources/images/clear.png"));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -51,6 +60,14 @@ public class SettingsSettings extends Settings{
 
     public BufferedImage getAboutImage() {
         return aboutImage;
+    }
+
+    public BufferedImage getTickImage() {
+        return tickImage;
+    }
+
+    public BufferedImage getCrossImage() {
+        return crossImage;
     }
 
     public int getColorButtonsSize() {

@@ -61,7 +61,9 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                 settings.loadData();
                 if (SystemTray.isSupported()) {
                     try{
-                        settings.notifications();
+                        if(appProperties.isNotifications()) {
+                            settings.notifications();
+                        }
                     } catch (AWTException e){
                         e.printStackTrace();
                     }

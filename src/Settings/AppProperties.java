@@ -13,6 +13,8 @@ public class AppProperties {
 
     private String folderPath;
 
+    private boolean notifications;
+
     // Colors
     private Color firstColor;
     private Color secondColor;
@@ -38,6 +40,8 @@ public class AppProperties {
             prop.load(inputStream);
 
             folderPath = prop.getProperty("folderPath");
+
+            notifications = Boolean.parseBoolean(prop.getProperty("notifications"));
 
             textColor = new Color(Integer.parseInt(prop.getProperty("textColor")));
             darkTextColor = new Color(Integer.parseInt(prop.getProperty("darkTextColor")));
@@ -120,6 +124,14 @@ public class AppProperties {
     public void setSecondColor(Color secondColor) {
         this.secondColor = secondColor;
         saveColorProperties("secondColor", this.secondColor);
+    }
+
+    public boolean isNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(boolean notifications) {
+        this.notifications = notifications;
     }
 
     public void setTextColor(Color textColor) {

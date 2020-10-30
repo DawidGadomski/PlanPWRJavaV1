@@ -11,5 +11,7 @@
     <orderEntry type="library" name="com.google.code.gson:gson:2.8.5" level="project" />
     <orderEntry type="library" name="com.fasterxml.jackson.core:jackson-databind:2.10.2" level="project" />
     <orderEntry type="library" name="com.google.code.gson:gson:2.8.61" level="project" />
+    <orderEntry type="library" name="com.restfb:restfb:3.11.0" level="project" />
+    <orderEntry type="library" name="org.seleniumhq.selenium:selenium-java:3.14.0" level="project" />
   </component>
 </module>
