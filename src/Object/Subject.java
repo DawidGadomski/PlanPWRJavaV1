@@ -82,7 +82,6 @@ public class Subject {
         this.linksList = new ArrayList<LinkCard>();
         this.width = settings.getTileWidth();
         this.height = settings.getTileHeight()*2;
-        this.color = new Color(255,0,255);
 
 //      Data of Object.Subject
         this.posX = dataOfSubject.getPosX();
@@ -94,9 +93,11 @@ public class Subject {
         this.room = dataOfSubject.getRoom();
         this.type = dataOfSubject.getType();
         this.week = dataOfSubject.getWeek();
+        this.color = dataOfSubject.getSubjectColor();
         this.absences = dataOfSubject.getAbsences();
         this.allAbsences = dataOfSubject.getAllAbsences();
         this.testList = dataOfSubject.getTestList();
+        this.linksList = dataOfSubject.getLinksList();
 
         for(DataOfNote dataOfNote: dataOfSubject.getNotes()){
             noteArrayList.add(new Note(dataOfNote));
@@ -202,7 +203,8 @@ public class Subject {
         }
 //      Return Data Of Object.Subject
         return new DataOfSubject(this.posX, this.posY, this.name, this.term, this.time, this.prof,
-                this.room, this.type, this.color, this.week, dataOfNoteArrayList, this.absences, this.allAbsences, this.testList);
+                this.room, this.type, this.color, this.week, dataOfNoteArrayList, this.absences, this.allAbsences,
+                this.testList, this.linksList);
     }
 
     /***

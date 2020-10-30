@@ -21,6 +21,7 @@ public class DataOfSubject {
     private int allAbsences;
     private Color subjectColor;
     private ArrayList<TestCard> testList;
+    private ArrayList<LinkCard> linksList;
 
     /***
      * Konstruktor
@@ -37,7 +38,7 @@ public class DataOfSubject {
      */
     public DataOfSubject(int posX, int posY, String name, String term, int time, String prof,
                          String room, int type, Color subjectColor, String week, ArrayList<DataOfNote> noteArrayList,
-                         int absences, int allAbsences, ArrayList<TestCard> testList) {
+                         int absences, int allAbsences, ArrayList<TestCard> testList, ArrayList<LinkCard> linksList) {
         this.posX = posX;
         this.posY = posY;
         this.name = name;
@@ -52,6 +53,8 @@ public class DataOfSubject {
         this.absences = absences;
         this.allAbsences = allAbsences;
         this.testList = testList;
+        this.linksList = linksList;
+
     }
 
 //  Getters and Setters
@@ -111,5 +114,9 @@ public class DataOfSubject {
 
     public int getAllAbsences() {
         return allAbsences;
+    }
+
+    public ArrayList<LinkCard> getLinksList() {
+        return linksList;
     }
 }
