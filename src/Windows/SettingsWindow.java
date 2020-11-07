@@ -2,10 +2,12 @@ package Windows;
 
 import Settings.AppProperties;
 import Settings.SettingsSettings;
+import com.restfb.DebugHeaderInfo;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Version;
 import com.restfb.types.User;
+import net.fortuna.ical4j.data.ParserException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 //import com.bric.colorpicker.ColorPicker;
@@ -17,6 +19,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class SettingsWindow extends JDialog implements ActionListener {
@@ -39,6 +42,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
     private Image advancedIcon;
     private Image tickIcon;
     private Image crossIcon;
+    private Image loadImage;
 
     private JButton advancedPanelButton;
     private JButton authorPanelButton;
@@ -96,7 +100,8 @@ public class SettingsWindow extends JDialog implements ActionListener {
     private JButton bNotifications;
     private JButton bChooseFilePath;
     private JLabel lFilePath;
-
+    private JLabel lLoadICalendar;
+    private JButton bLoadICalendar;
 
     private JButton bMainColor;
     private JButton bSecondColor;
@@ -278,15 +283,13 @@ public class SettingsWindow extends JDialog implements ActionListener {
 
         settings.setIconColor(settings.getTickImage(), appProperties.getSecondColor());
         settings.setIconColor(settings.getCrossImage(), appProperties.getSecondColor());
-
-        buttonsPanel = new JPanel();
-        buttonsPanel.setBackground(appProperties.getFirstColor());
-        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
-        buttonsPanel.setBorder(new EmptyBorder(10,10,10,0));
+        settings.setIconColor(settings.getLoadImage(), appProperties.getSecondColor());
 
         tickIcon = settings.getTickImage().getScaledInstance(settings.getSmallIconSize(), settings.getSmallIconSize(),
                 Image.SCALE_DEFAULT);
         crossIcon = settings.getCrossImage().getScaledInstance(settings.getSmallIconSize(), settings.getSmallIconSize(),
+                Image.SCALE_DEFAULT);
+        loadImage = settings.getLoadImage().getScaledInstance(settings.getSmallIconSize(), settings.getSmallIconSize(),
                 Image.SCALE_DEFAULT);
 
         advancePanel = new JPanel();
@@ -356,7 +359,6 @@ public class SettingsWindow extends JDialog implements ActionListener {
         bNotifications.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bNotifications.setPreferredSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bNotifications.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getSmallIconSize()));
-        bNotifications.setContentAreaFilled(false);
         bNotifications.addActionListener(this);
 
         lFilePath = new JLabel(appProperties.getFolderPath());
@@ -372,6 +374,17 @@ public class SettingsWindow extends JDialog implements ActionListener {
         bChooseFilePath.setPreferredSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
         bChooseFilePath.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getSmallIconSize()));
         bChooseFilePath.addActionListener(this);
+
+        lLoadICalendar = new JLabel(resourceBundle.getString("loadICalendar"));
+        lLoadICalendar.setFont(settings.getMediumTextFont());
+        lLoadICalendar.setHorizontalAlignment(SwingConstants.LEFT);
+        lLoadICalendar.setForeground(appProperties.getTextColor());
+
+        bLoadICalendar = new JButton(new ImageIcon(loadImage));
+        bLoadICalendar.setMinimumSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
+        bLoadICalendar.setPreferredSize(new Dimension(settings.getSmallIconSize(), settings.getSmallIconSize()));
+        bLoadICalendar.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getSmallIconSize()));
+        bLoadICalendar.addActionListener(this);
 
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weightx = 1;
@@ -438,6 +451,16 @@ public class SettingsWindow extends JDialog implements ActionListener {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
         constraints.gridy = 5;
+        advancedSettingsPanel.add(lLoadICalendar, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridx = 1;
+        constraints.gridy = 5;
+        advancedSettingsPanel.add(bLoadICalendar, constraints);
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridx = 0;
+        constraints.gridy = 6;
         advancedSettingsPanel.add(bFBAuth, constraints);
 
         advancePanel.add(lAdvanced);
@@ -818,9 +841,11 @@ public class SettingsWindow extends JDialog implements ActionListener {
     }
 
     private void authUser(){
-        String domain = "http://www.dawidgadomski.com/";
+        String domain = "http://www.dawidgadomski.pl/";
         String appID = "794003957811227";
-        String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id="+appID+"&redirect_uri="+domain+"&scope=email";
+        String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id="+appID+"&redirect_uri="+domain+"&scope=user_about_me,"
+                + "email,"
+                + "manage_notifications,manage_pages,publish_actions,read_friendlists,read_insights,read_mailbox,read_page_mailboxes,read_stream,rsvp_event";
 
         System.setProperty("webdirver.chrome.driver", "chromedriver.exe");
 
@@ -843,6 +868,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
             }
         }
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -914,10 +940,6 @@ public class SettingsWindow extends JDialog implements ActionListener {
                     resourceBundle.getString("pickColor"), appProperties.getLabColor()));
             bLabColor.revalidate();
         }
-        else if(e.getSource() == bNotifications){
-            appProperties.setNotifications(!appProperties.isNotifications());
-        }
-
         else if (e.getSource() == bChooseFilePath){
             fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File(appProperties.getFolderPath()));
@@ -939,6 +961,14 @@ public class SettingsWindow extends JDialog implements ActionListener {
 
         else if(e.getSource() == bFBAuth){
             authUser();
+        }
+
+        else if(e.getSource() == bLoadICalendar){
+            try {
+                settings.loadICalendar();
+            } catch (IOException | ParserException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 }

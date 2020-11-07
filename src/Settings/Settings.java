@@ -9,6 +9,8 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+
 import com.google.gson.Gson;
 
 import Object.Subject;
@@ -18,6 +20,11 @@ import Object.Note;
 import Object.TestCard;
 import InputForms.NoteInputForm;
 import InputForms.InputForm;
+import net.fortuna.ical4j.data.CalendarBuilder;
+import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.util.Configurator;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -107,6 +114,7 @@ public class Settings {
     private ArrayList<DataOfSubject> subjectsList;
     private ArrayList<DataOfNote> notesList;
     protected ArrayList<Note> notes;
+    private Calendar calendar;
 
 //  TEMP
     private Color subjectColor;
@@ -392,7 +400,28 @@ public class Settings {
             for(TestCard tc : subject.getTestList())
             trayIcon.displayMessage(tc.getTestName(), tc.getTestDate(), TrayIcon.MessageType.INFO);
         }
+    }
 
+    public void loadICalendar() throws IOException, ParserException {
+
+//        CONFIG.load(Configurator.class.getResourceAsStream("/ical4j.properties"));
+
+        fileChooser = new JFileChooser();
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+            File file = fileChooser.getSelectedFile();
+            FileInputStream fin = new FileInputStream(file);
+
+            CalendarBuilder builder = new CalendarBuilder();
+            calendar = builder.build(fin);
+
+        }
+        for (net.fortuna.ical4j.model.component.CalendarComponent calendarComponent : calendar.getComponents()) {
+            System.out.println("Component [" + calendarComponent.getName() + "]");
+
+            for (Property property : calendarComponent.getProperties()) {
+                System.out.println("Property [" + property.getName() + ", " + property.getValue() + "]");
+            }
+        }
 
     }
 

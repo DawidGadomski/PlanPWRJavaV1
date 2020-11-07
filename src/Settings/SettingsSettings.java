@@ -22,6 +22,7 @@ public class SettingsSettings extends Settings{
     private BufferedImage aboutImage;
     private BufferedImage tickImage;
     private BufferedImage crossImage;
+    private BufferedImage loadImage;
 
 
     private int colorButtonsSize;
@@ -43,6 +44,7 @@ public class SettingsSettings extends Settings{
             aboutImage = ImageIO.read(getClass().getResource("/resources/images/info.png"));
             tickImage = ImageIO.read(getClass().getResource("/resources/images/tick.png"));
             crossImage = ImageIO.read(getClass().getResource("/resources/images/clear.png"));
+            loadImage = ImageIO.read(getClass().getResource("/resources/images/save.png"));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -72,5 +74,9 @@ public class SettingsSettings extends Settings{
 
     public int getColorButtonsSize() {
         return colorButtonsSize;
+    }
+
+    public BufferedImage getLoadImage() {
+        return loadImage;
     }
 }

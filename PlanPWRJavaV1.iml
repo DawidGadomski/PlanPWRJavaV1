@@ -13,5 +13,7 @@
     <orderEntry type="library" name="com.google.code.gson:gson:2.8.61" level="project" />
     <orderEntry type="library" name="com.restfb:restfb:3.11.0" level="project" />
     <orderEntry type="library" name="org.seleniumhq.selenium:selenium-java:3.14.0" level="project" />
+    <orderEntry type="library" name="org.mnode.ical4j:ical4j:3.0.20" level="project" />
+    <orderEntry type="library" name="org.slf4j:slf4j-simple:1.6.1" level="project" />
   </component>
 </module>
