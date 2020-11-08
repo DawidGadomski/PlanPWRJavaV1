@@ -7,9 +7,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.*;
 
 import com.google.gson.Gson;
 
@@ -118,6 +118,12 @@ public class Settings {
 
 //  TEMP
     private Color subjectColor;
+    private String tmpType;
+    private String tmpDTStartHH;
+    private String tmpDTEndHH;
+    private String tmpDTStartMM;
+    private String tmpDTEndMM;
+    private ArrayList<String> subjectsCreatedFromCalendar;
 
     /***
      * Konstruktor ustawień
@@ -402,9 +408,12 @@ public class Settings {
         }
     }
 
-    public void loadICalendar() throws IOException, ParserException {
+    public void loadICalendar(AppProperties appProperties) throws IOException, ParserException {
 
 //        CONFIG.load(Configurator.class.getResourceAsStream("/ical4j.properties"));
+
+        Map<String, Object> dataMap = new TreeMap<>();
+        subjectsCreatedFromCalendar = new ArrayList<String>();
 
         fileChooser = new JFileChooser();
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
@@ -416,13 +425,83 @@ public class Settings {
 
         }
         for (net.fortuna.ical4j.model.component.CalendarComponent calendarComponent : calendar.getComponents()) {
-            System.out.println("Component [" + calendarComponent.getName() + "]");
-
-            for (Property property : calendarComponent.getProperties()) {
-                System.out.println("Property [" + property.getName() + ", " + property.getValue() + "]");
+//            System.out.println("Component [" + calendarComponent.getName() + "]");
+            if(subjectsCreatedFromCalendar.contains(calendarComponent.getProperties().getProperties("SUMMARY").toString())){
+                continue;
             }
-        }
+            else{
+                subjectsCreatedFromCalendar.add(calendarComponent.getProperties().getProperties("SUMMARY").toString());
+            }
+            for (Property property : calendarComponent.getProperties()) {
+//                System.out.println("Property [" + property.getName() + ", " + property.getValue() + "]");
+                if(property.getName().equals("SUMMARY")){
+                    String name = property.getValue().substring(2);
+                    dataMap.put("name", name);
+                    if(property.getValue().charAt(0) == 'W'){
+                        tmpType = "2";
+                    }
+                    if(property.getValue().charAt(0) == 'L'){
+                        tmpType = "1";
+                    }
+                    if(property.getValue().charAt(0) == 'P'){
+                        tmpType = "3";
+                    }
+                    if(property.getValue().charAt(0) == 'S'){
+                        tmpType = "4";
+                    }
 
+                    dataMap.put("type", tmpType);
+
+                    if (tmpType.equals("1")) {
+                        subjectColor = appProperties.getLabColor();
+                    }
+                    if (tmpType.equals("2")) {
+                        subjectColor = appProperties.getLectureColor();
+                    }
+                    if (tmpType.equals("3")){
+                        subjectColor = appProperties.getProjectColor();
+                    }
+                    if (tmpType.equals("4")){
+                        subjectColor = appProperties.getSeminaryColor();
+                    }
+                }
+                if(property.getName().equals("DESCRIPTION")){
+                    String prof = property.getValue();
+                    dataMap.put("prof", prof);
+                }
+                if(property.getName().equals("LOCATION")){
+                    String room = property.getValue();
+                    dataMap.put("room", room);
+                }
+                if(property.getName().equals("DTSTART")){
+                    String week = "week";
+                    dataMap.put("week", week);
+                    tmpDTStartHH = property.getValue().substring(9,11);
+                    tmpDTStartMM = property.getValue().substring(11,13);
+                    String tmpYY = property.getValue().substring(0,4);
+                    String tmpMM = property.getValue().substring(4,6);
+                    String tmpDD = property.getValue().substring(6,8);
+
+                    LocalDate localDate = LocalDate.of(Integer.parseInt(tmpYY),
+                            Integer.parseInt(tmpMM), Integer.parseInt(tmpDD));
+
+                    DayOfWeek day = DayOfWeek.from(localDate);
+
+                    String term = day.toString() + ", " + tmpDTStartHH + ":" + tmpDTStartMM;
+                    dataMap.put("term", term);
+                }
+                if(property.getName().equals("DTEND")){
+                    tmpDTEndHH = property.getValue().substring(9,11);
+                    tmpDTEndMM = property.getValue().substring(11,13);
+                }
+            }
+            int time = (Integer.parseInt(tmpDTEndHH) - Integer.parseInt(tmpDTStartHH))*60 + (Integer.parseInt(tmpDTEndMM) - Integer.parseInt(tmpDTStartMM));
+            dataMap.put("time", String.valueOf(time));
+
+            Subject s = new Subject((workSurfacePosX + tileWidth*(subjectsCreatedFromCalendar.size() - 1)), (windowHeight - tileHeight), dataMap, subjectColor);
+            dataMap.clear();
+            subjects.add(s);
+        }
     }
 
 //  Getters and Setters

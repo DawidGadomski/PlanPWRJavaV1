@@ -965,7 +965,7 @@ public class SettingsWindow extends JDialog implements ActionListener {
 
         else if(e.getSource() == bLoadICalendar){
             try {
-                settings.loadICalendar();
+                settings.loadICalendar(appProperties);
             } catch (IOException | ParserException ioException) {
                 ioException.printStackTrace();
             }

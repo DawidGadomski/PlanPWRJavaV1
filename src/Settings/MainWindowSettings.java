@@ -39,6 +39,8 @@ public class MainWindowSettings extends Settings {
     private int saveIconPosY;
     private int addIconPosX;
     private int addIconPosY;
+    private int calendarIconPosX;
+    private int calendarIconPosY;
     private int settingsIconPosX;
     private int settingsIconPosY;
     private int iconsWidth;
@@ -76,16 +78,20 @@ public class MainWindowSettings extends Settings {
         iconSurfaceHeight = tileHeight;
 
 //      Icons settings
+        iconsWidth = tileWidth;
+        iconsHeight = tileHeight;
+
         clearIconPosX = windowWidth - tileWidth * 3;
         clearIconPosY = windowHeight - tileHeight * 2;
         saveIconPosX = 0;
         saveIconPosY = 5;
+        calendarIconPosX = 0;
+        calendarIconPosY = 5 + iconsWidth + 5;
         addIconPosX = tileWidth;
         addIconPosY = 5;
         settingsIconPosX = tileWidth * 2;
         settingsIconPosY = 5;
-        iconsWidth = tileWidth;
-        iconsHeight = tileHeight;
+
         clearIconSize = 64;
     }
 
@@ -192,6 +198,14 @@ public class MainWindowSettings extends Settings {
 
     public int getAddIconPosY() {
         return addIconPosY;
+    }
+
+    public int getCalendarIconPosX() {
+        return calendarIconPosX;
+    }
+
+    public int getCalendarIconPosY() {
+        return calendarIconPosY;
     }
 
     public int getIconsWidth() {

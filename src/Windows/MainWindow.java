@@ -1,9 +1,6 @@
 package Windows;
 
-import Icons.AddIcon;
-import Icons.ClearIcon;
-import Icons.SaveIcon;
-import Icons.SettingsIcon;
+import Icons.*;
 import Object.Subject;
 import Settings.MainWindowSettings;
 import Settings.AppProperties;
@@ -26,6 +23,7 @@ public class MainWindow {
     private SaveIcon saveIcon;
     private SettingsIcon settingsIcon;
     private ClearIcon clearIcon;
+    private CalendarIcon calendarIcon;
 
     private AppProperties appProperties;
     private ResourceBundle resourceBundle;
@@ -58,6 +56,8 @@ public class MainWindow {
                 appProperties.getSecondColor());
         clearIcon = new ClearIcon(mainWindowSettings.getClearIconPosX(), mainWindowSettings.getClearIconPosY(),
                 mainWindowSettings.getClearIconSize(), appProperties.getSecondColor());
+        calendarIcon = new CalendarIcon(mainWindowSettings.getCalendarIconPosX(), mainWindowSettings.getCalendarIconPosY(),
+                mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
     }
 
 //  Getters and Setters
@@ -157,6 +157,7 @@ public class MainWindow {
         addIcon.drawIcon(g);
         saveIcon.drawIcon(g);
         settingsIcon.drawIcon(g);
+        calendarIcon.drawIcon(g);
         if(clearIcon.getVisableFlag()){
             clearIcon.drawIcon(g);
         }
@@ -206,6 +207,9 @@ public class MainWindow {
         }
         else if (e.getButton() == 1 && settingsIcon.isOver(e.getX(), e.getY())){
             return 3;
+        }
+        else if (e.getButton() == 1 && calendarIcon.isOver(e.getX(), e.getY())){
+            return 4;
         }
         else {
             return 0;

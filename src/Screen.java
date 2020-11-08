@@ -5,6 +5,7 @@ import Object.Subject;
 import Windows.NotesWindow;
 import Windows.SettingsWindow;
 import Settings.AppProperties;
+import net.fortuna.ical4j.data.ParserException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -135,6 +136,12 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                     repaint();
                     settingsWindow = new SettingsWindow(this.frame, appProperties, resourceBundle);
                     break;
+                case 4:
+                    try {
+                        settings.loadICalendar(appProperties);
+                    } catch (IOException | ParserException ioException) {
+                        ioException.printStackTrace();
+                    }
             }
             repaint();
 
