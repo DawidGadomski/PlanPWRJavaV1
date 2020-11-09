@@ -1,12 +1,19 @@
+
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 import javax.swing.*;
 import java.awt.*;
+
+
 
 public class Main extends JFrame{
     private JFrame mainFrame;
     private JPanel panel1;
     private Screen screen1;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws GeneralSecurityException, IOException {
 
         EventQueue.invokeLater(new Runnable() {
             @Override

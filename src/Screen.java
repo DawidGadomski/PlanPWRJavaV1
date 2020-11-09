@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.*;
+import java.security.GeneralSecurityException;
 import java.util.ResourceBundle;
 
 /***
@@ -140,6 +141,12 @@ public class Screen extends JComponent implements MouseListener, MouseMotionList
                     try {
                         settings.loadICalendar(appProperties);
                     } catch (IOException | ParserException ioException) {
+                        ioException.printStackTrace();
+                    }
+                case 5:
+                    try {
+                        settings.loadFromGoogleCalendar(appProperties);
+                    } catch (IOException  | GeneralSecurityException ioException) {
                         ioException.printStackTrace();
                     }
             }

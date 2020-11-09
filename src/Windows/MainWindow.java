@@ -24,6 +24,7 @@ public class MainWindow {
     private SettingsIcon settingsIcon;
     private ClearIcon clearIcon;
     private CalendarIcon calendarIcon;
+    private GoogleCalendarIcon googleCalendarIcon;
 
     private AppProperties appProperties;
     private ResourceBundle resourceBundle;
@@ -57,6 +58,8 @@ public class MainWindow {
         clearIcon = new ClearIcon(mainWindowSettings.getClearIconPosX(), mainWindowSettings.getClearIconPosY(),
                 mainWindowSettings.getClearIconSize(), appProperties.getSecondColor());
         calendarIcon = new CalendarIcon(mainWindowSettings.getCalendarIconPosX(), mainWindowSettings.getCalendarIconPosY(),
+                mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
+        googleCalendarIcon = new GoogleCalendarIcon(mainWindowSettings.getGoogleCalendarIconPosX(), mainWindowSettings.getGoogleCalendarIconPosY(),
                 mainWindowSettings.getIconsWidth(), appProperties.getSecondColor());
     }
 
@@ -158,6 +161,7 @@ public class MainWindow {
         saveIcon.drawIcon(g);
         settingsIcon.drawIcon(g);
         calendarIcon.drawIcon(g);
+        googleCalendarIcon.drawIcon(g);
         if(clearIcon.getVisableFlag()){
             clearIcon.drawIcon(g);
         }
@@ -210,6 +214,9 @@ public class MainWindow {
         }
         else if (e.getButton() == 1 && calendarIcon.isOver(e.getX(), e.getY())){
             return 4;
+        }
+        else if (e.getButton() == 1 && googleCalendarIcon.isOver(e.getX(), e.getY())){
+            return 5;
         }
         else {
             return 0;

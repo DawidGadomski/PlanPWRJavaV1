@@ -6,10 +6,29 @@ import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.List;
+
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
+import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
+import com.google.api.client.util.store.FileDataStoreFactory;
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.Events;
 
 import com.google.gson.Gson;
 
@@ -22,9 +41,7 @@ import InputForms.NoteInputForm;
 import InputForms.InputForm;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Property;
-import net.fortuna.ical4j.util.Configurator;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -34,6 +51,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * Główne ustawienia
  */
 public class Settings {
+    private static final String APPLICATION_NAME = "PLAN PWR";
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final String TOKENS_DIRECTORY_PATH = "tokens";
+
+    /**
+     * Global instance of the scopes required by this quickstart.
+     * If modifying these scopes, delete your previously saved tokens/ folder.
+     */
+    private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_READONLY);
+    private static final String CREDENTIALS_FILE_PATH = "resources/credentials.json";
     private static final String AUTHOR_NAME = "Dawid Gadomski";
     private static final String VERSION = "1.0";
     private static final String[] LANGUAGES = {"English", "Polski"};
@@ -114,7 +141,7 @@ public class Settings {
     private ArrayList<DataOfSubject> subjectsList;
     private ArrayList<DataOfNote> notesList;
     protected ArrayList<Note> notes;
-    private Calendar calendar;
+    private net.fortuna.ical4j.model.Calendar calendar;
 
 //  TEMP
     private Color subjectColor;
@@ -408,9 +435,124 @@ public class Settings {
         }
     }
 
-    public void loadICalendar(AppProperties appProperties) throws IOException, ParserException {
+    private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+        // Load client secrets.
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream(CREDENTIALS_FILE_PATH);
+        if (in == null) {
+            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+        }
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
-//        CONFIG.load(Configurator.class.getResourceAsStream("/ical4j.properties"));
+        // Build flow and trigger user authorization request.
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                .setAccessType("offline")
+                .build();
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+    }
+
+    public void loadFromGoogleCalendar(AppProperties appProperties) throws IOException, GeneralSecurityException {
+        Map<String, Object> dataMap = new TreeMap<>();
+        ArrayList<String> subjectsCreatedFromCalendar = new ArrayList<String>();
+        String tmpType = "";
+
+        // Build a new authorized API client service.
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+
+        // Iterate over the events in the specified calendar
+        String pageToken = null;
+        DateTime dateTime = new DateTime(String.valueOf(LocalDateTime.now()));
+        do {
+            Events events = service.events().list("primary").setTimeMin(dateTime).setPageToken(pageToken).execute();
+            List<com.google.api.services.calendar.model.Event> items = events.getItems();
+            for (Event event : items) {
+
+                if(subjectsCreatedFromCalendar.contains(event.getSummary())){
+                    continue;
+                }
+                else{
+                    subjectsCreatedFromCalendar.add(event.getSummary());
+                    String name = event.getSummary().substring(2);
+                    dataMap.put("name", name);
+                    if (event.getSummary().charAt(0) == 'W') {
+                        tmpType = "2";
+                    }
+                    if (event.getSummary().charAt(0) == 'L') {
+                        tmpType = "1";
+                    }
+                    if (event.getSummary().charAt(0) == 'P') {
+                        tmpType = "3";
+                    }
+                    if (event.getSummary().charAt(0) == 'S') {
+                        tmpType = "4";
+                    }
+
+                    dataMap.put("type", tmpType);
+
+                    if (tmpType.equals("1")) {
+                        subjectColor = appProperties.getLabColor();
+                    }
+                    if (tmpType.equals("2")) {
+                        subjectColor = appProperties.getLectureColor();
+                    }
+                    if (tmpType.equals("3")){
+                        subjectColor = appProperties.getProjectColor();
+                    }
+                    if (tmpType.equals("4")){
+                        subjectColor = appProperties.getSeminaryColor();
+                    }
+
+                    String prof = event.getDescription();
+                    dataMap.put("prof", prof);
+
+                    String room = event.getLocation();
+                    dataMap.put("room", room);
+
+                    String week = "week";
+                    dataMap.put("week", week);
+                    String tmpDTStartHH = event.getStart().getDateTime().toString().substring(11,13);
+                    String tmpDTStartMM = event.getStart().getDateTime().toString().substring(14,16);
+                    String tmpYY = event.getStart().getDateTime().toString().substring(0,4);
+                    String tmpMM = event.getStart().getDateTime().toString().substring(5,7);
+                    String tmpDD = event.getStart().getDateTime().toString().substring(8,10);
+
+                    LocalDate localDate = LocalDate.of(Integer.parseInt(tmpYY),
+                            Integer.parseInt(tmpMM), Integer.parseInt(tmpDD));
+
+                    DayOfWeek day = DayOfWeek.from(localDate);
+
+                    String term = day.toString() + ", " + tmpDTStartHH + ":" + tmpDTStartMM;
+                    dataMap.put("term", term);
+
+
+                    String tmpDTEndHH = event.getEnd().getDateTime().toString().substring(11,13);
+                    String tmpDTEndMM = event.getEnd().getDateTime().toString().substring(14,16);
+
+                    int time = (Integer.parseInt(tmpDTEndHH) - Integer.parseInt(tmpDTStartHH))*60 + (Integer.parseInt(tmpDTEndMM) - Integer.parseInt(tmpDTStartMM));
+
+                    dataMap.put("time", Integer.toString(time));
+
+                    Subject s = new Subject((workSurfacePosX + tileWidth*(subjectsCreatedFromCalendar.size() - 1)), (windowHeight - tileHeight), dataMap, subjectColor);
+                    dataMap.clear();
+                    subjects.add(s);
+                }
+
+                pageToken = events.getNextPageToken();
+            }
+        }
+        while (pageToken != null) ;
+
+
+
+
+    }
+
+    public void loadICalendar(AppProperties appProperties) throws IOException, ParserException {
 
         Map<String, Object> dataMap = new TreeMap<>();
         subjectsCreatedFromCalendar = new ArrayList<String>();
