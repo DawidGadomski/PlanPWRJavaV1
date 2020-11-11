@@ -302,7 +302,6 @@ public class SettingsWindow extends JDialog implements ActionListener {
         bFBAuth.setMinimumSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
         bFBAuth.setPreferredSize(new Dimension(settings.getBigIconSize(), settings.getBigIconSize()));
         bFBAuth.setMaximumSize(new Dimension(Short.MAX_VALUE, settings.getBigIconSize()));
-        bFBAuth.setContentAreaFilled(false);
         bFBAuth.addActionListener(this);
 
         lAdvanced = new JLabel(resourceBundle.getString("advanced"));
@@ -841,11 +840,11 @@ public class SettingsWindow extends JDialog implements ActionListener {
     }
 
     private void authUser(){
-        String domain = "http://www.dawidgadomski.pl/";
+        String domain = "http://localhost:8080/";
         String appID = "794003957811227";
         String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id="+appID+"&redirect_uri="+domain+"&scope=user_about_me,"
                 + "email,"
-                + "manage_notifications,manage_pages,publish_actions,read_friendlists,read_insights,read_mailbox,read_page_mailboxes,read_stream,rsvp_event";
+                + "manage_notifications,manage_pages,publish_actions,read_insights,read_mailbox,read_page_mailboxes,read_stream,rsvp_event";
 
         System.setProperty("webdirver.chrome.driver", "chromedriver.exe");
 
@@ -864,7 +863,6 @@ public class SettingsWindow extends JDialog implements ActionListener {
                 User user = fbClient.fetchObject("me", User.class);
 
                 System.out.println(user.getName());
-
             }
         }
     }
